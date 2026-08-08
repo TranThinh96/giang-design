@@ -15,56 +15,57 @@ export default async function QuotePage() {
   const [SITE, QUOTE_NOTES] = await Promise.all([getSettings(), getQuoteNotes()]);
 
   return (
-    <main className="shell grid grid-cols-1 items-start gap-12 pb-18 pt-14 lg:grid-cols-[1fr_0.8fr] lg:gap-16">
-      <div>
-        <PageHeading eyebrow="Báo giá" title="Nhận báo giá qua Zalo">
-          <p className="ink-72 mt-3 max-w-[52ch] text-base leading-[1.65]">
-            Nhắn thẳng cho bộ phận kinh doanh trên Zalo — nhanh hơn biểu mẫu, gửi
-            được file thiết kế và trao đổi qua lại ngay trong khung chat. Phản hồi
-            trong 4 giờ làm việc.
-          </p>
-        </PageHeading>
-
-        <div className="mt-7 flex flex-wrap gap-2.5">
-          <a
-            className="btn btn-primary px-6 py-[11px] text-[15px]"
-            href={SITE.zalo}
-            target="_blank"
-            rel="noopener noreferrer"
+    <main>
+      <section className="tile tile-light">
+        <div className="shell">
+          <PageHeading
+            eyebrow="Báo giá"
+            title="Nhận báo giá qua Zalo"
+            lead="Nhanh hơn biểu mẫu: gửi được file thiết kế và trao đổi ngay trong khung chat. Phản hồi trong 4 giờ làm việc."
           >
-            Nhắn Zalo ngay
-          </a>
-          <a className="btn btn-secondary" href={SITE.phoneHref}>
-            Gọi {SITE.phone}
-          </a>
-          <a className="btn btn-secondary" href={`mailto:${SITE.emailSales}`}>
-            {SITE.emailSales}
-          </a>
-        </div>
-
-        <Suspense
-          fallback={<div className="ink-55 mt-8 text-sm">Đang tải nội dung…</div>}
-        >
-          <QuoteBrief />
-        </Suspense>
-      </div>
-
-      <aside className="rule-grid grid-cols-1">
-        {QUOTE_NOTES.map((q) => (
-          <div key={q.t} className="p-[22px]">
-            <div
-              className="mb-1.5 text-lg"
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontWeight: "var(--font-heading-weight)",
-              }}
-            >
-              {q.t}
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a
+                className="btn btn-primary btn-hero"
+                href={SITE.zalo}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Nhắn Zalo ngay
+              </a>
+              <a className="btn btn-secondary btn-hero" href={SITE.phoneHref}>
+                Gọi {SITE.phone}
+              </a>
             </div>
-            <p className="ink-65 m-0 text-[13px] leading-[1.6]">{q.b}</p>
-          </div>
-        ))}
-      </aside>
+            <p className="t-caption text-muted mt-5">
+              Hoặc gửi email tới{" "}
+              <a className="link" href={`mailto:${SITE.emailSales}`}>
+                {SITE.emailSales}
+              </a>
+            </p>
+          </PageHeading>
+
+          <Suspense
+            fallback={
+              <div className="t-caption text-muted mt-10 text-center">
+                Đang tải nội dung…
+              </div>
+            }
+          >
+            <QuoteBrief />
+          </Suspense>
+        </div>
+      </section>
+
+      <section className="tile tile-parchment">
+        <div className="shell-wide grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {QUOTE_NOTES.map((q) => (
+            <div key={q.t} className="card">
+              <h2 className="t-tagline m-0">{q.t}</h2>
+              <p className="card-body text-muted">{q.b}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

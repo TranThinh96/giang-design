@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { PageHeading } from "@/components/ui/SectionHeading";
+import { PageHeading, SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
   title: "Giới thiệu — Một xưởng in vận hành như một nhà máy",
@@ -28,60 +28,85 @@ const COMMITMENTS = [
 
 export default function AboutPage() {
   return (
-    <main className="shell pb-18 pt-14">
-      <PageHeading eyebrow="Giới thiệu" title="Một xưởng in vận hành như một nhà máy" />
-
-      <div className="mt-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <div>
-          <p className="text-base leading-[1.65]">
+    <main>
+      {/* — the opening statement, and the workshop itself — */}
+      <section className="tile tile-light">
+        <div className="shell">
+          <PageHeading
+            eyebrow="Giới thiệu"
+            title="Một xưởng in vận hành như một nhà máy"
+          />
+          {/* Weight 300 at 24px — the airy read the system reserves for a
+              handful of long-form paragraphs. */}
+          <p className="t-lead-airy text-muted mx-auto mt-10 max-w-[62ch] text-center">
             Giang Design – Advertising bắt đầu từ một xưởng gia công decal nhỏ năm
             2010, nay vận hành dây chuyền offset 4 màu, in kỹ thuật số khổ lớn và tổ
             hoàn thiện bế – cấn – dán hộp khép kín.
           </p>
-          <p className="text-base leading-[1.65]">
-            Chúng tôi không nhận đơn theo cảm tính: mỗi yêu cầu đều được lập phiếu công
-            nghệ — chất liệu, định lượng, hệ màu, cấn bế, cán màng, dung sai — trước khi
-            lên máy. Khách hàng ký duyệt mẫu in thử, sau đó sản lượng chạy đúng theo mẫu
-            đã duyệt.
+        </div>
+
+        <div className="mt-14">
+          <ImageSlot
+            placeholder="Nhà xưởng"
+            ratio="21 / 9"
+            radius="none"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </section>
+
+      {/* — how the work is actually run — */}
+      <section className="tile tile-parchment">
+        <div className="shell">
+          <SectionHeading
+            eyebrow="Cách làm việc"
+            title="Mỗi đơn hàng có một phiếu công nghệ"
+          />
+          <p className="t-body text-muted mx-auto mt-8 max-w-[62ch] text-center">
+            Chúng tôi không nhận đơn theo cảm tính: mỗi yêu cầu đều được lập phiếu
+            công nghệ — chất liệu, định lượng, hệ màu, cấn bế, cán màng, dung sai —
+            trước khi lên máy. Khách hàng ký duyệt mẫu in thử, sau đó sản lượng chạy
+            đúng theo mẫu đã duyệt.
           </p>
 
-          <div className="rule-grid mt-7 grid-cols-1 sm:grid-cols-2">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {PILLARS.map((x) => (
-              <div key={x.h} className="p-5">
-                <h4 className="m-0 mb-1.5">{x.h}</h4>
-                <p className="ink-65 m-0 text-[13px] leading-[1.6]">{x.p}</p>
+              <div key={x.h} className="card">
+                <h3 className="t-tagline m-0">{x.h}</h3>
+                <p className="card-body text-muted">{x.p}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <h3 className="mb-3.5 mt-9">Cam kết chất lượng</h3>
-          <ul className="ink-78 m-0 list-disc pl-[18px] text-sm leading-[1.9]">
+      {/* — the promises, on the dark step — */}
+      <section className="tile tile-dark">
+        <div className="shell">
+          <SectionHeading onDark eyebrow="Cam kết" title="Cam kết chất lượng" />
+          <ul className="m-0 mt-12 grid list-none grid-cols-1 gap-8 p-0 sm:grid-cols-3">
             {COMMITMENTS.map((c) => (
-              <li key={c}>{c}</li>
+              <li key={c} className="t-body text-muted-on-dark">
+                {c}
+              </li>
             ))}
           </ul>
         </div>
 
-        <div className="grid min-w-0 grid-cols-1 gap-5">
+        <div className="shell-wide mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <ImageSlot
-            placeholder="Nhà xưởng"
-            ratio="3 / 2"
-            sizes="(max-width: 1024px) 100vw, 45vw"
+            placeholder="Máy offset"
+            ratio="4 / 3"
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
-          <div className="grid min-w-0 grid-cols-2 gap-5">
-            <ImageSlot
-              placeholder="Máy offset"
-              ratio="1 / 1"
-              sizes="(max-width: 1024px) 50vw, 22vw"
-            />
-            <ImageSlot
-              placeholder="Tổ hoàn thiện"
-              ratio="1 / 1"
-              sizes="(max-width: 1024px) 50vw, 22vw"
-            />
-          </div>
+          <ImageSlot
+            placeholder="Tổ hoàn thiện"
+            ratio="4 / 3"
+            sizes="(max-width: 640px) 100vw, 50vw"
+          />
         </div>
-      </div>
+      </section>
     </main>
   );
 }

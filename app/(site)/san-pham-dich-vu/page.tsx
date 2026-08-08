@@ -15,45 +15,37 @@ export default async function ProductsPage() {
   const PRODUCTS = await getProducts();
 
   return (
-    <main className="shell pb-18 pt-14">
-      <PageHeading eyebrow="Sản phẩm & dịch vụ" title="Danh mục in ấn">
-        <p className="ink-72 mt-3 max-w-[60ch] text-base leading-[1.65]">
-          Mỗi hạng mục có bảng chất liệu, khổ thành phẩm và số lượng tối thiểu riêng.
-          Chọn hạng mục để xem thông số kỹ thuật đầy đủ.
-        </p>
-      </PageHeading>
+    <main>
+      <section className="tile tile-light">
+        <div className="shell">
+          <PageHeading
+            eyebrow="Sản phẩm & dịch vụ"
+            title="Danh mục in ấn"
+            lead="Mỗi hạng mục có bảng chất liệu, khổ thành phẩm và số lượng tối thiểu riêng."
+          />
+        </div>
+      </section>
 
-      <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {PRODUCTS.map((p) => (
-          <article
-            key={p.code}
-            className="grid grid-cols-1 items-start gap-[22px] sm:grid-cols-[200px_minmax(0,1fr)]"
-          >
-            <ImageSlot
-              src={p.image}
-              alt={p.name}
-              placeholder={p.name}
-              ratio="1 / 1"
-              sizes="(max-width: 640px) 100vw, 200px"
-            />
-            <div>
-              <div
-                className="text-[10px] uppercase tracking-[0.12em]"
-                style={{ color: "var(--color-accent-700)" }}
-              >
-                {p.code}
-              </div>
-              <h3 className="mb-2 mt-1.5">
-                <Link
-                  href={`/san-pham-dich-vu/${p.slug}`}
-                  className="no-underline"
-                  style={{ color: "var(--color-text)" }}
-                >
+      <section className="tile tile-parchment">
+        <div className="shell-wide grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PRODUCTS.map((p) => (
+            <article key={p.code} className="card">
+              <ImageSlot
+                src={p.image}
+                alt={p.name}
+                placeholder={p.name}
+                ratio="1 / 1"
+                radius="sm"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 440px"
+              />
+              <div className="t-caption text-muted">{p.code}</div>
+              <h2 className="card-title m-0">
+                <Link href={`/san-pham-dich-vu/${p.slug}`} className="text-ink">
                   {p.name}
                 </Link>
-              </h3>
-              <p className="ink-70 m-0 mb-2.5 text-sm leading-[1.6]">{p.blurb}</p>
-              <dl className="ink-55 m-0 text-xs leading-[1.7]">
+              </h2>
+              <p className="card-body text-muted">{p.blurb}</p>
+              <dl className="t-caption text-muted m-0">
                 <div>
                   <dt className="inline">Chất liệu: </dt>
                   <dd className="m-0 inline">{p.materialsShort}</dd>
@@ -63,24 +55,24 @@ export default async function ProductsPage() {
                   <dd className="m-0 inline">{p.moq}</dd>
                 </div>
               </dl>
-              <div className="mt-4 flex flex-wrap gap-2.5">
-                <Link
-                  href={`/san-pham-dich-vu/${p.slug}`}
-                  className="btn btn-secondary"
-                >
-                  Thông số
-                </Link>
+              <div className="mt-1 flex flex-wrap items-center gap-3">
                 <Link
                   href={`/bao-gia?hang-muc=${encodeURIComponent(p.name)}`}
-                  className="btn btn-primary"
+                  className="btn btn-primary btn-compact"
                 >
                   Báo giá
                 </Link>
+                <Link
+                  href={`/san-pham-dich-vu/${p.slug}`}
+                  className="t-caption link"
+                >
+                  Thông số →
+                </Link>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

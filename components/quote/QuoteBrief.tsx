@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Blueprint } from "@/components/ui/Blueprint";
 
 /**
  * The old quote form's fields, turned into a message the visitor pastes into
@@ -43,31 +42,28 @@ export function QuoteBrief() {
   }
 
   return (
-    <Blueprint className="mt-8 p-[26px]">
-      <h3 className="m-0 mb-1.5">Nội dung nên nhắn</h3>
-      <p className="ink-65 m-0 mb-4 text-[13px] leading-[1.6]">
+    <section className="card mt-10 text-left">
+      <h3 className="m-0">Nội dung nên nhắn</h3>
+      <p className="t-caption text-muted m-0">
         Càng đủ thông tin, báo giá càng sát. Sao chép khung dưới đây, điền vào và
         gửi qua Zalo — kèm file thiết kế nếu đã có.
       </p>
 
       <pre
-        className="ink-72 m-0 overflow-x-auto whitespace-pre-wrap p-4 text-[13px] leading-[1.7]"
-        style={{
-          background: "var(--color-surface)",
-          fontFamily: "var(--font-body)",
-        }}
+        className="t-caption text-muted m-0 overflow-x-auto whitespace-pre-wrap rounded-md p-4"
+        style={{ background: "var(--color-parchment)", fontFamily: "var(--font-text)" }}
       >
         {message}
       </pre>
 
-      <div className="mt-4 flex flex-wrap items-center gap-4">
-        <button type="button" onClick={copy} className="btn btn-secondary">
+      <div className="flex flex-wrap items-center gap-4">
+        <button type="button" onClick={copy} className="btn btn-secondary btn-compact">
           {copied ? "✓ Đã sao chép" : "Sao chép nội dung"}
         </button>
-        <span className="ink-55 text-xs">
+        <span className="t-caption text-muted">
           File thiết kế (.ai, .pdf, .cdr) gửi trực tiếp trong khung chat Zalo.
         </span>
       </div>
-    </Blueprint>
+    </section>
   );
 }

@@ -8,6 +8,9 @@ import { ALL_CATS, CATS, type Work } from "@/lib/types";
  * Category filter + grid. Every work is server-rendered into the HTML and
  * filtered in the browser, so the full portfolio stays indexable at /du-an
  * while the chips respond instantly.
+ *
+ * The chips follow the configurator grammar: pill, hairline ring, and a 2px
+ * focus-blue ring when selected — no fill change, no second accent colour.
  */
 export function FilterableWorks({ works }: { works: Work[] }) {
   const [cat, setCat] = useState<string>(ALL_CATS);
@@ -16,8 +19,7 @@ export function FilterableWorks({ works }: { works: Work[] }) {
   return (
     <>
       <div
-        className="mb-8 flex flex-wrap gap-2 pb-[22px]"
-        style={{ borderBottom: "1px solid var(--color-divider)" }}
+        className="mb-10 flex flex-wrap justify-center gap-3"
         role="group"
         aria-label="Lọc theo hạng mục"
       >
@@ -27,18 +29,9 @@ export function FilterableWorks({ works }: { works: Work[] }) {
             <button
               key={c}
               type="button"
-              className="btn"
+              className={`chip ${on ? "chip-selected" : ""}`}
               aria-pressed={on}
               onClick={() => setCat(c)}
-              style={
-                on
-                  ? {
-                      background: "var(--color-accent)",
-                      color: "var(--color-bg)",
-                      borderColor: "var(--color-accent)",
-                    }
-                  : { background: "transparent" }
-              }
             >
               {c}
             </button>
@@ -46,14 +39,20 @@ export function FilterableWorks({ works }: { works: Work[] }) {
         })}
       </div>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((w) => (
-          <WorkCard key={w.slot} work={w} />
+          <WorkCard
+            key={w.slot}
+            work={w}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 440px"
+          />
         ))}
       </div>
 
       {shown.length === 0 && (
-        <p className="ink-55 text-sm">Chưa có dự án trong hạng mục này.</p>
+        <p className="t-body text-muted text-center">
+          Chưa có dự án trong hạng mục này.
+        </p>
       )}
     </>
   );

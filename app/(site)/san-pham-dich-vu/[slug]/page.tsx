@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Blueprint } from "@/components/ui/Blueprint";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { getProduct, getProducts, getSettings } from "@/lib/content";
 
@@ -49,97 +48,99 @@ export default async function ProductDetailPage({
   };
 
   return (
-    <main className="shell pb-18 pt-8">
-      <nav aria-label="Breadcrumb" className="ink-55 mb-7 text-[13px]">
-        <Link
-          href="/san-pham-dich-vu"
-          className="no-underline"
-          style={{ color: "inherit" }}
-        >
-          Sản phẩm &amp; dịch vụ
-        </Link>{" "}
-        / <span style={{ color: "var(--color-text)" }}>{item.name}</span>
-      </nav>
+    <main>
+      {/* — the product itself, on a white ground with the system shadow — */}
+      <section className="tile tile-light">
+        <div className="shell text-center">
+          <nav aria-label="Breadcrumb" className="t-caption text-muted mb-6">
+            <Link href="/san-pham-dich-vu" className="link">
+              Sản phẩm &amp; dịch vụ
+            </Link>{" "}
+            / <span className="text-ink">{item.name}</span>
+          </nav>
 
-      <div className="grid grid-cols-1 items-start gap-13 lg:grid-cols-2 lg:gap-[52px]">
-        <div className="grid min-w-0 grid-cols-1 gap-4">
+          <div className="t-caption-strong text-muted mb-3">{item.code}</div>
+          <h1 className="t-hero m-0 mx-auto max-w-[16ch]">{item.name}</h1>
+          <p className="t-lead text-muted mx-auto mt-5 max-w-[42ch]">{item.long}</p>
+
+          <div className="mt-7 flex flex-wrap justify-center gap-4">
+            <Link
+              href={`/bao-gia?hang-muc=${encodeURIComponent(item.name)}`}
+              className="btn btn-primary btn-hero"
+            >
+              Gửi yêu cầu báo giá
+            </Link>
+            <a href={SITE.phoneHref} className="btn btn-secondary btn-hero">
+              Gọi {SITE.phone}
+            </a>
+          </div>
+        </div>
+
+        <div className="shell-wide mt-14">
           <ImageSlot
             src={item.image}
             alt={`${item.name} — ảnh sản phẩm`}
             placeholder="Ảnh sản phẩm chính"
-            ratio="4 / 3"
+            ratio="16 / 9"
             priority
-            sizes="(max-width: 1024px) 100vw, 45vw"
+            elevated
+            sizes="(max-width: 1440px) 100vw, 1440px"
           />
-          <div className="grid min-w-0 grid-cols-3 gap-4">
-            <ImageSlot placeholder="Chi tiết" ratio="1 / 1" sizes="15vw" />
-            <ImageSlot placeholder="Chất liệu" ratio="1 / 1" sizes="15vw" />
-            <ImageSlot placeholder="Thành phẩm" ratio="1 / 1" sizes="15vw" />
-          </div>
         </div>
 
-        <div>
-          <div
-            className="text-[10px] uppercase tracking-[0.12em]"
-            style={{ color: "var(--color-accent-700)" }}
-          >
-            {item.code}
-          </div>
-          <h1 className="t-detail-title mb-3.5 mt-2">{item.name}</h1>
-          <p className="ink-78 text-base leading-[1.65]">{item.long}</p>
+        {/* Detail crops sit at text width, not full bleed: they support the
+            hero render rather than competing with it. */}
+        <div className="shell mt-6 grid grid-cols-3 gap-6">
+          {["Chi tiết", "Chất liệu", "Thành phẩm"].map((label) => (
+            <ImageSlot
+              key={label}
+              placeholder={label}
+              ratio="1 / 1"
+              radius="sm"
+              sizes="(max-width: 980px) 30vw, 300px"
+            />
+          ))}
+        </div>
+      </section>
 
-          <h4 className="mb-2.5 mt-7">Thông số kỹ thuật</h4>
-          <div className="table-scroll">
-            <table className="table">
-              <tbody>
-                {item.specs.map((s) => (
-                  <tr key={s.k}>
-                    <th
-                      scope="row"
-                      className="ink-55 w-[38%] !border-b-[color:color-mix(in_srgb,var(--color-text)_8%,transparent)] !text-[14px] !normal-case !tracking-normal"
-                    >
-                      {s.k}
-                    </th>
-                    <td>{s.v}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <h4 className="mb-2.5 mt-7">Chất liệu thường dùng</h4>
-          <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
-            {item.materials.map((m) => (
-              <li key={m} className="tag tag-outline">
-                {m}
-              </li>
-            ))}
-          </ul>
-
-          <Blueprint className="mt-8 flex flex-wrap items-center justify-between gap-5 p-[22px]">
-            <div>
-              <div
-                className="text-xl"
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: "var(--font-heading-weight)",
-                }}
-              >
-                Cần báo giá cho {item.name}?
-              </div>
-              <div className="ink-60 text-[13px]">
-                Phản hồi trong 4 giờ làm việc, kèm bảng chất liệu đề xuất.
-              </div>
+      {/* — the numbers, on the parchment step — */}
+      <section className="tile tile-parchment">
+        <div className="shell grid grid-cols-1 items-start gap-14 lg:grid-cols-2">
+          <div>
+            <h2 className="t-display-md m-0 mb-6">Thông số kỹ thuật</h2>
+            <div className="table-scroll">
+              <table className="table">
+                <tbody>
+                  {item.specs.map((s) => (
+                    <tr key={s.k}>
+                      <th scope="row" className="w-[42%] font-normal">
+                        {s.k}
+                      </th>
+                      <td>{s.v}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <Link
-              href={`/bao-gia?hang-muc=${encodeURIComponent(item.name)}`}
-              className="btn btn-primary btn-lg whitespace-nowrap"
-            >
-              Gửi yêu cầu
-            </Link>
-          </Blueprint>
+          </div>
+
+          <div>
+            <h2 className="t-display-md m-0 mb-6">Chất liệu thường dùng</h2>
+            <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
+              {item.materials.map((m) => (
+                <li key={m} className="tag">
+                  {m}
+                </li>
+              ))}
+            </ul>
+
+            <p className="t-caption text-muted mt-8">
+              Cần một chất liệu khác? Gửi mẫu hoặc mô tả yêu cầu, xưởng đề xuất
+              phương án tương đương và báo giá trong 4 giờ làm việc.
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
       <script
         type="application/ld+json"
