@@ -77,10 +77,15 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      {/* The map is the photograph of this page — full width, edge to edge. */}
-      <section className="tile tile-parchment pt-0">
-        <div className="shell-wide">
-          <div className="media" style={{ aspectRatio: "21 / 9" }}>
+      {/* The map is the photograph of this page. It takes the utility-card
+          frame rather than a bare image well: on the parchment tile a
+          parchment-backed well would be invisible until the embed paints. */}
+      <section className="tile tile-parchment">
+        <div className="shell">
+          <div
+            className="card overflow-hidden p-0"
+            style={{ aspectRatio: "16 / 9" }}
+          >
             <iframe
               src={MAP_SRC}
               title={`Bản đồ tới xưởng Giang Design — ${SITE.address.full}`}

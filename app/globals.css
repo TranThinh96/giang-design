@@ -114,6 +114,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* The sub-nav is sticky, so an anchored heading would land underneath it. */
+    scroll-padding-top: 68px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -202,6 +204,9 @@
   :focus {
     outline: none;
   }
+  /* The radius shapes the ring on bare links and other elements that carry no
+     radius of their own; anything in the components layer below (buttons,
+     chips, cards, inputs) keeps its own shape, since that layer wins. */
   :focus-visible {
     outline: 2px solid var(--color-primary-focus);
     outline-offset: 2px;
@@ -388,7 +393,9 @@
     font-family: var(--font-text);
     font-size: 17px;
     font-weight: 400;
-    line-height: 1.47;
+    /* Body type is 1.47, but a single-line pill has to land on the 44px touch
+       target the system specifies — 17px × 1.2 + 22px of padding does. */
+    line-height: 1.2;
     letter-spacing: -0.374px;
     padding: 11px 22px;
     border: 1px solid transparent;
@@ -542,6 +549,23 @@
   .chip-selected {
     border: 2px solid var(--color-primary-focus);
     padding: 11px 15px;
+  }
+
+  /* ── tags ───────────────────────────────────────────────────────────────
+     A static label, not an action — so it takes the Pearl capsule's shape
+     (11px radius, soft ring) rather than the pill, which the system reserves
+     for things you can press. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+    color: var(--color-ink-muted-80);
+    background: var(--color-pearl);
+    border: 3px solid var(--color-divider-soft);
+    border-radius: var(--radius-md);
   }
 
   /* ── media ──────────────────────────────────────────────────────────────

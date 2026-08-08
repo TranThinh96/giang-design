@@ -33,13 +33,16 @@ export async function Hero() {
         </div>
       </div>
 
-      <div className="shell-wide mt-14">
+      {/* Full bleed and square-cornered: hero photography runs edge to edge,
+          and the system's one shadow is for product renders resting on a
+          surface, not for a photograph that already fills the tile. */}
+      <div className="mt-14">
         <ImageSlot
           placeholder="Ảnh xưởng in / sản phẩm bao bì"
           ratio="21 / 9"
+          radius="none"
           priority
-          elevated
-          sizes="(max-width: 1440px) 100vw, 1440px"
+          sizes="100vw"
         />
       </div>
 

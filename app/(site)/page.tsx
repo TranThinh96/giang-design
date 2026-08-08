@@ -93,7 +93,9 @@ export default async function HomePage() {
           <ol className="m-0 mt-14 grid list-none grid-cols-1 gap-10 p-0 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map((s) => (
               <li key={s.no}>
-                <div className="t-caption-strong text-primary">{s.no}</div>
+                {/* Not Action Blue: the accent marks things you can press,
+                    and a step number is not one of them. */}
+                <div className="t-caption-strong text-muted">{s.no}</div>
                 <h3 className="t-tagline mb-2 mt-3">{s.title}</h3>
                 <p className="t-caption text-muted m-0">{s.body}</p>
               </li>

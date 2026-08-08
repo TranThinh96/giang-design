@@ -25,7 +25,7 @@ export default async function PortfolioPage() {
         </div>
       </section>
 
-      <section className="tile tile-parchment pt-0">
+      <section className="tile tile-parchment">
         <div className="shell-wide">
           <FilterableWorks works={works} />
         </div>

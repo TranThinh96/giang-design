@@ -26,7 +26,7 @@ export default async function ProductsPage() {
         </div>
       </section>
 
-      <section className="tile tile-parchment pt-0">
+      <section className="tile tile-parchment">
         <div className="shell-wide grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((p) => (
             <article key={p.code} className="card">

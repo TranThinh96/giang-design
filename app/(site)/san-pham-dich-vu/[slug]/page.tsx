@@ -91,14 +91,15 @@ export default async function ProductDetailPage({
         {/* Detail crops sit at text width, not full bleed: they support the
             hero render rather than competing with it. */}
         <div className="shell mt-6 grid grid-cols-3 gap-6">
-          <ImageSlot placeholder="Chi tiết" ratio="1 / 1" radius="sm" sizes="30vw" />
-          <ImageSlot placeholder="Chất liệu" ratio="1 / 1" radius="sm" sizes="30vw" />
-          <ImageSlot
-            placeholder="Thành phẩm"
-            ratio="1 / 1"
-            radius="sm"
-            sizes="30vw"
-          />
+          {["Chi tiết", "Chất liệu", "Thành phẩm"].map((label) => (
+            <ImageSlot
+              key={label}
+              placeholder={label}
+              ratio="1 / 1"
+              radius="sm"
+              sizes="(max-width: 980px) 30vw, 300px"
+            />
+          ))}
         </div>
       </section>
 
@@ -127,7 +128,7 @@ export default async function ProductDetailPage({
             <h2 className="t-display-md m-0 mb-6">Chất liệu thường dùng</h2>
             <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
               {item.materials.map((m) => (
-                <li key={m} className="chip cursor-default">
+                <li key={m} className="tag">
                   {m}
                 </li>
               ))}

@@ -45,13 +45,13 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="shell-wide mt-14">
+        <div className="mt-14">
           <ImageSlot
             placeholder="Nhà xưởng"
             ratio="21 / 9"
+            radius="none"
             priority
-            elevated
-            sizes="(max-width: 1440px) 100vw, 1440px"
+            sizes="100vw"
           />
         </div>
       </section>

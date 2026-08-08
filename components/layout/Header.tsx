@@ -136,18 +136,23 @@ export function Header({ settings: SITE }: { settings: SiteSettings }) {
           background: "color-mix(in srgb, var(--color-parchment) 80%, transparent)",
           backdropFilter: "saturate(180%) blur(20px)",
           WebkitBackdropFilter: "saturate(180%) blur(20px)",
+          borderBottom: "1px solid rgb(0 0 0 / 0.08)",
         }}
       >
         <div className="shell-wide flex h-[52px] items-center gap-6">
-          <Link href="/" className="t-tagline text-ink mr-auto truncate">
-            {SITE.name}
+          {/* The full name would truncate mid-word on a phone, so the mark
+              takes over below 640px. */}
+          <Link href="/" className="t-tagline text-ink mr-auto">
+            <span className="sm:hidden">{SITE.shortName}</span>
+            <span className="hidden sm:inline">{SITE.name}</span>
           </Link>
 
+          {/* Ink, not Action Blue: in this strip only the CTA is an action. */}
           <div className="hidden items-center gap-6 md:flex">
-            <Link href="/san-pham-dich-vu" className="t-caption link">
+            <Link href="/san-pham-dich-vu" className="t-caption text-ink">
               Sản phẩm &amp; dịch vụ
             </Link>
-            <Link href="/du-an" className="t-caption link">
+            <Link href="/du-an" className="t-caption text-ink">
               Dự án
             </Link>
           </div>
