@@ -1,11 +1,13 @@
 import Image from "next/image";
-import { Blueprint } from "./Blueprint";
 
 /**
- * A framed image well with a fixed aspect ratio, so nothing shifts while the
- * photo loads (CLS 0). When `src` is absent it renders the blueprint
- * placeholder the design already accounts for — which is the current state of
- * every slot, since the artifact's photography belonged to a third party.
+ * An image well with a fixed aspect ratio, so nothing shifts while the photo
+ * loads (CLS 0). When `src` is absent it renders a plain parchment field with
+ * the slot's label — no frame, no pattern, nothing that would compete with a
+ * real photograph once it lands.
+ *
+ * `elevated` applies the system's single drop-shadow. It belongs to product
+ * renders resting on a surface, and to nothing else.
  */
 export function ImageSlot({
   src,
@@ -14,6 +16,8 @@ export function ImageSlot({
   ratio = "4 / 3",
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   priority = false,
+  elevated = false,
+  radius = "lg",
   className = "",
 }: {
   src?: string;
@@ -22,11 +26,16 @@ export function ImageSlot({
   ratio?: string;
   sizes?: string;
   priority?: boolean;
+  elevated?: boolean;
+  radius?: "lg" | "sm" | "none";
   className?: string;
 }) {
+  const radiusClass =
+    radius === "sm" ? "media-sm" : radius === "none" ? "media-square" : "";
+
   return (
-    <Blueprint
-      className={`w-full min-w-0 overflow-hidden ${className}`}
+    <div
+      className={`media ${radiusClass} ${elevated ? "product-shadow" : ""} w-full min-w-0 ${className}`}
       style={{ aspectRatio: ratio }}
     >
       {src ? (
@@ -39,16 +48,8 @@ export function ImageSlot({
           className="object-cover"
         />
       ) : (
-        <div
-          className="grid h-full w-full place-items-center px-4 text-center"
-          style={{
-            background:
-              "repeating-linear-gradient(135deg, var(--color-surface) 0 6px, color-mix(in srgb, var(--color-text) 4%, var(--color-surface)) 6px 12px)",
-          }}
-        >
-          <span className="ink-50 text-[12px] leading-snug">{placeholder}</span>
-        </div>
+        <div className="media-placeholder">{placeholder}</div>
       )}
-    </Blueprint>
+    </div>
   );
 }

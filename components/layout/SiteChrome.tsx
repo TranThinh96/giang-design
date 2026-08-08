@@ -58,8 +58,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
     <>
       <a
         href="#main"
-        className="btn btn-secondary sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
-        style={{ background: "var(--color-bg)" }}
+        className="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
       >
         Bỏ qua tới nội dung
       </a>

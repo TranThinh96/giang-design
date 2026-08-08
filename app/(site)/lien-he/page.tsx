@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Blueprint } from "@/components/ui/Blueprint";
 import { PageHeading } from "@/components/ui/SectionHeading";
 import { getContacts, getSettings } from "@/lib/content";
 
@@ -20,38 +19,40 @@ export default async function ContactPage() {
   )}&output=embed`;
 
   return (
-    <main className="shell pb-18 pt-14">
-      <PageHeading eyebrow="Liên hệ" title="Xưởng & văn phòng" className="mb-9" />
-
-      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
-        <div>
-          <dl className="rule-grid m-0 grid-cols-1">
-            {CONTACTS.map((c) => (
-              <div
-                key={c.k}
-                className="grid grid-cols-1 items-baseline gap-4 p-5 sm:grid-cols-[150px_1fr]"
+    <main>
+      <section className="tile tile-light">
+        <div className="shell">
+          <PageHeading
+            eyebrow="Liên hệ"
+            title="Xưởng & văn phòng"
+            lead="Ghé xưởng xem mẫu in thử, hoặc gọi trước để được hướng dẫn đường vào."
+          >
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link href="/bao-gia" className="btn btn-primary btn-hero">
+                Gửi yêu cầu báo giá
+              </Link>
+              <a
+                className="btn btn-secondary btn-hero"
+                href={SITE.zalo}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <dt className="ink-55 text-[11px] uppercase tracking-[0.14em]">
-                  {c.k}
-                </dt>
-                <dd
-                  className="m-0 text-[19px]"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
+                Nhắn Zalo
+              </a>
+            </div>
+          </PageHeading>
+
+          <dl className="mx-auto mt-16 grid max-w-[52ch] grid-cols-1 gap-8 sm:grid-cols-2">
+            {CONTACTS.map((c) => (
+              <div key={c.k}>
+                <dt className="t-caption-strong text-muted mb-1">{c.k}</dt>
+                <dd className="t-body-strong m-0">
                   {c.k === "Hotline / Zalo" ? (
-                    <a
-                      href={SITE.phoneHref}
-                      className="no-underline"
-                      style={{ color: "var(--color-text)" }}
-                    >
+                    <a href={SITE.phoneHref} className="link">
                       {c.v}
                     </a>
                   ) : c.k === "Kinh doanh" ? (
-                    <a
-                      href={`mailto:${c.v}`}
-                      className="no-underline"
-                      style={{ color: "var(--color-text)" }}
-                    >
+                    <a href={`mailto:${c.v}`} className="link">
                       {c.v}
                     </a>
                   ) : (
@@ -62,42 +63,34 @@ export default async function ContactPage() {
             ))}
           </dl>
 
-          <div className="mt-5 flex flex-wrap gap-2.5">
-            <Link href="/bao-gia" className="btn btn-primary">
-              Gửi yêu cầu báo giá
-            </Link>
+          <p className="t-caption text-muted mt-10 text-center">
+            Theo dõi công trình mới trên{" "}
             <a
-              className="btn btn-secondary"
-              href={SITE.zalo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Nhắn Zalo
-            </a>
-            <a
-              className="btn btn-secondary"
+              className="link"
               href={SITE.facebook}
               target="_blank"
               rel="noopener noreferrer"
             >
               Facebook
             </a>
+          </p>
+        </div>
+      </section>
+
+      {/* The map is the photograph of this page — full width, edge to edge. */}
+      <section className="tile tile-parchment pt-0">
+        <div className="shell-wide">
+          <div className="media" style={{ aspectRatio: "21 / 9" }}>
+            <iframe
+              src={MAP_SRC}
+              title={`Bản đồ tới xưởng Giang Design — ${SITE.address.full}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-full w-full border-0"
+            />
           </div>
         </div>
-
-        <Blueprint
-          className="w-full min-w-0 overflow-hidden"
-          style={{ aspectRatio: "4 / 3", background: "var(--color-surface)" }}
-        >
-          <iframe
-            src={MAP_SRC}
-            title={`Bản đồ tới xưởng Giang Design — ${SITE.address.full}`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-full w-full border-0"
-          />
-        </Blueprint>
-      </div>
+      </section>
     </main>
   );
 }

@@ -1,8 +1,10 @@
 # Giang Design – Advertising
 
-Marketing site for an offset & digital printing workshop in TP.HCM. Built from
-the approved design artifact — see [PLAN.md](PLAN.md) for the full spec and the
-open content questions.
+Marketing site for an offset & digital printing workshop in TP.HCM. The visual
+language is [DESIGN.md](DESIGN.md): full-bleed tiles that alternate light,
+parchment and near-black, one blue accent for every interactive element, and
+exactly one drop-shadow — reserved for product photography. See
+[PLAN.md](PLAN.md) for the content spec and the open questions.
 
 Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Keystatic (GitHub mode)
 · Zalo OA chat. Single locale (`vi-VN`). No database, no server — content is
@@ -56,13 +58,40 @@ content/                  products/*.json, works/*.json, settings.json, blocks/*
 components/               layout, ui, home, portfolio, quote, zalo
 scripts/                  check-image-budget.mjs
 docs/HUONG-DAN-QUAN-TRI.md  Vietnamese guide for the client
-public/fonts/             Roboto + Roboto Condensed woff2 (vi / latin-ext / latin)
+public/fonts/             Roboto 300/400/700 woff2 (vi / latin-ext / latin)
 ```
 
 The `(site)` route group exists so `/keystatic` renders the admin on a bare
 page. Header, footer, Zalo widget and the LocalBusiness JSON-LD all live in
 `components/layout/SiteChrome.tsx`, not in the root layout — anything added to
 the root layout also lands on the admin.
+
+## The design system
+
+`app/globals.css` is the whole of it: `@theme` holds the tokens from
+[DESIGN.md](DESIGN.md), `@layer components` holds the classes the pages
+actually use — `.tile` + `.tile-light|parchment|dark|dark-2|dark-3` for the
+full-bleed sections, `.t-*` for the type scale, `.btn` + `.btn-primary`
+/`-secondary`/`-utility`/`-hero`/`-compact` for the two button grammars,
+`.card`, `.chip`, `.media`.
+
+Four rules the system will not bend on, all of them from DESIGN.md:
+
+- **One accent.** Action Blue `#0066cc` carries every interactive element.
+  `.link-on-dark` swaps to Sky Link Blue on the near-black tiles, where Action
+  Blue disappears; it is never used on a light surface.
+- **The colour change is the divider.** Tiles stack edge-to-edge with no gap
+  and no rounding. Reach for the next surface before reaching for chrome.
+- **One shadow.** `--shadow-product` belongs to product photography resting on
+  a surface (`<ImageSlot elevated />`) — never to a card, a button or text.
+- **Body copy is 17px**, and the weight ladder is 300 / 400 / 600 / 700 with
+  500 deliberately absent.
+
+SF Pro is Apple's and cannot be shipped, so the stack leads with `-apple-system`
+/`system-ui` — the real thing on Apple platforms, the platform UI face
+elsewhere — and falls back to the self-hosted Roboto, which is what carries the
+Vietnamese diacritics. Nothing is preloaded: most visitors never fetch a font
+file at all.
 
 ## Editing content
 
@@ -98,7 +127,8 @@ purpose.
 
 ## Images
 
-Slots without a photo render a blueprint placeholder; the client uploads real
+Slots without a photo render a plain parchment field with the slot's label; the
+client uploads real
 ones through `/keystatic`, which writes into `public/products/` or
 `public/works/` and commits them. Aspect ratios are fixed in `ImageSlot`, so
 adding photos will not shift the layout.

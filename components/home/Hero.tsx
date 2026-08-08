@@ -2,56 +2,55 @@ import Link from "next/link";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { getStats } from "@/lib/content";
 
+/**
+ * The opening tile: a centred stack of headline, one-line lead, two pill
+ * CTAs, and the product photograph resting on the white surface with the
+ * system's single drop-shadow. The workshop's numbers sit underneath as a
+ * quiet three-column row — no rules, no boxes, just air.
+ */
 export async function Hero() {
   const STATS = await getStats();
 
   return (
-    <section className="shell grid grid-cols-1 items-center gap-12 pb-10 pt-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:pt-16">
-      <div>
-        <div className="eyebrow mb-[18px]">
+    <section className="tile tile-light">
+      <div className="shell text-center">
+        <div className="t-caption-strong text-muted mb-4">
           Xưởng in offset &amp; kỹ thuật số — TP. Hồ Chí Minh
         </div>
-        <h1 className="t-hero m-0 mb-5 max-w-[15ch]">
+        <h1 className="t-hero m-0 mx-auto max-w-[18ch]">
           In bao bì, tem nhãn và ấn phẩm thương hiệu
         </h1>
-        <p className="ink-78 max-w-[46ch] text-[17px] leading-[1.6]">
-          Offset 4–8 màu, in kỹ thuật số khổ lớn, bế – cấn – gấp – dán hoàn thiện tại
-          xưởng. Nhận đơn từ 100 sản phẩm đến hàng trăm nghìn bản in, giao đúng hạn
-          theo hợp đồng.
+        <p className="t-lead text-muted mx-auto mt-5 max-w-[34ch]">
+          Offset 4–8 màu, in kỹ thuật số khổ lớn, hoàn thiện tại xưởng.
         </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/du-an" className="btn btn-primary btn-lg">
-            Xem dự án đã in
-          </Link>
-          <Link href="/bao-gia" className="btn btn-secondary btn-lg">
+        <div className="mt-7 flex flex-wrap justify-center gap-4">
+          <Link href="/bao-gia" className="btn btn-primary btn-hero">
             Gửi yêu cầu báo giá
           </Link>
-        </div>
-
-        <div className="rule-grid mt-11 grid-cols-1 sm:grid-cols-3">
-          {STATS.map((s) => (
-            <div key={s.value} className="px-[18px] py-4">
-              <span
-                className="block text-[30px] leading-none"
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: "var(--font-heading-weight)",
-                }}
-              >
-                {s.value}
-              </span>
-              <span className="ink-60 mt-1 block text-xs">{s.label}</span>
-            </div>
-          ))}
+          <Link href="/du-an" className="btn btn-secondary btn-hero">
+            Xem dự án đã in
+          </Link>
         </div>
       </div>
 
-      <ImageSlot
-        placeholder="Ảnh xưởng in / sản phẩm bao bì"
-        ratio="4 / 5"
-        priority
-        sizes="(max-width: 1024px) 100vw, 45vw"
-      />
+      <div className="shell-wide mt-14">
+        <ImageSlot
+          placeholder="Ảnh xưởng in / sản phẩm bao bì"
+          ratio="21 / 9"
+          priority
+          elevated
+          sizes="(max-width: 1440px) 100vw, 1440px"
+        />
+      </div>
+
+      <div className="shell-wide mt-14 grid grid-cols-1 gap-10 text-center sm:grid-cols-3">
+        {STATS.map((s) => (
+          <div key={s.value}>
+            <span className="t-display-lg block">{s.value}</span>
+            <span className="t-caption text-muted mt-2 block">{s.label}</span>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

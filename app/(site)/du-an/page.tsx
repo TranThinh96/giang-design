@@ -14,9 +14,22 @@ export default async function PortfolioPage() {
   const works = await getWorks();
 
   return (
-    <main className="shell pb-18 pt-14">
-      <PageHeading eyebrow="Dự án" title="Công trình in đã bàn giao" className="mb-6" />
-      <FilterableWorks works={works} />
+    <main>
+      <section className="tile tile-light">
+        <div className="shell">
+          <PageHeading
+            eyebrow="Dự án"
+            title="Công trình in đã bàn giao"
+            lead="Lọc theo hạng mục để xem đúng loại công trình bạn đang cần."
+          />
+        </div>
+      </section>
+
+      <section className="tile tile-parchment pt-0">
+        <div className="shell-wide">
+          <FilterableWorks works={works} />
+        </div>
+      </section>
     </main>
   );
 }

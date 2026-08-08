@@ -2,116 +2,113 @@
 @import "./fonts.css";
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Design tokens — ported verbatim from the approved design artifact.
-   Registered under @theme so they exist both as CSS custom properties
-   (var(--color-accent)) and as Tailwind utilities (bg-accent, text-accent).
+   Design tokens — ported from DESIGN.md.
+
+   The system is photography-first: one blue accent, near-black ink, and
+   full-bleed tiles that alternate light and dark. The colour change between
+   tiles IS the section divider — there are no decorative borders, gradients
+   or shadows on chrome. Exactly one drop-shadow exists (--shadow-product),
+   and it belongs to product imagery resting on a surface.
+
+   Registered under @theme so every token exists both as a custom property
+   (var(--color-primary)) and as a Tailwind utility (bg-primary, text-ink).
    ══════════════════════════════════════════════════════════════════════ */
 @theme {
-  --color-bg: #f2f2f3;
-  --color-surface: #e9e9ea;
-  --color-text: #1d1f20;
-  --color-accent: #5980a6;
-  --color-accent-2: #728fab;
-  --color-divider: color-mix(in srgb, #1d1f20 16%, transparent);
+  /* — the single interactive colour, in its three surface variants — */
+  --color-primary: #0066cc;
+  --color-primary-focus: #0071e3;
+  --color-primary-on-dark: #2997ff;
 
-  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
-     same step of any role matches the others in visual value. */
-  --color-neutral-100: #f5f5f8;
-  --color-neutral-200: #e7e7ea;
-  --color-neutral-300: #d4d4d7;
-  --color-neutral-400: #b7b7ba;
-  --color-neutral-500: #98989b;
-  --color-neutral-600: #7a7a7d;
-  --color-neutral-700: #5d5d60;
-  --color-neutral-800: #424244;
-  --color-neutral-900: #2b2b2d;
+  /* — ink — */
+  --color-ink: #1d1d1f;
+  --color-ink-muted-80: #333333;
+  --color-ink-muted-48: #7a7a7a;
+  --color-on-dark: #ffffff;
+  --color-body-muted: #cccccc;
 
-  --color-accent-100: #eef6ff;
-  --color-accent-200: #d6ebff;
-  --color-accent-300: #b5d9fd;
-  --color-accent-400: #94bce3;
-  --color-accent-500: #749dc4;
-  --color-accent-600: #597ea3;
-  --color-accent-700: #416180;
-  --color-accent-800: #2c455d;
-  --color-accent-900: #1d2d3d;
+  /* — surfaces — */
+  --color-canvas: #ffffff;
+  --color-parchment: #f5f5f7;
+  --color-pearl: #fafafc;
+  --color-tile-1: #272729;
+  --color-tile-2: #2a2a2c;
+  --color-tile-3: #252527;
+  --color-void: #000000;
+  --color-chip: #d2d2d7;
 
-  --color-accent-2-100: #eef6ff;
-  --color-accent-2-200: #d6ebff;
-  --color-accent-2-300: #bdd8f2;
-  --color-accent-2-400: #9ebbd8;
-  --color-accent-2-500: #7e9cb8;
-  --color-accent-2-600: #627d98;
-  --color-accent-2-700: #486077;
-  --color-accent-2-800: #314457;
-  --color-accent-2-900: #1f2d3a;
+  /* — hairlines — */
+  --color-divider-soft: #f0f0f0;
+  --color-hairline: #e0e0e0;
 
-  --font-heading: "Roboto Condensed", system-ui, sans-serif;
-  --font-body: "Roboto", system-ui, sans-serif;
+  /* SF Pro is Apple's proprietary face, so the stack leads with the system
+     font: on macOS/iOS that resolves to the real SF Pro. Everywhere else it
+     falls through to the platform UI face, then to the self-hosted Roboto —
+     which is what actually carries the Vietnamese diacritics. */
+  --font-display:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto,
+    system-ui, sans-serif;
+  --font-text:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    system-ui, sans-serif;
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 7px;
+  /* The width at which the global nav collapses to a hamburger. */
+  --breakpoint-nav: 834px;
 
-  /* Elevation — soft ink-tinted shadows on the light ground. */
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2b2b2d 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2b2b2d 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2b2b2d 22%, transparent);
+  --radius-none: 0px;
+  --radius-xs: 5px;
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+
+  /* The only shadow in the system. Product renders only — never cards,
+     never buttons, never text. */
+  --shadow-product: 3px 5px 30px 0 rgb(0 0 0 / 0.22);
 }
 
 :root {
-  --font-heading-weight: 700;
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 17px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 80px;
 
-  --space-1: 3.4px;
-  --space-2: 6.8px;
-  --space-3: 10.2px;
-  --space-4: 13.6px;
-  --space-6: 20.4px;
-  --space-8: 27.2px;
+  /* Text-heavy sections lock at 980px; product and utility grids get 1440px. */
+  --shell-max: 980px;
+  --shell-wide-max: 1440px;
+  --shell-pad: 24px;
 
-  /* Display sizes. The artifact is desktop-only and hard-codes these in px;
-     fluid clamps carry the same top end down to 375px without a reflow. */
-  --fs-hero: clamp(36px, 6.2vw, 60px);
-  --fs-page-title: clamp(32px, 5.4vw, 52px);
-  --fs-detail-title: clamp(30px, 4.8vw, 46px);
-  --fs-section: clamp(26px, 3.8vw, 36px);
-  --fs-cta: clamp(28px, 4.2vw, 40px);
-
-  /* Shell */
-  --shell-max: 1240px;
-  --shell-pad: 32px;
+  /* Display sizes. DESIGN.md steps these at fixed breakpoints rather than
+     fluidly, and the steps are part of the cadence, so they stay literal. */
+  --fs-hero: 56px;
+  --fs-display-lg: 40px;
+  --fs-display-md: 34px;
+  --fs-lead: 28px;
 }
 
-@media (max-width: 640px) {
+/* Hero typography ladder: 56 → 40 (small desktop) → 34 (phone) → 28 (small). */
+@media (max-width: 1068px) {
   :root {
-    --shell-pad: 20px;
+    --fs-hero: 40px;
   }
 }
-
-/* — muted ink, used constantly by the design at several strengths — */
-@utility ink-45 {
-  color: color-mix(in srgb, var(--color-text) 45%, transparent);
+@media (max-width: 640px) {
+  :root {
+    --fs-hero: 34px;
+    --fs-display-lg: 32px;
+    --fs-display-md: 28px;
+    --fs-lead: 22px;
+    --shell-pad: 20px;
+    --space-section: 48px;
+  }
 }
-@utility ink-50 {
-  color: color-mix(in srgb, var(--color-text) 50%, transparent);
-}
-@utility ink-55 {
-  color: color-mix(in srgb, var(--color-text) 55%, transparent);
-}
-@utility ink-60 {
-  color: color-mix(in srgb, var(--color-text) 60%, transparent);
-}
-@utility ink-65 {
-  color: color-mix(in srgb, var(--color-text) 65%, transparent);
-}
-@utility ink-70 {
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
-}
-@utility ink-72 {
-  color: color-mix(in srgb, var(--color-text) 72%, transparent);
-}
-@utility ink-78 {
-  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+@media (max-width: 419px) {
+  :root {
+    --fs-hero: 28px;
+  }
 }
 
 @layer base {
@@ -126,54 +123,68 @@
 
   body {
     margin: 0;
-    background: var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.55;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-text);
+    /* 17px, not 16px — the extra pixel is the brand's reading pace. */
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Weight 600 for headlines, never 700 or 500; negative tracking at display
+     sizes is the signature "Apple tight" cadence. */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
-    line-height: 1.12;
-    letter-spacing: -0.015em;
-    margin: 0 0 var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 600;
+    margin: 0 0 var(--space-sm);
   }
   h1 {
-    font-size: 42px;
+    font-size: var(--fs-display-lg);
+    line-height: 1.1;
+    letter-spacing: -0.28px;
   }
   h2 {
-    font-size: 32px;
+    font-size: var(--fs-display-md);
+    line-height: 1.2;
+    letter-spacing: -0.374px;
   }
   h3 {
-    font-size: 25px;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.374px;
   }
   h4 {
-    font-size: 20px;
+    font-size: 21px;
+    line-height: 1.19;
+    letter-spacing: 0.231px;
   }
   h5 {
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.24;
+    letter-spacing: -0.374px;
   }
   h6 {
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
   }
 
   p {
-    margin: 0 0 var(--space-3);
+    margin: 0 0 var(--space-md);
   }
+  /* Links are undecorated by default; `.link` opts into the underline, so
+     navigation and CTAs don't have to opt out of one. */
   a {
-    color: var(--color-accent);
-    text-underline-offset: 3px;
+    color: var(--color-primary);
+    text-decoration: none;
   }
   img {
     display: block;
@@ -183,128 +194,190 @@
     margin: 0;
   }
   figcaption {
-    font-size: 11px;
-    margin-top: var(--space-1);
-    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
   }
 
   :focus {
     outline: none;
   }
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-primary-focus);
     outline-offset: 2px;
+    border-radius: var(--radius-xs);
   }
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 24%, transparent);
   }
 }
 
 @layer components {
-  /* — shell — */
+  /* ── shells ─────────────────────────────────────────────────────────── */
   .shell {
     max-width: var(--shell-max);
     margin-inline: auto;
     padding-inline: var(--shell-pad);
   }
-
-  /* — display type — */
-  .t-hero {
-    font-size: var(--fs-hero);
-    line-height: 1.02;
-  }
-  .t-page-title {
-    font-size: var(--fs-page-title);
-  }
-  .t-detail-title {
-    font-size: var(--fs-detail-title);
-  }
-  .t-section {
-    font-size: var(--fs-section);
-  }
-  .t-cta {
-    font-size: var(--fs-cta);
+  .shell-wide {
+    max-width: var(--shell-wide-max);
+    margin-inline: auto;
+    padding-inline: var(--shell-pad);
   }
 
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--color-accent-700);
-  }
-
-  .text-muted {
-    color: color-mix(in srgb, var(--color-text) 55%, transparent);
-  }
-
-  /* — rules — */
-  .hr {
-    height: 1px;
-    border: 0;
-    margin: var(--space-4) 0;
-    background: var(--color-divider);
-  }
-
-  /* — blueprint frame: the signature motif. Hairline box with four corner
-       registration marks drawn outside the border. — */
-  .blueprint {
-    position: relative;
-    border: 1px solid var(--color-divider);
+  /* ── tiles ──────────────────────────────────────────────────────────────
+     Full-bleed sections that stack edge-to-edge with no gap. Rectangular by
+     definition: rounding a tile would break the "colour change is the
+     divider" rule. */
+  .tile {
+    padding-block: var(--space-section);
     border-radius: 0;
   }
-  .blueprint > .corner {
-    position: absolute;
-    width: 11px;
-    height: 11px;
-    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  .tile-light {
+    background: var(--color-canvas);
+    color: var(--color-ink);
   }
-  .blueprint > .corner::before,
-  .blueprint > .corner::after {
-    content: "";
-    position: absolute;
-    background: currentColor;
+  .tile-parchment {
+    background: var(--color-parchment);
+    color: var(--color-ink);
   }
-  .blueprint > .corner::before {
-    left: 5px;
-    top: 0;
-    width: 1px;
-    height: 100%;
+  .tile-dark {
+    background: var(--color-tile-1);
+    color: var(--color-on-dark);
   }
-  .blueprint > .corner::after {
-    top: 5px;
-    left: 0;
-    width: 100%;
-    height: 1px;
+  .tile-dark-2 {
+    background: var(--color-tile-2);
+    color: var(--color-on-dark);
   }
-  .blueprint > .corner.tl {
-    top: -6px;
-    left: -6px;
-  }
-  .blueprint > .corner.tr {
-    top: -6px;
-    right: -6px;
-  }
-  .blueprint > .corner.bl {
-    bottom: -6px;
-    left: -6px;
-  }
-  .blueprint > .corner.br {
-    bottom: -6px;
-    right: -6px;
+  .tile-dark-3 {
+    background: var(--color-tile-3);
+    color: var(--color-on-dark);
   }
 
-  /* — hairline grid: 1px gaps faked with a divider-coloured backdrop — */
-  .rule-grid {
-    display: grid;
-    gap: 1px;
-    background: var(--color-divider);
-    border: 1px solid var(--color-divider);
+  /* ── type scale ─────────────────────────────────────────────────────── */
+  .t-hero {
+    font-family: var(--font-display);
+    font-size: var(--fs-hero);
+    font-weight: 600;
+    line-height: 1.07;
+    letter-spacing: -0.28px;
   }
-  .rule-grid > * {
-    background: var(--color-bg);
+  .t-display-lg {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+  .t-display-md {
+    font-family: var(--font-text);
+    font-size: var(--fs-display-md);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.374px;
+  }
+  .t-lead {
+    font-family: var(--font-display);
+    font-size: var(--fs-lead);
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: 0.196px;
+  }
+  /* Weight 300 is deliberate and rare — an "airy" cue, not an accident. */
+  .t-lead-airy {
+    font-family: var(--font-text);
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+  .t-tagline {
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.19;
+    letter-spacing: 0.231px;
+  }
+  .t-body {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+  }
+  .t-body-strong {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.24;
+    letter-spacing: -0.374px;
+  }
+  /* The 2.41 leading is not a bug — it is how dense link columns breathe. */
+  .t-dense-link {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 2.41;
+    letter-spacing: 0;
+  }
+  .t-caption {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+  }
+  .t-caption-strong {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+  }
+  .t-fine-print {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.12px;
+  }
+  .t-micro-legal {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.08px;
+  }
+  .t-nav-link {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.12px;
   }
 
-  /* — buttons — */
+  /* ── muted ink ──────────────────────────────────────────────────────── */
+  .text-muted {
+    color: var(--color-ink-muted-80);
+  }
+  .text-subtle {
+    color: var(--color-ink-muted-48);
+  }
+  .text-muted-on-dark {
+    color: var(--color-body-muted);
+  }
+
+  /* ── links ──────────────────────────────────────────────────────────── */
+  .link {
+    color: var(--color-primary);
+  }
+  /* Action Blue disappears against a near-black tile; Sky Link Blue is the
+     dark-surface-only variant. */
+  .link-on-dark {
+    color: var(--color-primary-on-dark);
+  }
+  .link:hover,
+  .link-on-dark:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── buttons ────────────────────────────────────────────────────────────
+     Two grammars only: the pill (an "action") and the compact utility rect.
+     Every button presses with the same scale(0.95). No hover states — the
+     system documents default and pressed. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -312,209 +385,251 @@
     gap: 6px;
     cursor: pointer;
     text-decoration: none;
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
-    font-size: 14px;
-    line-height: 1.2;
-    color: var(--color-text);
+    font-family: var(--font-text);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+    padding: 11px 22px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
     background: transparent;
-    border: 1px solid var(--color-divider);
-    padding: var(--space-2) calc(var(--space-3) * 1.2);
-    border-radius: 0;
+    color: var(--color-primary);
+    transition: transform 120ms ease-out;
   }
-  .btn svg {
-    display: block;
+  .btn:hover {
+    text-decoration: none;
+  }
+  .btn:active {
+    transform: scale(0.95);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    .btn:active {
+      transform: none;
+    }
   }
   .btn:disabled {
-    opacity: 0.45;
+    color: var(--color-ink-muted-48);
     cursor: not-allowed;
   }
   .btn-primary {
-    background: var(--color-accent);
-    color: var(--color-bg);
-    border-color: var(--color-accent);
+    background: var(--color-primary);
+    color: var(--color-on-dark);
+    border-color: var(--color-primary);
   }
-  .btn-primary:hover {
-    background: var(--color-accent-600);
-    border-color: var(--color-accent-600);
+  .btn-primary:disabled {
+    background: var(--color-divider-soft);
+    border-color: var(--color-divider-soft);
+    color: var(--color-ink-muted-48);
   }
-  .btn-primary:active {
-    background: var(--color-accent-700);
-    border-color: var(--color-accent-700);
-  }
+  /* The ghost pill — the second CTA when two pills sit together. */
   .btn-secondary {
-    border-color: var(--color-divider);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
   }
-  .btn-secondary:hover {
-    background: color-mix(in srgb, var(--color-text) 7%, transparent);
+  .btn-secondary-on-dark {
+    color: var(--color-primary-on-dark);
+    border-color: var(--color-primary-on-dark);
   }
-  .btn-secondary:active {
-    background: color-mix(in srgb, var(--color-text) 14%, transparent);
+  /* Global-nav actions: compact rect, not a pill. */
+  .btn-utility {
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    border-color: var(--color-ink);
+    border-radius: var(--radius-sm);
+    padding: 8px 15px;
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
   }
-  .btn-ghost {
-    color: var(--color-accent);
-    padding-inline: var(--space-1);
+  .btn-pearl {
+    background: var(--color-pearl);
+    color: var(--color-ink-muted-80);
+    /* A soft ring rather than a visible line. */
+    border: 3px solid var(--color-divider-soft);
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+  }
+  .btn-hero {
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  /* The pill at nav scale — same grammar, sized to sit inside a 52px strip. */
+  .btn-compact {
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+  }
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-chip) 64%, transparent);
+    color: var(--color-ink);
     border-color: transparent;
   }
-  .btn-ghost:hover {
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-  }
-  .btn-lg {
-    padding: 10px 20px;
-    font-size: 15px;
-  }
-  /* on the accent-900 CTA band */
-  .btn-invert {
-    background: var(--color-bg);
-    color: var(--color-accent-900);
-    border-color: var(--color-bg);
-  }
-  .btn-invert:hover {
-    background: #fff;
-    border-color: #fff;
-  }
-  .btn-invert-outline {
-    background: transparent;
-    color: var(--color-bg);
-    border-color: color-mix(in srgb, #f2f2f3 45%, transparent);
-  }
-  .btn-invert-outline:hover {
-    background: color-mix(in srgb, #f2f2f3 12%, transparent);
-  }
 
-  /* — forms — */
-  .field > label {
-    display: block;
-    font-size: 12px;
-    margin-bottom: 5px;
-    color: color-mix(in srgb, var(--color-text) 70%, transparent);
-  }
-  .input {
-    width: 100%;
-    min-height: 36px;
-    padding: 6px 10px;
-    font: inherit;
-    font-size: 14px;
-    color: var(--color-text);
-    caret-color: var(--color-accent);
-    background: var(--color-surface);
-    border: 1px solid var(--color-divider);
-    border-radius: 0;
-  }
-  .input:hover {
-    border-color: color-mix(in srgb, var(--color-text) 45%, transparent);
-  }
-  .input:focus-visible {
-    border-color: var(--color-accent);
-    outline-offset: 0;
-  }
-  .input[aria-invalid="true"] {
-    border-color: #a6413f;
-  }
-  textarea.input {
-    min-height: 90px;
-    resize: vertical;
-  }
-  .field-error {
-    margin: 5px 0 0;
-    font-size: 12px;
-    color: #8f3936;
-  }
-
-  /* — cards — */
+  /* ── cards ──────────────────────────────────────────────────────────────
+     The utility card: white, one hairline, 18px radius, 24px of padding, and
+     no shadow — the product render inside carries the only shadow. */
   .card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    border-radius: 0;
-    background: transparent;
-    border: 1px solid var(--color-divider);
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
   }
-  .card-kicker {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-accent);
+  .card-on-dark {
+    background: var(--color-tile-2);
+    border-color: color-mix(in srgb, #ffffff 12%, transparent);
+    color: var(--color-on-dark);
   }
   .card-title {
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
     font-size: 17px;
-    line-height: 1.2;
+    font-weight: 600;
+    line-height: 1.24;
+    letter-spacing: -0.374px;
   }
   .card-body {
     margin: 0;
-    font-size: 13px;
-    opacity: 0.8;
     flex: 1;
-  }
-  .card-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: color-mix(in srgb, var(--color-text) 50%, transparent);
-  }
-  .elev-sm {
-    box-shadow: var(--shadow-sm);
-  }
-  .elev-md {
-    box-shadow: var(--shadow-md);
-  }
-  .elev-lg {
-    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
   }
 
-  /* — tags — */
-  .tag {
+  /* ── chips ──────────────────────────────────────────────────────────────
+     Pill-shaped tappable cells. Selection upgrades the ring to 2px focus
+     blue; nothing else about the shape changes. */
+  .chip {
     display: inline-flex;
     align-items: center;
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    padding: 3px 10px;
-    border-radius: 0;
+    gap: 6px;
+    cursor: pointer;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+    color: var(--color-ink);
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-pill);
+    transition: transform 120ms ease-out;
   }
-  .tag-accent {
-    background: var(--color-accent-100);
-    color: var(--color-accent-800);
+  .chip:active {
+    transform: scale(0.95);
   }
-  .tag-accent-2 {
-    background: var(--color-accent-2-100);
-    color: var(--color-accent-2-800);
+  @media (prefers-reduced-motion: reduce) {
+    .chip {
+      transition: none;
+    }
+    .chip:active {
+      transform: none;
+    }
   }
-  .tag-neutral {
-    background: var(--color-neutral-100);
-    color: var(--color-neutral-800);
-  }
-  .tag-outline {
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent);
+  .chip-selected {
+    border: 2px solid var(--color-primary-focus);
+    padding: 11px 15px;
   }
 
-  /* — tables — */
+  /* ── media ──────────────────────────────────────────────────────────────
+     Image wells. Inline card imagery rounds; full-bleed hero imagery does
+     not. The placeholder is a plain parchment field — no stripes, no frame,
+     nothing that competes with a real photograph once it lands. */
+  .media {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-parchment);
+    border-radius: var(--radius-lg);
+  }
+  .media-sm {
+    border-radius: var(--radius-sm);
+  }
+  .media-square {
+    border-radius: 0;
+  }
+  .media-placeholder {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    padding-inline: var(--space-md);
+    text-align: center;
+    color: var(--color-ink-muted-80);
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.224px;
+  }
+  /* The one drop-shadow in the system. */
+  .product-shadow {
+    box-shadow: var(--shadow-product);
+  }
+
+  /* ── inputs ─────────────────────────────────────────────────────────── */
+  .input {
+    width: 100%;
+    height: 44px;
+    padding: 12px 20px;
+    font: inherit;
+    font-size: 17px;
+    color: var(--color-ink);
+    caret-color: var(--color-primary);
+    background: var(--color-canvas);
+    border: 1px solid rgb(0 0 0 / 0.08);
+    border-radius: var(--radius-pill);
+  }
+  textarea.input {
+    height: auto;
+    min-height: 120px;
+    border-radius: var(--radius-lg);
+    resize: vertical;
+  }
+
+  /* ── tables ─────────────────────────────────────────────────────────── */
   .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
   }
   .table th {
     text-align: left;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--color-text) 60%, transparent);
-    padding: var(--space-2);
-    border-bottom: 1px solid var(--color-divider);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+    /* Muted 48 is reserved for legal fine print — it does not clear AA at
+       table-header size on the parchment tile. */
+    color: var(--color-ink-muted-80);
+    padding: var(--space-sm) var(--space-sm) var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-hairline);
   }
   .table td {
-    padding: var(--space-2);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
-  }
-  .table tbody tr:hover {
-    background: color-mix(in srgb, var(--color-text) 4%, transparent);
+    padding: var(--space-sm) var(--space-sm) var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-divider-soft);
   }
   .table-scroll {
     overflow-x: auto;
+  }
+  /* On a dark tile the hairlines have to invert, or they vanish. */
+  .table-on-dark th {
+    color: var(--color-body-muted);
+    border-bottom-color: color-mix(in srgb, #ffffff 24%, transparent);
+  }
+  .table-on-dark td {
+    border-bottom-color: color-mix(in srgb, #ffffff 12%, transparent);
   }
 }
