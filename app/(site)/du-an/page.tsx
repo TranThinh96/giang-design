@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { FilterableWorks } from "@/components/portfolio/FilterableWorks";
 import { PageHeading } from "@/components/ui/SectionHeading";
-import { WORKS } from "@/content/works";
+import { getWorks } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Dự án — Công trình in đã bàn giao",
@@ -10,11 +10,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/du-an" },
 };
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const works = await getWorks();
+
   return (
     <main className="shell pb-18 pt-14">
       <PageHeading eyebrow="Dự án" title="Công trình in đã bàn giao" className="mb-6" />
-      <FilterableWorks works={WORKS} />
+      <FilterableWorks works={works} />
     </main>
   );
 }

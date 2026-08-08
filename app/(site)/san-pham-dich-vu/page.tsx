@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { PageHeading } from "@/components/ui/SectionHeading";
-import { PRODUCTS } from "@/content/products";
+import { getProducts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Sản phẩm & dịch vụ — Danh mục in ấn",
@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/san-pham-dich-vu" },
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const PRODUCTS = await getProducts();
+
   return (
     <main className="shell pb-18 pt-14">
       <PageHeading eyebrow="Sản phẩm & dịch vụ" title="Danh mục in ấn">

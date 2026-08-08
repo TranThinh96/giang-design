@@ -3,13 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Blueprint } from "@/components/ui/Blueprint";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { PRODUCTS, getProduct } from "@/content/products";
-import { SITE } from "@/content/site";
+import { getProduct, getProducts, getSettings } from "@/lib/content";
 
 type Params = { slug: string };
 
-export function generateStaticParams(): Params[] {
-  return PRODUCTS.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams(): Promise<Params[]> {
+  return (await getProducts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -18,7 +17,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const p = getProduct(slug);
+  const p = await getProduct(slug);
   if (!p) return {};
   return {
     title: `${p.name} — in ấn theo yêu cầu`,
@@ -34,7 +33,7 @@ export default async function ProductDetailPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const item = getProduct(slug);
+  const [item, SITE] = await Promise.all([getProduct(slug), getSettings()]);
   if (!item) notFound();
 
   const jsonLd = {

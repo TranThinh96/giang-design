@@ -4,11 +4,23 @@ import { CtaBand } from "@/components/home/CtaBand";
 import { WorkCard } from "@/components/portfolio/WorkCard";
 import { Blueprint } from "@/components/ui/Blueprint";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { PRODUCTS } from "@/content/products";
-import { FEATURED } from "@/content/works";
-import { CLIENTS, MACHINES, STEPS } from "@/content/site";
+import {
+  getClients,
+  getFeaturedWorks,
+  getMachines,
+  getProducts,
+  getSteps,
+} from "@/lib/content";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [FEATURED, PRODUCTS, STEPS, MACHINES, CLIENTS] = await Promise.all([
+    getFeaturedWorks(),
+    getProducts(),
+    getSteps(),
+    getMachines(),
+    getClients(),
+  ]);
+
   return (
     <main>
       <Hero />

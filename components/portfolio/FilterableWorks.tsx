@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { WorkCard } from "./WorkCard";
-import { ALL_CATS, CATS, type Work } from "@/content/works";
+import { ALL_CATS, CATS, type Work } from "@/lib/types";
 
 /**
  * Category filter + grid. Every work is server-rendered into the HTML and

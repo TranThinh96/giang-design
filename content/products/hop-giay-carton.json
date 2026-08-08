@@ -1,0 +1,34 @@
+{
+  "name": "Hộp giấy & Carton",
+  "code": "SP-03",
+  "order": 3,
+  "moq": "từ 500 hộp",
+  "materialsShort": "Ivory, carton sóng E/B",
+  "blurb": "Hộp bế cấn, hộp nắp gài, hộp cứng dán tay, thùng carton sóng.",
+  "long": "Từ hộp giấy bế cấn đơn giản đến hộp cứng dán tay cao cấp và thùng carton sóng vận chuyển. Nhận làm dao mới theo bản vẽ hoặc theo mẫu vật.",
+  "specs": [
+    {
+      "k": "Kết cấu",
+      "v": "Nắp gài, đáy khóa, hộp cứng, sóng E/B/BC"
+    },
+    {
+      "k": "Kích thước",
+      "v": "Theo bản vẽ dao"
+    },
+    {
+      "k": "Hoàn thiện",
+      "v": "Cán màng, ép kim, dán tay"
+    },
+    {
+      "k": "Thời gian",
+      "v": "7–10 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Ivory 350gsm",
+    "Duplex 400gsm",
+    "Carton sóng E",
+    "Carton sóng BC"
+  ],
+  "image": null
+}

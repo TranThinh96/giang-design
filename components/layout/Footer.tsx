@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE } from "@/content/site";
+import type { SiteSettings } from "@/lib/types";
 
 const COLUMNS = [
   {
@@ -19,7 +19,7 @@ const COLUMNS = [
   },
 ];
 
-export function Footer() {
+export function Footer({ settings: SITE }: { settings: SiteSettings }) {
   return (
     <footer className="mt-6" style={{ borderTop: "1px solid var(--color-divider)" }}>
       <div className="shell grid grid-cols-1 gap-8 py-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">

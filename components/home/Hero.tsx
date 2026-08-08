@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { STATS } from "@/content/site";
+import { getStats } from "@/lib/content";
 
-export function Hero() {
+export async function Hero() {
+  const STATS = await getStats();
+
   return (
     <section className="shell grid grid-cols-1 items-center gap-12 pb-10 pt-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:pt-16">
       <div>

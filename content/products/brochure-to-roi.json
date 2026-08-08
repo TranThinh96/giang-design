@@ -1,0 +1,33 @@
+{
+  "name": "Brochure & Tờ rơi",
+  "code": "SP-06",
+  "order": 6,
+  "moq": "từ 500 tờ",
+  "materialsShort": "Couche 150–250gsm",
+  "blurb": "Tờ rơi A4/A5, brochure gấp 2–4, in nhanh trong 48 giờ.",
+  "long": "Ấn phẩm quảng cáo khổ nhỏ, in offset số lượng lớn hoặc kỹ thuật số cho đơn gấp. Gấp đôi, gấp ba, gấp cửa sổ.",
+  "specs": [
+    {
+      "k": "Khổ",
+      "v": "A4, A5, DL 99 × 210 mm"
+    },
+    {
+      "k": "Kiểu gấp",
+      "v": "Gấp đôi, gấp ba, gấp cửa"
+    },
+    {
+      "k": "Hoàn thiện",
+      "v": "Cán mờ tùy chọn"
+    },
+    {
+      "k": "Thời gian",
+      "v": "48 giờ (in nhanh)"
+    }
+  ],
+  "materials": [
+    "Couche 150gsm",
+    "Couche 250gsm",
+    "Ford 120gsm"
+  ],
+  "image": null
+}

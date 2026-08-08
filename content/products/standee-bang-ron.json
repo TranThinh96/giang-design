@@ -1,0 +1,34 @@
+{
+  "name": "Standee & Băng rôn",
+  "code": "SP-08",
+  "order": 8,
+  "moq": "từ 1 cái",
+  "materialsShort": "PP, hiflex, canvas",
+  "blurb": "In kỹ thuật số khổ lớn: standee, backdrop, băng rôn, hiflex.",
+  "long": "In khổ lớn cho sự kiện và điểm bán: standee cuốn 0,8 × 1,8 m, backdrop khung, băng rôn hiflex ngoài trời.",
+  "specs": [
+    {
+      "k": "Công nghệ in",
+      "v": "Kỹ thuật số khổ lớn, mực UV"
+    },
+    {
+      "k": "Độ phân giải",
+      "v": "720 – 1440 dpi"
+    },
+    {
+      "k": "Khổ tối đa",
+      "v": "3,2 m khổ cuộn"
+    },
+    {
+      "k": "Thời gian",
+      "v": "24–48 giờ"
+    }
+  ],
+  "materials": [
+    "PP cán mờ",
+    "Hiflex 380gsm",
+    "Canvas",
+    "Decal dán kính"
+  ],
+  "image": null
+}

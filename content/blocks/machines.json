@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "name": "Offset 4 màu",
+      "spec": "Khổ 720 × 1020 mm",
+      "cap": "13.000 tờ/giờ"
+    },
+    {
+      "name": "Offset 2 màu",
+      "spec": "Khổ 520 × 740 mm",
+      "cap": "10.000 tờ/giờ"
+    },
+    {
+      "name": "In kỹ thuật số UV",
+      "spec": "Khổ cuộn 3,2 m",
+      "cap": "60 m²/giờ"
+    },
+    {
+      "name": "Máy bế tự động",
+      "spec": "Khổ 1050 × 750 mm",
+      "cap": "5.000 tờ/giờ"
+    },
+    {
+      "name": "Dán hộp tự động",
+      "spec": "Hộp 1–4 điểm dán",
+      "cap": "18.000 hộp/giờ"
+    },
+    {
+      "name": "Cán màng bóng/mờ",
+      "spec": "Khổ tối đa 1100 mm",
+      "cap": "40 m/phút"
+    }
+  ]
+}

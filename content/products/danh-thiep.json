@@ -1,0 +1,33 @@
+{
+  "name": "Danh thiếp",
+  "code": "SP-07",
+  "order": 7,
+  "moq": "từ 100 hộp",
+  "materialsShort": "Mỹ thuật 300–600gsm",
+  "blurb": "Danh thiếp giấy mỹ thuật, ép kim, dập chìm, bo góc.",
+  "long": "Danh thiếp doanh nghiệp trên giấy mỹ thuật hoặc couche cán màng, tùy chọn ép kim, dập chìm nổi, cắt bo góc.",
+  "specs": [
+    {
+      "k": "Khổ",
+      "v": "90 × 55 mm (chuẩn)"
+    },
+    {
+      "k": "Định lượng",
+      "v": "300 – 600 gsm"
+    },
+    {
+      "k": "Hoàn thiện",
+      "v": "Ép kim, dập nổi, cán mờ, bo góc"
+    },
+    {
+      "k": "Thời gian",
+      "v": "2–3 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Mỹ thuật ngà",
+    "Couche 300gsm",
+    "Giấy Kraft"
+  ],
+  "image": null
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Bao bì giấy",
+  "code": "SP-02",
+  "order": 2,
+  "moq": "từ 1.000 cái",
+  "materialsShort": "Ivory, Duplex, Kraft",
+  "blurb": "Bao bì thực phẩm, mỹ phẩm — in offset, cán màng, bế cấn tại xưởng.",
+  "long": "Bao bì giấy cho ngành thực phẩm và mỹ phẩm, in offset trên giấy có chứng từ nguồn gốc, mực gốc soy đạt yêu cầu tiếp xúc gián tiếp thực phẩm.",
+  "specs": [
+    {
+      "k": "Công nghệ in",
+      "v": "Offset 4–6 màu"
+    },
+    {
+      "k": "Định lượng",
+      "v": "210 – 400 gsm"
+    },
+    {
+      "k": "Hoàn thiện",
+      "v": "Cán màng, phủ UV định vị, ép kim"
+    },
+    {
+      "k": "Thời gian",
+      "v": "5–8 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Ivory 300gsm",
+    "Duplex 350gsm",
+    "Kraft 250gsm",
+    "Couche 250gsm"
+  ],
+  "image": null
+}

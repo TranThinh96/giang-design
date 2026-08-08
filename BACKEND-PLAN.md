@@ -341,3 +341,46 @@ own forever; a custom admin ≈ 8+.
 
 Build Option A. Revisit only against the four triggers in §2. Do not add a
 database until something actually needs to be written by a website visitor.
+
+---
+
+## 12. As built
+
+Phases 0–3 and 5 are done and on disk. **Phase 4 is not** — creating the GitHub
+App needs a deployed URL and the client's GitHub account, so `/keystatic` runs
+in local mode until someone completes the steps in the README's *Deploying*
+section.
+
+Verified: `npm run typecheck` and `npm run build` both pass, all 19 pages
+prerender, and no route that was static before became dynamic. The only dynamic
+routes are `/keystatic/[[...params]]` and `/api/keystatic/[...params]` — the
+admin itself, which is an application and not content. Editing
+`content/settings.json` and reloading confirmed the whole chain end to end,
+including the derivations.
+
+Where the build departs from the plan above, and why:
+
+| § | Plan said | Built instead | Why |
+|---|---|---|---|
+| 3 | `repo: 'ThinhTV9/giang-design'` | `TranThinh96/giang-design` | That is the actual `origin`. |
+| 3 | Two new routes, "nothing new is deployed" | Also a `(site)` route group | The root layout rendered the header, footer and Zalo widget **around the admin**. Chrome moved into `components/layout/SiteChrome.tsx`, used by `app/(site)/layout.tsx` and by `not-found.tsx` (which must stay outside the group to answer unmatched URLs). This is the §10 "Tailwind clashes with the admin" risk arriving through a different door, and the Phase 0 spike is what caught it. |
+| 3 | Types move into `lib/content.ts` | Split: `lib/types.ts` + `lib/content.ts` | `FilterableWorks` imports `CATS`/`ALL_CATS` as **runtime values** and `Header` imports `NAV`; `lib/content.ts` imports the filesystem reader, so a single module would have pulled `fs` into the client bundle. `lib/types.ts` is dependency-free; `lib/content.ts` re-exports the types so the plan's import path still works. |
+| 5 | Header and Footer "are both server components" | Footer is; **Header is not** | `Header` is `"use client"` — it owns the mobile drawer state. It takes `settings` as a prop from `SiteChrome`, which reads them once on the server. |
+| 5 | `await` is the only edit | Three `export const metadata` became `generateMetadata` | The root layout, `/lien-he` and `/bao-gia` built their metadata from `SITE` at module scope, which an async reader cannot do. Still resolved at build time. |
+| — | — | API route handler constructed lazily | In `github` mode `makeRouteHandler` throws without the four env vars, and at module scope that throw happened during "Collecting page data" — failing the **entire site build** over an admin-only misconfiguration. Deferred to first request, the blast radius is a 500 on `/api/keystatic/*`. |
+| 7 | "a pre-commit hook or a CI check" | CI check only (`npm run check:images`) | A pre-commit hook would never fire: the client's uploads are committed by the GitHub App on GitHub's servers and never touch a developer's machine. |
+| 4 | `steps` carries `no` (`"01"`) | Derived from list position | Same reasoning the plan applies to `phoneHref`: reordering renumbers itself instead of asking the editor to keep two things in sync. |
+
+The Phase 2 migration script was deleted after it ran, as planned; it is in git
+history if the mapping ever needs re-reading.
+
+### Still open
+
+- **Phase 4** — GitHub App, the four Vercel env vars, inviting the client, and
+  one real end-to-end edit.
+- The acceptance test *"client adds a portfolio item unaided"* needs a person,
+  and cannot be closed from here.
+- The placeholder business details (`0774999107`, `ĐKKD 0312xxxxxx`, the Bình
+  Tân address) and the unverified claims PLAN.md §9.4 flags are now all editable
+  at `/keystatic` — but they are still placeholders until the owner corrects
+  them. That is called out in the handover doc.

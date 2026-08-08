@@ -3,14 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { NAV, SITE } from "@/content/site";
+import { NAV, type SiteSettings } from "@/lib/types";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Header() {
+/**
+ * Settings arrive as a prop rather than from the reader: this is a Client
+ * Component (it owns the mobile drawer state), so it cannot touch the
+ * filesystem. `SiteChrome` reads them once on the server and passes them down.
+ */
+export function Header({ settings: SITE }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 

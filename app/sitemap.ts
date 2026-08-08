@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
-import { PRODUCTS } from "@/content/products";
-import { SITE } from "@/content/site";
+import { getProducts, getSettings } from "@/lib/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/**
+ * `/keystatic` and `/api/keystatic` are deliberately absent: the admin is not
+ * public content. `next.config.ts` also sends `X-Robots-Tag: noindex` for them.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [SITE, products] = await Promise.all([getSettings(), getProducts()]);
   const now = new Date();
 
   const staticRoutes = [
@@ -21,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: r.priority,
     })),
-    ...PRODUCTS.map((p) => ({
+    ...products.map((p) => ({
       url: `${SITE.url}/san-pham-dich-vu/${p.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,

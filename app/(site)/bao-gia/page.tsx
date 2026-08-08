@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { QuoteBrief } from "@/components/quote/QuoteBrief";
 import { PageHeading } from "@/components/ui/SectionHeading";
-import { QUOTE_NOTES, SITE } from "@/content/site";
+import { getQuoteNotes, getSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Yêu cầu báo giá in ấn qua Zalo",
@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/bao-gia" },
 };
 
-export default function QuotePage() {
+export default async function QuotePage() {
+  const [SITE, QUOTE_NOTES] = await Promise.all([getSettings(), getQuoteNotes()]);
+
   return (
     <main className="shell grid grid-cols-1 items-start gap-12 pb-18 pt-14 lg:grid-cols-[1fr_0.8fr] lg:gap-16">
       <div>

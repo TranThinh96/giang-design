@@ -1,0 +1,33 @@
+{
+  "name": "Catalogue",
+  "code": "SP-05",
+  "order": 5,
+  "moq": "từ 200 cuốn",
+  "materialsShort": "Couche 100–300gsm",
+  "blurb": "Catalogue đóng kim, keo gáy hoặc khâu chỉ — 8 đến 200 trang.",
+  "long": "Catalogue giới thiệu sản phẩm, in offset ruột couche, bìa cán màng. Đóng kim giữa, keo nhiệt hoặc khâu chỉ tùy độ dày.",
+  "specs": [
+    {
+      "k": "Khổ",
+      "v": "A4, A5, vuông 210 × 210 mm"
+    },
+    {
+      "k": "Số trang",
+      "v": "8 – 200 trang (bội số 4)"
+    },
+    {
+      "k": "Đóng",
+      "v": "Kim giữa, keo gáy, khâu chỉ"
+    },
+    {
+      "k": "Thời gian",
+      "v": "5–8 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Couche 150gsm",
+    "Couche 250gsm bìa",
+    "Giấy Ford 100gsm"
+  ],
+  "image": null
+}

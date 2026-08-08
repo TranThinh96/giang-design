@@ -1,0 +1,33 @@
+{
+  "name": "Túi giấy",
+  "code": "SP-04",
+  "order": 4,
+  "moq": "từ 300 túi",
+  "materialsShort": "Kraft, Couche, mỹ thuật",
+  "blurb": "Túi giấy quai cotton, quai giấy xoắn — kraft, couche, giấy mỹ thuật.",
+  "long": "Túi giấy đựng sản phẩm và túi quà tặng, dán hông và đáy tại xưởng, quai cotton hoặc quai giấy xoắn.",
+  "specs": [
+    {
+      "k": "Định lượng",
+      "v": "150 – 250 gsm"
+    },
+    {
+      "k": "Kích thước",
+      "v": "Theo yêu cầu"
+    },
+    {
+      "k": "Quai",
+      "v": "Cotton, giấy xoắn, dây dù"
+    },
+    {
+      "k": "Thời gian",
+      "v": "5–7 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Kraft 170gsm",
+    "Couche 200gsm",
+    "Giấy mỹ thuật"
+  ],
+  "image": null
+}

@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "title": "Tiếp nhận yêu cầu",
+      "body": "Nhận file hoặc mẫu vật, xác định chất liệu, khổ, số lượng."
+    },
+    {
+      "title": "Báo giá & phiếu công nghệ",
+      "body": "Bảng giá chi tiết kèm phương án chất liệu và tiến độ."
+    },
+    {
+      "title": "In thử & duyệt mẫu",
+      "body": "Mẫu proof màu trong 48 giờ, khách ký duyệt trước khi lên máy."
+    },
+    {
+      "title": "In & hoàn thiện",
+      "body": "Offset hoặc kỹ thuật số, cán màng, bế, cấn, dán tại xưởng."
+    },
+    {
+      "title": "KCS & giao hàng",
+      "body": "Kiểm 100% thành phẩm, đóng kiện, giao tận kho."
+    }
+  ]
+}

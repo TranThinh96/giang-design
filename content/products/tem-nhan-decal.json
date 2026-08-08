@@ -1,0 +1,39 @@
+{
+  "name": "Tem nhãn & Decal",
+  "code": "SP-01",
+  "order": 1,
+  "moq": "từ 500 con",
+  "materialsShort": "Decal giấy, PP sữa, PET trong",
+  "blurb": "Decal giấy, decal nhựa PP/PE, tem bảy màu — in cuộn hoặc in tờ, bế theo biên dạng.",
+  "long": "Tem nhãn dán chai lọ, hũ mỹ phẩm, bao bì thực phẩm. In offset hoặc kỹ thuật số, bế biên dạng theo file dao, giao dạng cuộn hoặc tờ rời tùy dây chuyền dán của khách.",
+  "specs": [
+    {
+      "k": "Công nghệ in",
+      "v": "Offset 4 màu / kỹ thuật số UV"
+    },
+    {
+      "k": "Khổ thành phẩm",
+      "v": "10 × 10 mm – 300 × 400 mm"
+    },
+    {
+      "k": "Hoàn thiện",
+      "v": "Cán bóng, cán mờ, ép kim, dập nổi"
+    },
+    {
+      "k": "Keo",
+      "v": "Keo thường, keo lạnh, keo tháo được"
+    },
+    {
+      "k": "Thời gian",
+      "v": "3–5 ngày làm việc"
+    }
+  ],
+  "materials": [
+    "Decal giấy",
+    "Decal PP sữa",
+    "PET trong",
+    "Decal vỡ",
+    "Giấy mỹ thuật"
+  ],
+  "image": null
+}

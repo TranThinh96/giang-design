@@ -1,5 +1,5 @@
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import type { Work } from "@/content/works";
+import type { Work } from "@/lib/types";
 
 /** Portfolio tile. `compact` is the home-page variant: title and spec on one row. */
 export function WorkCard({ work, compact = false }: { work: Work; compact?: boolean }) {

@@ -2,19 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Blueprint } from "@/components/ui/Blueprint";
 import { PageHeading } from "@/components/ui/SectionHeading";
-import { CONTACTS, SITE } from "@/content/site";
+import { getContacts, getSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Liên hệ — Xưởng & văn phòng",
-  description: `Xưởng sản xuất ${SITE.address.full}. Hotline ${SITE.phone}, kinh doanh ${SITE.emailSales}. Giờ làm việc ${SITE.hours}.`,
-  alternates: { canonical: "/lien-he" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await getSettings();
+  return {
+    title: "Liên hệ — Xưởng & văn phòng",
+    description: `Xưởng sản xuất ${s.address.full}. Hotline ${s.phone}, kinh doanh ${s.emailSales}. Giờ làm việc ${s.hours}.`,
+    alternates: { canonical: "/lien-he" },
+  };
+}
 
-const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  SITE.address.full,
-)}&output=embed`;
+export default async function ContactPage() {
+  const [SITE, CONTACTS] = await Promise.all([getSettings(), getContacts()]);
+  const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
+    SITE.address.full,
+  )}&output=embed`;
 
-export default function ContactPage() {
   return (
     <main className="shell pb-18 pt-14">
       <PageHeading eyebrow="Liên hệ" title="Xưởng & văn phòng" className="mb-9" />
