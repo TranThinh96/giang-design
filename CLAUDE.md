@@ -132,23 +132,38 @@ the `@theme` block (each becomes both `var(--color-x)` and a utility like
 `bg-primary`); reusable classes go in `@layer components`.
 
 Compose pages from the existing vocabulary rather than ad-hoc utilities:
-`.tile` + `.tile-light|parchment|dark|dark-2|dark-3`, `.shell` (980px, text) /
-`.shell-wide` (1440px, grids), `.t-*` type scale, `.btn` + `.btn-primary|
--secondary|-utility|-pearl|-hero|-compact|-icon`, `.card`, `.chip`, `.tag`,
-`.media`, `.table`, `.input`.
+`.tile` + `.tile-light|parchment|dark|dark-2|dark-3|brand`, `.shell` (980px,
+text) / `.shell-wide` (1440px, grids), `.t-*` type scale, `.eyebrow` +
+`.eyebrow-on-dark|-on-brand`, `.btn` + `.btn-primary|-secondary|-utility|
+-pearl|-hero|-compact|-icon|-on-brand`, `.card`, `.chip`, `.tag`, `.media`,
+`.table`, `.input`.
 
-**Four rules the system does not bend on:**
+Every colour is pulled from the workshop's sign — the blue field, the gold
+monogram, the warm near-black behind it. The palette is not decoration laid
+over the design; it *is* the logo, which is why the closing CTA band can be a
+full field of the accent and still read as the brand.
 
-1. **One accent.** Action Blue `#0066cc` carries every interactive element.
-   `.link-on-dark` / `.btn-secondary-on-dark` swap to Sky Link Blue `#2997ff`
-   on near-black tiles only — never on a light surface.
-2. **The colour change is the divider.** Tiles stack edge-to-edge, no gap, no
+**Five rules the system does not bend on:**
+
+1. **One accent.** Giang Blue `#1a4ad8` — the sign's own blue — carries every
+   interactive element. `.link-on-dark` / `.btn-secondary-on-dark` swap to Sky
+   Link Blue `#5c8bff` on near-black tiles only — never on a light surface.
+
+2. **Gold marks the label, blue marks the action.** The logo's gold
+   (`.eyebrow`, `#8a5c14` on light / `#e0a44f` on dark) is the only other
+   brand colour, and it is never a link, a button or a pressable border. The
+   monogram's teal, yellow and red stay in the mark and never enter the UI.
+
+   `.tile-brand` — the blue field — appears **once per page**, on the closing
+   CTA band, and its pills invert (`.btn-on-brand`). `.btn-primary` on it
+   would be blue on blue.
+3. **The colour change is the divider.** Tiles stack edge-to-edge, no gap, no
    rounding, no rules or borders between sections. Reach for the next surface
    before reaching for chrome.
-3. **One shadow.** `--shadow-product` / `.product-shadow`, applied via
+4. **One shadow.** `--shadow-product` / `.product-shadow`, applied via
    `<ImageSlot elevated />`, belongs to product photography resting on a
    surface — never to a card, a button or text.
-4. **Body copy is 17px**, and the weight ladder is 300 / 400 / 600 / 700 with
+5. **Body copy is 17px**, and the weight ladder is 300 / 400 / 600 / 700 with
    **500 deliberately absent**. Headings are 600, never 700.
 
 SF Pro is Apple's and cannot be shipped, so the font stack leads with

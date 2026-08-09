@@ -84,7 +84,7 @@ export default function AboutPage() {
       {/* — the promises, on the dark step — */}
       <section className="tile tile-dark">
         <div className="shell">
-          <SectionHeading onDark eyebrow="Cam kết" title="Cam kết chất lượng" />
+          <SectionHeading tone="dark" eyebrow="Cam kết" title="Cam kết chất lượng" />
           <ul className="m-0 mt-12 grid list-none grid-cols-1 gap-8 p-0 sm:grid-cols-3">
             {COMMITMENTS.map((c) => (
               <li key={c} className="t-body text-muted-on-dark">

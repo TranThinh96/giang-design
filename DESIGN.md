@@ -1,30 +1,39 @@
 ---
 version: alpha
 name: Apple-design-analysis
-description: A photography-first interface that turns marketing into a museum gallery. Edge-to-edge product tiles alternate light and dark canvases, framed by SF Pro Display headlines with negative letter-spacing and a single Action Blue (#0066cc) interactive color. UI chrome recedes so the product can speak — no decorative gradients, no shadows on chrome, only the one signature drop-shadow under product imagery resting on a surface.
+description: A photography-first interface that turns marketing into a museum gallery. Edge-to-edge product tiles alternate light and dark canvases, framed by display headlines with negative letter-spacing and a single Giang Blue (#1a4ad8) interactive color drawn from the workshop's own sign. UI chrome recedes so the product can speak — no decorative gradients, no shadows on chrome, only the one signature drop-shadow under product imagery resting on a surface.
 
 colors:
-  primary: "#0066cc"
-  primary-focus: "#0071e3"
-  primary-on-dark: "#2997ff"
-  ink: "#1d1d1f"
-  body: "#1d1d1f"
+  primary: "#1a4ad8"
+  primary-focus: "#2f5fe8"
+  primary-on-dark: "#5c8bff"
+  brand-gold: "#8a5c14"
+  brand-gold-on-dark: "#e0a44f"
+  ink: "#1d1b18"
+  body: "#1d1b18"
   body-on-dark: "#ffffff"
-  body-muted: "#cccccc"
-  ink-muted-80: "#333333"
-  ink-muted-48: "#7a7a7a"
-  divider-soft: "#f0f0f0"
-  hairline: "#e0e0e0"
+  body-muted: "#cdc8c1"
+  ink-muted-80: "#34302b"
+  ink-muted-48: "#7b746b"
+  divider-soft: "#f1eeea"
+  hairline: "#e2ded7"
   canvas: "#ffffff"
-  canvas-parchment: "#f5f5f7"
-  surface-pearl: "#fafafc"
-  surface-tile-1: "#272729"
-  surface-tile-2: "#2a2a2c"
-  surface-tile-3: "#252527"
+  canvas-parchment: "#f6f4f0"
+  surface-pearl: "#fbfaf7"
+  surface-tile-1: "#262220"
+  surface-tile-2: "#292523"
+  surface-tile-3: "#24201e"
   surface-black: "#000000"
-  surface-chip-translucent: "#d2d2d7"
+  surface-chip-translucent: "#d7d2ca"
   on-primary: "#ffffff"
   on-dark: "#ffffff"
+  on-brand: "#ffffff"
+  on-brand-muted: "#c9d4f5"
+
+logo-only:
+  logo-teal: "#57c4b8"
+  logo-yellow: "#efe153"
+  logo-red: "#de3a2a"
 
 typography:
   hero-display:
@@ -284,7 +293,7 @@ Store and shop surfaces retain the same chassis but switch modes. The product co
 **Key Characteristics:**
 - Photography-first presentation; UI recedes so the product can speak.
 - Alternating full-bleed tile sections: white/parchment ↔ near-black, with the color change itself acting as the section divider.
-- Single blue accent (`{colors.primary}` — #0066cc) carries every interactive element. No second brand color exists.
+- Single blue accent (`{colors.primary}` — #1a4ad8, the sign's own blue) carries every interactive element. The logo's gold is the only other brand color, and it never marks something you can press.
 - Two button grammars: tiny blue pill CTAs (`{rounded.pill}`) and compact utility rects (`{rounded.sm}`).
 - SF Pro Display + SF Pro Text — negative letter-spacing at display sizes for the signature "Apple tight" headline feel.
 - Whisper-soft elevation used only when a product image needs to breathe — exactly one drop-shadow in the entire system.
@@ -293,37 +302,42 @@ Store and shop surfaces retain the same chassis but switch modes. The product co
 
 ## Colors
 
-> **Source pages analyzed:** homepage, environment, store, iPhone 17 Pro buy page, accessories index. The color system is identical across all five surfaces; only the surface-mode mix differs.
+> **Source:** the workshop's own signage — a royal blue field carrying a gold monogram in teal, yellow and red blocks, over a warm near-black extrusion, with the wordmark in gold-edged cream. Every token below is that photograph reduced to a working palette. The analysed chassis (tile rhythm, one accent, no chrome) is unchanged; only the hues are the brand's.
 
 ### Brand & Accent
-- **Action Blue** (`{colors.primary}` — #0066cc): The single brand-level interactive color. All text links, all blue pill CTAs ("Learn more", "Buy"), and the focus ring root. This is Apple's quiet but universal "click me" signal. Press state shifts to a slightly darker variant via the active scale transform rather than a hex change.
-- **Focus Blue** (`{colors.primary-focus}` — #0071e3): A marginally brighter sibling of Action Blue, reserved for the keyboard focus ring on buttons (`outline: 2px solid`).
-- **Sky Link Blue** (`{colors.primary-on-dark}` — #2997ff): A brighter blue used on dark surfaces for in-copy links and inline callouts, where Action Blue would disappear against the tile background.
+- **Giang Blue** (`{colors.primary}` — #1a4ad8): The single brand-level interactive color, lifted from the sign's field. All text links, all pill CTAs, the focus ring root, and — once per page — the full ground of the closing CTA band. 6.96:1 on white, so it carries body-size links, not just large text. Press state shifts via the active scale transform rather than a hex change.
+- **Focus Blue** (`{colors.primary-focus}` — #2f5fe8): A brighter sibling of Giang Blue, reserved for the keyboard focus ring on buttons (`outline: 2px solid`). On `{component.product-tile-brand}` the ring inverts to `{colors.on-brand}` — Focus Blue is too near the field it would sit on.
+- **Sky Link Blue** (`{colors.primary-on-dark}` — #5c8bff): A brighter blue used on dark surfaces for in-copy links and inline callouts, where Giang Blue would disappear against the tile background.
+- **Brand Gold** (`{colors.brand-gold}` — #8a5c14 on light, `{colors.brand-gold-on-dark}` — #e0a44f on dark): The monogram's gold, and the system's only non-interactive brand color. It labels — section eyebrows, process step numbers — and it is never a link, a button, or a border on something pressable. **Gold marks the label, blue marks the action.** Two values because the raw gold clears AA only against a dark tile; on light surfaces the ornament is the same gold in shadow.
+
+### Logo-Only Colors
+The teal (#57c4b8), yellow (#efe153) and red (#de3a2a) blocks of the monogram are **not interface colors.** They live in the mark and nowhere else. Promoting one to a UI role would give the site a second accent and cost the blue its meaning — if a surface seems to need them, it needs a photograph instead.
 
 ### Surface
-- **Pure White** (`{colors.canvas}` — #ffffff): The dominant canvas. Content, utility cards, store tiles, configurator grids.
-- **Parchment** (`{colors.canvas-parchment}` — #f5f5f7): The signature Apple off-white. Used for alternating light tiles, footer region, and the default page canvas in store utility sections. Just different enough from white to create rhythm.
-- **Pearl Button** (`{colors.surface-pearl}` — #fafafc): A near-white used as the fill for secondary "ghost" buttons — lighter than the parchment canvas so the button still reads as a button against `{colors.canvas-parchment}`.
-- **Near-Black Tile 1** (`{colors.surface-tile-1}` — #272729): The primary dark-tile surface on the homepage product grid.
-- **Near-Black Tile 2** (`{colors.surface-tile-2}` — #2a2a2c): A micro-step lighter — used where a dark tile sits directly above or below Tile 1 to create the faintest separation.
-- **Near-Black Tile 3** (`{colors.surface-tile-3}` — #252527): A micro-step darker — used at the bottom of the stack and in embedded video/player frames.
-- **Pure Black** (`{colors.surface-black}` — #000000): Reserved for true void — video player backgrounds, edge-to-edge photographic overlays, the global nav bar background.
-- **Translucent Chip Gray** (`{colors.surface-chip-translucent}` — #d2d2d7): The base hex of the translucent gray chip used over photography for circular control buttons. In production, applied at ~64% alpha as `rgba(210, 210, 215, 0.64)`.
+- **Pure White** (`{colors.canvas}` — #ffffff): The dominant canvas — the paper the workshop prints on. Content tiles, utility cards, product grids.
+- **Parchment** (`{colors.canvas-parchment}` — #f6f4f0): The warm off-white, pulled toward the wordmark's cream. Used for alternating light tiles, the footer region, and the frosted sub-nav. Just different enough from white to create rhythm.
+- **Pearl Button** (`{colors.surface-pearl}` — #fbfaf7): A near-white used as the fill for secondary "ghost" buttons — lighter than the parchment canvas so the button still reads as a button against `{colors.canvas-parchment}`.
+- **Near-Black Tile 1** (`{colors.surface-tile-1}` — #262220): The primary dark-tile surface, warmed to the near-black the sign's letters cast so it sits under the gold instead of fighting it.
+- **Near-Black Tile 2** (`{colors.surface-tile-2}` — #292523): A micro-step lighter — used where a dark tile sits directly above or below Tile 1 to create the faintest separation.
+- **Near-Black Tile 3** (`{colors.surface-tile-3}` — #24201e): A micro-step darker — used at the bottom of the stack and in embedded frames.
+- **Pure Black** (`{colors.surface-black}` — #000000): Reserved for true void — the global nav bar background and edge-to-edge photographic overlays. It stays neutral: it is the absence of surface, not a warm tone.
+- **Translucent Chip Gray** (`{colors.surface-chip-translucent}` — #d7d2ca): The base hex of the translucent chip used over photography for circular control buttons. In production, applied at ~64% alpha.
 
 ### Text
-- **Near-Black Ink** (`{colors.ink}` — #1d1d1f): The voice of every headline, every body paragraph, and the dark utility button's fill. Chosen instead of pure black to keep the page feeling photographic rather than printed.
-- **Body** (`{colors.body}` — #1d1d1f): Same hex as ink — Apple uses one near-black tone for all text on light surfaces.
+- **Near-Black Ink** (`{colors.ink}` — #1d1b18): The voice of every headline, every body paragraph, and the dark utility button's fill. Near-black rather than pure black, and warm rather than neutral, so the page reads photographic rather than printed.
+- **Body** (`{colors.body}` — #1d1b18): Same hex as ink — one near-black tone for all text on light surfaces.
 - **Body On Dark** (`{colors.body-on-dark}` — #ffffff): All text on dark tiles and on the global nav bar.
-- **Body Muted** (`{colors.body-muted}` — #cccccc): Secondary copy on dark tiles where pure white would be too loud.
-- **Ink Muted 80** (`{colors.ink-muted-80}` — #333333): Body text on the white Pearl Button surface — slightly softer than pure black.
-- **Ink Muted 48** (`{colors.ink-muted-48}` — #7a7a7a): Disabled button text and legal fine-print.
+- **Body Muted** (`{colors.body-muted}` — #cdc8c1): Secondary copy on dark tiles where pure white would be too loud.
+- **On Brand** (`{colors.on-brand}` — #ffffff) / **On Brand Muted** (`{colors.on-brand-muted}` — #c9d4f5): Copy on the brand-blue field. The muted tone holds 4.7:1 against it, so leads and eyebrows stay AA at body size.
+- **Ink Muted 80** (`{colors.ink-muted-80}` — #34302b): Body text on the Pearl Button surface — slightly softer than full ink.
+- **Ink Muted 48** (`{colors.ink-muted-48}` — #7b746b): Disabled button text and legal fine-print only; it does not clear AA at body size.
 
 ### Hairlines & Borders
-- **Divider Soft** (`{colors.divider-soft}` — #f0f0f0): The "border" tone on secondary buttons — functions as a ring shadow rather than a hard line. In production, often applied as `rgba(0, 0, 0, 0.04)`.
-- **Hairline** (`{colors.hairline}` — #e0e0e0): The 1px hairline border on store utility cards and configurator chips.
+- **Divider Soft** (`{colors.divider-soft}` — #f1eeea): The "border" tone on secondary buttons — functions as a ring shadow rather than a hard line.
+- **Hairline** (`{colors.hairline}` — #e2ded7): The 1px hairline border on utility cards and filter chips.
 
 ### Brand Gradient
-**No decorative gradients.** Atmospheric depth on product photography (the iPhone 17 Pro camera plate, the Apple Watch bands, AirPods reflections) is inherent to the imagery, not a CSS gradient overlay. The environment page's hero uses photographic atmosphere (mountain vista at dawn) but no gradient tokens are defined. Apple is the rare luxury-brand site with zero gradient-based design tokens.
+**No decorative gradients.** The sign gets its depth from a physical extrusion and a cast shadow, not from a blend, and the interface follows: atmospheric depth belongs to the photography, never to a CSS overlay. No gradient tokens are defined.
 
 ## Typography
 
@@ -435,35 +449,41 @@ Apple's whitespace is the product's pedestal. Every tile begins with at least 64
 
 ### Buttons
 
-**`button-primary`** — The signature Apple action. Background `{colors.primary}` (Action Blue #0066cc), text `{colors.on-primary}` in `{typography.body}` (SF Pro Text 17px / 400), rounded `{rounded.pill}` (full pill — capsule-shaped), padding 11px × 22px. The full-pill radius IS the brand action signal.
+**`button-primary`** — The signature Apple action. Background `{colors.primary}` (Giang Blue #1a4ad8), text `{colors.on-primary}` in `{typography.body}` (SF Pro Text 17px / 400), rounded `{rounded.pill}` (full pill — capsule-shaped), padding 11px × 22px. The full-pill radius IS the brand action signal.
 - Active state: `{component.button-primary-active}` — `transform: scale(0.95)` (the system-wide micro-interaction).
 - Focus state: `{component.button-primary-focus}` — 2px solid `{colors.primary-focus}` outline.
 
 **`button-secondary-pill`** — Used as the second CTA when two blue pills appear together ("Learn more" / "Buy"). Background transparent, text `{colors.primary}`, 1px solid `{colors.primary}` border, rounded `{rounded.pill}`, padding 11px × 22px. Reads as a "ghost pill."
 
-**`button-dark-utility`** — Global nav actions (Sign In, Bag, language selector). Background `{colors.ink}` (#1d1d1f), text `{colors.on-dark}` in `{typography.button-utility}` (14px / 400 / -0.224px tracking), rounded `{rounded.sm}` (8px), padding 8px × 15px. Active state shrinks via `transform: scale(0.95)`.
+**`button-dark-utility`** — Global nav actions (Sign In, Bag, language selector). Background `{colors.ink}` (#1d1b18), text `{colors.on-dark}` in `{typography.button-utility}` (14px / 400 / -0.224px tracking), rounded `{rounded.sm}` (8px), padding 8px × 15px. Active state shrinks via `transform: scale(0.95)`.
 
-**`button-pearl-capsule`** — Product-card secondary button. Background `{colors.surface-pearl}` (#fafafc), text `{colors.ink-muted-80}` in `{typography.caption}` (14px), 3px solid `{colors.divider-soft}` border (functions as a soft ring rather than a visible line), rounded `{rounded.md}` (11px), padding 8px × 14px.
+**`button-pearl-capsule`** — Product-card secondary button. Background `{colors.surface-pearl}` (#fbfaf7), text `{colors.ink-muted-80}` in `{typography.caption}` (14px), 3px solid `{colors.divider-soft}` border (functions as a soft ring rather than a visible line), rounded `{rounded.md}` (11px), padding 8px × 14px.
 
-**`button-store-hero`** — A larger primary CTA used on store hero surfaces. Same Action Blue + Paper White as `{component.button-primary}`, but with `{typography.button-large}` (18px / 300 — note the rare weight 300) and slightly more padding (14px × 28px). Used sparingly on the store landing.
+**`button-store-hero`** — A larger primary CTA used on hero surfaces. Same Giang Blue + Paper White as `{component.button-primary}`, but with `{typography.button-large}` (18px / 300 — note the rare weight 300) and slightly more padding (14px × 28px). Used sparingly.
+
+**`button-on-brand`** — The pill inverted for `{component.product-tile-brand}`. Background `{colors.on-brand}`, text `{colors.primary}`, same pill radius and padding as `{component.button-primary}` — the sign's white letters on its blue field. Its ghost sibling `button-secondary-on-brand` keeps white text over a 56%-white border. Blue-on-blue is the one pairing the system forbids, so `{component.button-primary}` must never appear on the brand tile.
 
 **`button-icon-circular`** — Floats over photography. 44 × 44px, background `{colors.surface-chip-translucent}` at ~64% alpha, icon in `{colors.ink}`, rounded `{rounded.full}`. Used for carousel controls, close buttons, and in-image controls (product image thumbnails on the iPhone buy page).
 
-**`text-link`** — Inline body links in `{colors.primary}` (Action Blue). Underlined or non-underlined per context.
+**`text-link`** — Inline body links in `{colors.primary}` (Giang Blue). Underlined or non-underlined per context.
 
-**`text-link-on-dark`** — Inline body links on dark tiles in `{colors.primary-on-dark}` (Sky Link Blue #2997ff) — Action Blue would disappear against `{colors.surface-tile-1}`.
+**`eyebrow`** — The caps-height label above a headline, and the process step numbers that share its grammar: `{typography.caption-strong}` (14px / 600) in `{colors.brand-gold}`, or `{colors.brand-gold-on-dark}` on a dark tile. On `{component.product-tile-brand}` it steps back to `{colors.on-brand-muted}` — the field is already the brand, and gold does not clear AA against it.
+
+**`text-link-on-dark`** — Inline body links on dark tiles in `{colors.primary-on-dark}` (Sky Link Blue #5c8bff) — Giang Blue would disappear against `{colors.surface-tile-1}`.
 
 ### Cards & Containers
 
 **`product-tile-light`** — Full-bleed light tile. Background `{colors.canvas}` (white), text `{colors.ink}`, rounded `{rounded.none}` (0 — tiles touch edges), vertical padding `{spacing.section}` (80px). Centered stack: product name in `{typography.display-lg}` (40px / 600) → one-line tagline in `{typography.lead}` (28px / 400) → two `{component.button-primary}` CTAs ("Learn more" / "Buy") → product render resting on the surface with the system shadow.
 
-**`product-tile-parchment`** — Same as `{component.product-tile-light}` but on `{colors.canvas-parchment}` (#f5f5f7). Used to break two consecutive white tiles.
+**`product-tile-parchment`** — Same as `{component.product-tile-light}` but on `{colors.canvas-parchment}` (#f6f4f0). Used to break two consecutive white tiles.
 
-**`product-tile-dark`** — Full-bleed dark tile. Background `{colors.surface-tile-1}` (#272729), text `{colors.on-dark}`, rounded `{rounded.none}`, vertical padding `{spacing.section}` (80px). Same content stack as the light tile but with `{component.text-link-on-dark}` for inline copy and `{component.button-primary}` (Action Blue still works on the dark surface). Used on the homepage product grid as the alternating dark band.
+**`product-tile-dark`** — Full-bleed dark tile. Background `{colors.surface-tile-1}` (#262220), text `{colors.on-dark}`, rounded `{rounded.none}`, vertical padding `{spacing.section}` (80px). Same content stack as the light tile but with `{component.text-link-on-dark}` for inline copy and `{component.button-primary}` (Giang Blue still works on the dark surface). Used on the homepage product grid as the alternating dark band.
 
-**`product-tile-dark-2`** — Variant on `{colors.surface-tile-2}` (#2a2a2c). Used where a dark tile sits directly above or below `{component.product-tile-dark}` to create the faintest separation through micro-step lightness change.
+**`product-tile-dark-2`** — Variant on `{colors.surface-tile-2}` (#292523). Used where a dark tile sits directly above or below `{component.product-tile-dark}` to create the faintest separation through micro-step lightness change.
 
-**`product-tile-dark-3`** — Variant on `{colors.surface-tile-3}` (#252527). Used at the bottom of the stack and in embedded video/player frames.
+**`product-tile-dark-3`** — Variant on `{colors.surface-tile-3}` (#24201e). Used at the bottom of the stack and in embedded frames.
+
+**`product-tile-brand`** — Full-bleed tile in `{colors.primary}`, text `{colors.on-brand}`, leads and eyebrows in `{colors.on-brand-muted}`, CTAs in `{component.button-on-brand}`. **One per page, at the closing CTA band, and nowhere else** — a second field of it turns the accent into wallpaper and the CTA stops reading as the page's one action. The keyboard focus ring inverts to `{colors.on-brand}` here.
 
 **`store-utility-card`** — Used in store grid and accessories grid. Background `{colors.canvas}` (white), 1px solid `{colors.hairline}` border, rounded `{rounded.lg}` (18px), padding `{spacing.lg}` (24px). Top: product image (1:1 crop with `{rounded.sm}` (8px) inner image radius). Below: product name in `{typography.body-strong}` (17px / 600), price in `{typography.body}` (17px / 400), and a `{component.text-link}` ("Buy" or "Learn more"). No shadow by default; product render itself carries the system product-shadow.
 
@@ -483,12 +503,13 @@ Error and validation states were not surfaced in the analyzed pages.
 
 ### Footer
 
-**`footer`** — Background `{colors.canvas-parchment}` (#f5f5f7), text `{colors.ink-muted-80}`. Link columns in `{typography.dense-link}` (17px / 400 / 2.41 line-height — the relaxed leading is what makes the dense columns scannable). Column headings in `{typography.caption-strong}` (14px / 600). Legal row at the very bottom in `{typography.fine-print}` (12px / 400) with `{colors.ink-muted-48}` text. Vertical padding 64px.
+**`footer`** — Background `{colors.canvas-parchment}` (#f6f4f0), text `{colors.ink-muted-80}`. Link columns in `{typography.dense-link}` (17px / 400 / 2.41 line-height — the relaxed leading is what makes the dense columns scannable). Column headings in `{typography.caption-strong}` (14px / 600). Legal row at the very bottom in `{typography.fine-print}` (12px / 400) with `{colors.ink-muted-48}` text. Vertical padding 64px.
 
 ## Do's and Don'ts
 
 ### Do
-- Use `{colors.primary}` (Action Blue #0066cc) for every interactive element — links, pill CTAs, focus signals — and nothing else. The single accent is non-negotiable.
+- Use `{colors.primary}` (Giang Blue #1a4ad8) for every interactive element — links, pill CTAs, focus signals — and nothing else. The single accent is non-negotiable.
+- Use `{colors.brand-gold}` only for labels that name a section — eyebrows and step numbers. Gold marks the label, blue marks the action.
 - Set headlines in `{typography.hero-display}` or `{typography.display-lg}` with negative letter-spacing (`-0.28 → -0.374px`) to get the signature "Apple tight" cadence.
 - Run body copy at `{typography.body}` (17px / 400 / 1.47 / -0.374px) — not 16px. The extra pixel defines the brand's reading pace.
 - Alternate `{component.product-tile-light}` (or parchment) and `{component.product-tile-dark}` for full-bleed section rhythm. The color change IS the divider.
@@ -498,14 +519,16 @@ Error and validation states were not surfaced in the analyzed pages.
 - Keep the global nav `{colors.surface-black}` (true black) — it's the only place pure black appears on most pages.
 
 ### Don't
-- Don't introduce a second accent color; every "click me" signal is `{colors.primary}` (Action Blue).
+- Don't introduce a second accent color; every "click me" signal is `{colors.primary}` (Giang Blue). Gold is a label, not an accent — the moment it underlines a link or fills a button, the system has two accents.
+- Don't pull the monogram's teal, yellow or red into the interface. They belong to the mark; a surface that seems to need them needs a photograph.
+- Don't use `{component.product-tile-brand}` more than once on a page, and don't put `{component.button-primary}` on it — blue on blue is the one pairing the system forbids.
 - Don't add shadows to cards, buttons, or text — shadow is reserved for product imagery.
 - Don't use gradients as decorative backgrounds; atmosphere comes from photography.
 - Don't set body copy at weight 500 — Apple's ladder is 300 / 400 / 600 / 700, with 500 deliberately absent. Body is always 400; strong inline is 600; display is 600.
 - Don't round full-bleed tiles — tiles are rectangular and edge-to-edge; the color change is the divider.
 - Don't tighten line-height below 1.47 for body copy — the editorial leading is part of the brand.
 - Don't mix radii grammars — use `{rounded.sm}` for compact utility, `{rounded.lg}` for utility cards, `{rounded.pill}` for pills, and nothing in between (except the rare `{rounded.md}` Pearl Button).
-- Don't use `{colors.primary-on-dark}` (Sky Link Blue) on light surfaces — it's the dark-tile-only variant. Action Blue is for light surfaces.
+- Don't use `{colors.primary-on-dark}` (Sky Link Blue) on light surfaces — it's the dark-tile-only variant. Giang Blue is for light surfaces.
 
 ## Responsive Behavior
 

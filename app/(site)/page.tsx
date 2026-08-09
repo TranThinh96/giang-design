@@ -58,7 +58,7 @@ export default async function HomePage() {
       <section className="tile tile-dark">
         <div className="shell-wide">
           <SectionHeading
-            onDark
+            tone="dark"
             eyebrow="Dịch vụ"
             title="Danh mục in ấn"
             lead="Tám hạng mục, mỗi hạng mục có bảng chất liệu và số lượng tối thiểu riêng."
@@ -93,9 +93,9 @@ export default async function HomePage() {
           <ol className="m-0 mt-14 grid list-none grid-cols-1 gap-10 p-0 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map((s) => (
               <li key={s.no}>
-                {/* Not Action Blue: the accent marks things you can press,
+                {/* Gold, not blue: the accent marks things you can press,
                     and a step number is not one of them. */}
-                <div className="t-caption-strong text-muted">{s.no}</div>
+                <div className="t-caption-strong eyebrow">{s.no}</div>
                 <h3 className="t-tagline mb-2 mt-3">{s.title}</h3>
                 <p className="t-caption text-muted m-0">{s.body}</p>
               </li>
@@ -108,7 +108,7 @@ export default async function HomePage() {
       <section className="tile tile-parchment">
         <div className="shell-wide grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
           <div>
-            <div className="t-caption-strong text-muted mb-3">Năng lực</div>
+            <div className="t-caption-strong eyebrow mb-3">Năng lực</div>
             <h2 className="t-display-md m-0 mb-6">Thiết bị tại xưởng</h2>
             <div className="table-scroll">
               <table className="table">
@@ -133,7 +133,7 @@ export default async function HomePage() {
           </div>
 
           <div>
-            <div className="t-caption-strong text-muted mb-3">Khách hàng</div>
+            <div className="t-caption-strong eyebrow mb-3">Khách hàng</div>
             <h2 className="t-display-md m-0 mb-6">Đã đồng hành</h2>
             <ul className="m-0 grid list-none grid-cols-2 gap-x-6 gap-y-4 p-0 sm:grid-cols-3">
               {CLIENTS.map((c) => (
