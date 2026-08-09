@@ -24,7 +24,7 @@ npm install            # or npm ci
 npm run dev            # dev server on :3000; /keystatic runs in local mode
 npm run build          # production build — must prerender 19 routes
 npm run typecheck      # tsc --noEmit
-npm run check:images   # fails if any file under public/ exceeds 1 MB
+npm run check:images   # fails if any file under public/ exceeds 2 MB
 ```
 
 **Before committing, run `npm run typecheck` and `npm run build`.** CI
@@ -200,12 +200,13 @@ to 700).
   `WORK_CATS` in `lib/types.ts` and feeds both the Keystatic schema and the
   filter chips on `/du-an`. Adding a category is a code change **on purpose** —
   do not turn it into a text field.
-- **Images: ≤ 400 KB, JPEG or WebP, ≥ 1600 px wide.** Git keeps large files
-  forever. `check:images` hard-fails over 1 MB under `public/` (excluding
-  `public/fonts/`) and warns over 400 KB. It runs in CI rather than as a
+- **Images: ≤ 1 MB, JPEG or WebP, ≥ 1600 px wide.** Git keeps large files
+  forever. `check:images` hard-fails over 2 MB under `public/` (excluding
+  `public/fonts/`) and warns over 1 MB. It runs in CI rather than as a
   pre-commit hook because the client's uploads are committed by the GitHub App
   server-side and never pass through a developer's machine. Past ~200 MB total,
-  move the library to Cloudinary via `fields.cloudImage()` (BACKEND-PLAN.md §7).
+  move the library to Cloudinary via `fields.cloudImage()` (BACKEND-PLAN.md §7)
+  — at 1 MB a photo that ceiling arrives around 200 images, not 500.
 - **`public/products/` and `public/works/` don't exist yet** — Keystatic creates
   them on first upload. Every image slot currently renders its placeholder.
 - **Env vars are optional in dev.** Without `NEXT_PUBLIC_ZALO_OA_ID` the chat

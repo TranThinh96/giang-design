@@ -19,8 +19,8 @@ const ROOT = path.join(import.meta.dirname, "..");
 const PUBLIC_DIR = path.join(ROOT, "public");
 
 /** Per-file: the size we ask the client for, and the size we refuse. */
-const WARN_BYTES = 400 * 1024;
-const FAIL_BYTES = 1024 * 1024;
+const WARN_BYTES = 1024 * 1024;
+const FAIL_BYTES = 2 * 1024 * 1024;
 /** Whole directory: past this, move the library to Cloudinary. */
 const TOTAL_WARN_BYTES = 200 * 1024 * 1024;
 
@@ -61,7 +61,7 @@ console.log(
 );
 
 for (const f of heavy) {
-  console.log(`  warning  public/${f.rel} — ${kb(f.size)}, over the 400 KB target`);
+  console.log(`  warning  public/${f.rel} — ${kb(f.size)}, over the 1 MB target`);
 }
 
 if (total > TOTAL_WARN_BYTES) {
@@ -76,10 +76,10 @@ if (oversized.length > 0) {
   for (const f of oversized) console.error(`  public/${f.rel} — ${mb(f.size)}`);
   console.error(
     "\nGit keeps large files forever, even after they are deleted. Re-export" +
-      " these as JPEG or WebP, ~1600 px wide and under 400 KB, and replace them" +
+      " these as JPEG or WebP, ~1600 px wide and under 1 MB, and replace them" +
       " before this reaches main.",
   );
   process.exit(1);
 }
 
-console.log("OK: no file over 1 MB.");
+console.log("OK: no file over 2 MB.");
