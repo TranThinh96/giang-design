@@ -264,13 +264,15 @@ does the rest, and `ImageSlot` already fixes the aspect ratios so nothing shifts
 
 Guardrails to set on day one, because git repos are bad at binaries:
 
-- Tell the client: **≤ 400 KB per photo, JPEG or WebP, ≥ 1600 px wide.** Put it
+- Tell the client: **≤ 1 MB per photo, JPEG or WebP, ≥ 1600 px wide.** Put it
   in the handover doc. A phone photo straight off the camera is 4–8 MB and will
   bloat the repo permanently — git never forgets a large file.
-- Budget: ~150 photos × 400 KB ≈ 60 MB. Comfortable. Past ~200 MB, move images
-  to Cloudinary (`fields.cloudImage()`, free tier) — that swap is a schema
-  field change, not a re-architecture.
-- Consider a pre-commit hook or a CI check that rejects files over ~1 MB under
+- Budget: ~150 photos × 1 MB ≈ 150 MB. Past ~200 MB, move images to Cloudinary
+  (`fields.cloudImage()`, free tier) — that swap is a schema field change, not a
+  re-architecture. The 1 MB target buys the client room to re-export less
+  aggressively; it also means the Cloudinary trigger arrives at ~200 photos
+  rather than ~500, so treat §2's second trigger as nearer than it reads.
+- Consider a pre-commit hook or a CI check that rejects files over ~2 MB under
   `public/`.
 
 ---

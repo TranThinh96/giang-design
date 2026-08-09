@@ -112,14 +112,14 @@ nặng sẽ làm website chậm dần và không sửa lại được dễ dàng
 |---|---|
 | Định dạng | JPEG (`.jpg`) hoặc WebP (`.webp`) |
 | Chiều rộng | từ 1600 px trở lên |
-| Dung lượng | **dưới 400 KB** |
+| Dung lượng | **dưới 1 MB** |
 
 **Cách giảm dung lượng ảnh (miễn phí, không cần cài đặt):**
 
 1. Mở https://squoosh.app trên trình duyệt
 2. Kéo tấm ảnh vào
-3. Bên phải chọn **MozJPEG**, kéo thanh **Quality** xuống khoảng **75**
-4. Xem dung lượng hiển thị ở góc dưới — kéo tiếp cho tới khi dưới 400 KB
+3. Bên phải chọn **MozJPEG**, kéo thanh **Quality** xuống khoảng **80**
+4. Xem dung lượng hiển thị ở góc dưới — kéo tiếp cho tới khi dưới 1 MB
 5. Bấm nút tải xuống, rồi tải tấm ảnh vừa tải về lên website
 
 ---

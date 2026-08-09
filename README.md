@@ -30,7 +30,7 @@ tree directly, with no login and no GitHub App.
 | `npm run build` | Production build (all 19 routes prerender) |
 | `npm start` | Serve the production build |
 | `npm run typecheck` | `tsc --noEmit` |
-| `npm run check:images` | Fails if anything under `public/` exceeds 1 MB |
+| `npm run check:images` | Fails if anything under `public/` exceeds 2 MB |
 
 ## Layout
 
@@ -133,8 +133,8 @@ ones through `/keystatic`, which writes into `public/products/` or
 `public/works/` and commits them. Aspect ratios are fixed in `ImageSlot`, so
 adding photos will not shift the layout.
 
-**Budget: ≤ 400 KB per photo, JPEG or WebP, ≥ 1600 px wide.** Git keeps large
-files forever, so `npm run check:images` fails on anything over 1 MB under
+**Budget: ≤ 1 MB per photo, JPEG or WebP, ≥ 1600 px wide.** Git keeps large
+files forever, so `npm run check:images` fails on anything over 2 MB under
 `public/` and CI runs it before the build. It runs in CI rather than as a
 pre-commit hook because the client's uploads are committed by the GitHub App
 server-side and never pass through a developer's machine.
