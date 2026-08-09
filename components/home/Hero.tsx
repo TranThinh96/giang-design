@@ -14,7 +14,7 @@ export async function Hero() {
   return (
     <section className="tile tile-light">
       <div className="shell text-center">
-        <div className="t-caption-strong text-muted mb-4">
+        <div className="t-caption-strong eyebrow mb-4">
           Xưởng in offset &amp; kỹ thuật số — TP. Hồ Chí Minh
         </div>
         <h1 className="t-hero m-0 mx-auto max-w-[18ch]">

@@ -10,35 +10,54 @@
    or shadows on chrome. Exactly one drop-shadow exists (--shadow-product),
    and it belongs to product imagery resting on a surface.
 
+   Every colour below is pulled from the workshop's own sign: the royal blue
+   field, the gold monogram, the warm near-black its letters cast, and the
+   cream of the wordmark. The accent is therefore not a generic UI blue — it
+   is the brand's blue, which is why the CTA band can become a full field of
+   it and still read as the logo rather than as decoration.
+
    Registered under @theme so every token exists both as a custom property
    (var(--color-primary)) and as a Tailwind utility (bg-primary, text-ink).
    ══════════════════════════════════════════════════════════════════════ */
 @theme {
-  /* — the single interactive colour, in its three surface variants — */
-  --color-primary: #0066cc;
-  --color-primary-focus: #0071e3;
-  --color-primary-on-dark: #2997ff;
+  /* — the single interactive colour: the logo's blue field, in its three
+       surface variants. 6.96:1 on white, so it carries body-size links. — */
+  --color-primary: #1a4ad8;
+  --color-primary-focus: #2f5fe8;
+  --color-primary-on-dark: #5c8bff;
 
-  /* — ink — */
-  --color-ink: #1d1d1f;
-  --color-ink-muted-80: #333333;
-  --color-ink-muted-48: #7a7a7a;
+  /* — the logo's gold: the one non-interactive brand ornament. It labels
+       (eyebrows, step numbers); it never marks something you can press.
+       Two values because the raw gold only clears AA on a dark tile — on
+       light surfaces the ornament is the same gold in shadow. — */
+  --color-brand-gold: #8a5c14;
+  --color-brand-gold-on-dark: #e0a44f;
+
+  /* — ink, warmed toward the near-black the sign's letters cast — */
+  --color-ink: #1d1b18;
+  --color-ink-muted-80: #34302b;
+  --color-ink-muted-48: #7b746b;
   --color-on-dark: #ffffff;
-  --color-body-muted: #cccccc;
+  --color-body-muted: #cdc8c1;
 
-  /* — surfaces — */
+  /* — copy on the brand-blue field — */
+  --color-on-brand: #ffffff;
+  --color-on-brand-muted: #c9d4f5;
+
+  /* — surfaces: the same neutral ladder as before, pulled warm so it sits
+       under the gold instead of fighting it — */
   --color-canvas: #ffffff;
-  --color-parchment: #f5f5f7;
-  --color-pearl: #fafafc;
-  --color-tile-1: #272729;
-  --color-tile-2: #2a2a2c;
-  --color-tile-3: #252527;
+  --color-parchment: #f6f4f0;
+  --color-pearl: #fbfaf7;
+  --color-tile-1: #262220;
+  --color-tile-2: #292523;
+  --color-tile-3: #24201e;
   --color-void: #000000;
-  --color-chip: #d2d2d7;
+  --color-chip: #d7d2ca;
 
   /* — hairlines — */
-  --color-divider-soft: #f0f0f0;
-  --color-hairline: #e0e0e0;
+  --color-divider-soft: #f1eeea;
+  --color-hairline: #e2ded7;
 
   /* SF Pro is Apple's proprietary face, so the stack leads with the system
      font: on macOS/iOS that resolves to the real SF Pro. Everywhere else it
@@ -258,6 +277,18 @@
     background: var(--color-tile-3);
     color: var(--color-on-dark);
   }
+  /* The sign's own blue, at full-tile scale. Reserved for the closing CTA
+     band: one field of brand colour per page, at the moment of conversion.
+     Using it anywhere else would turn the accent into wallpaper. */
+  .tile-brand {
+    background: var(--color-primary);
+    color: var(--color-on-brand);
+  }
+  /* Focus Blue is a sibling of the field it would sit on, so the ring would
+     vanish here. Paper is the only tone with room against the brand blue. */
+  .tile-brand :focus-visible {
+    outline-color: var(--color-on-brand);
+  }
 
   /* ── type scale ─────────────────────────────────────────────────────── */
   .t-hero {
@@ -364,6 +395,26 @@
     color: var(--color-body-muted);
   }
 
+  .text-muted-on-brand {
+    color: var(--color-on-brand-muted);
+  }
+
+  /* ── eyebrows ───────────────────────────────────────────────────────────
+     The small caps-height label above a headline, and the step numbers that
+     share its grammar. Gold marks the label, blue marks the action — that
+     split is what lets a second brand colour exist without diluting the
+     accent. On the blue field there is no third colour: the field is the
+     brand, so the eyebrow steps back to tinted white. */
+  .eyebrow {
+    color: var(--color-brand-gold);
+  }
+  .eyebrow-on-dark {
+    color: var(--color-brand-gold-on-dark);
+  }
+  .eyebrow-on-brand {
+    color: var(--color-on-brand-muted);
+  }
+
   /* ── links ──────────────────────────────────────────────────────────── */
   .link {
     color: var(--color-primary);
@@ -440,6 +491,17 @@
   .btn-secondary-on-dark {
     color: var(--color-primary-on-dark);
     border-color: var(--color-primary-on-dark);
+  }
+  /* On the brand tile the accent is the background, so the pill inverts:
+     paper fill, brand label — the sign's white letters on its blue field. */
+  .btn-on-brand {
+    background: var(--color-on-brand);
+    color: var(--color-primary);
+    border-color: var(--color-on-brand);
+  }
+  .btn-secondary-on-brand {
+    color: var(--color-on-brand);
+    border-color: color-mix(in srgb, #ffffff 56%, transparent);
   }
   /* Global-nav actions: compact rect, not a pill. */
   .btn-utility {

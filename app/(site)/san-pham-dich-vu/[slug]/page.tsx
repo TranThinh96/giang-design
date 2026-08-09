@@ -59,7 +59,7 @@ export default async function ProductDetailPage({
             / <span className="text-ink">{item.name}</span>
           </nav>
 
-          <div className="t-caption-strong text-muted mb-3">{item.code}</div>
+          <div className="t-caption-strong eyebrow mb-3">{item.code}</div>
           <h1 className="t-hero m-0 mx-auto max-w-[16ch]">{item.name}</h1>
           <p className="t-lead text-muted mx-auto mt-5 max-w-[42ch]">{item.long}</p>
 
