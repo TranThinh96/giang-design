@@ -1,6 +1,3 @@
 {
-  "homeHero": null,
-  "aboutHero": null,
-  "aboutMachine": null,
-  "aboutFinishing": null
+  "homeHero": "/pages/homeHero.JPG"
 }
