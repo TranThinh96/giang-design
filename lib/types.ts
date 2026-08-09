@@ -10,6 +10,10 @@
 
 export type Spec = { k: string; v: string };
 
+/** A detail crop under the product's main photo. `label` doubles as the
+ *  placeholder text while the slot is empty and as the alt text once filled. */
+export type GalleryImage = { label: string; image?: string };
+
 export type Product = {
   code: string;
   slug: string;
@@ -22,6 +26,7 @@ export type Product = {
   specs: Spec[];
   materials: string[];
   image?: string;
+  gallery: GalleryImage[];
 };
 
 export type Work = {
@@ -48,6 +53,18 @@ export type SiteSettings = {
   hours: string;
   license: string;
   url: string;
+};
+
+/**
+ * The image slots that belong to a page rather than to a product or a project,
+ * so they have no collection entry to hang off. Every one is optional —
+ * `ImageSlot` falls back to its parchment placeholder.
+ */
+export type PageImages = {
+  homeHero?: string;
+  aboutHero?: string;
+  aboutMachine?: string;
+  aboutFinishing?: string;
 };
 
 export type Stat = { value: string; label: string };

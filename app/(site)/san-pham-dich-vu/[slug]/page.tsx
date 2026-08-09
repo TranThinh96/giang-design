@@ -6,6 +6,14 @@ import { getProduct, getProducts, getSettings } from "@/lib/content";
 
 type Params = { slug: string };
 
+/** Shown when a product has no detail crops in the CMS yet, so the row of three
+ *  wells stays part of the layout instead of collapsing. */
+const DEFAULT_GALLERY = [
+  { label: "Chi tiết", image: undefined },
+  { label: "Chất liệu", image: undefined },
+  { label: "Thành phẩm", image: undefined },
+];
+
 export async function generateStaticParams(): Promise<Params[]> {
   return (await getProducts()).map((p) => ({ slug: p.slug }));
 }
@@ -34,6 +42,8 @@ export default async function ProductDetailPage({
   const { slug } = await params;
   const [item, SITE] = await Promise.all([getProduct(slug), getSettings()]);
   if (!item) notFound();
+
+  const gallery = item.gallery.length ? item.gallery : DEFAULT_GALLERY;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -91,10 +101,12 @@ export default async function ProductDetailPage({
         {/* Detail crops sit at text width, not full bleed: they support the
             hero render rather than competing with it. */}
         <div className="shell mt-6 grid grid-cols-3 gap-6">
-          {["Chi tiết", "Chất liệu", "Thành phẩm"].map((label) => (
+          {gallery.map((g, i) => (
             <ImageSlot
-              key={label}
-              placeholder={label}
+              key={`${g.label}-${i}`}
+              src={g.image}
+              alt={`${item.name} — ${g.label}`}
+              placeholder={g.label}
               ratio="1 / 1"
               radius="sm"
               sizes="(max-width: 980px) 30vw, 300px"

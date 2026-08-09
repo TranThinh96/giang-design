@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { getStats } from "@/lib/content";
+import { getPageImages, getStats } from "@/lib/content";
 
 /**
  * The opening tile: a centred stack of headline, one-line lead, two pill
@@ -9,7 +9,7 @@ import { getStats } from "@/lib/content";
  * quiet three-column row — no rules, no boxes, just air.
  */
 export async function Hero() {
-  const STATS = await getStats();
+  const [STATS, IMAGES] = await Promise.all([getStats(), getPageImages()]);
 
   return (
     <section className="tile tile-light">
@@ -38,6 +38,8 @@ export async function Hero() {
           surface, not for a photograph that already fills the tile. */}
       <div className="mt-14">
         <ImageSlot
+          src={IMAGES.homeHero}
+          alt="Xưởng in Giang Design — dây chuyền offset và sản phẩm bao bì giấy"
           placeholder="Ảnh xưởng in / sản phẩm bao bì"
           ratio="21 / 9"
           radius="none"
