@@ -29,7 +29,7 @@ export default config({
     brand: { name: "Giang Design" },
     navigation: {
       "Nội dung": ["products", "works"],
-      "Cài đặt chung": ["settings"],
+      "Cài đặt chung": ["settings", "pageImages"],
       "Khối nội dung trang chủ": [
         "stats",
         "steps",
@@ -122,6 +122,29 @@ export default config({
           directory: "public/products",
           publicPath: "/products/",
         }),
+        gallery: fields.array(
+          fields.object({
+            label: fields.text({
+              label: "Nhãn ô ảnh",
+              description:
+                'Chữ hiện trong khung kẻ khi chưa có ảnh, và là mô tả ảnh cho Google. Ví dụ: "Chi tiết", "Chất liệu".',
+            }),
+            image: fields.image({
+              label: "Ảnh",
+              description:
+                "Ảnh vuông. JPEG hoặc WebP, rộng từ 1600px, dung lượng dưới 400KB.",
+              directory: "public/products",
+              publicPath: "/products/",
+            }),
+          }),
+          {
+            label: "Ảnh chi tiết",
+            description:
+              "Ba ô ảnh nhỏ dưới ảnh chính ở trang chi tiết. Để trống cả danh sách thì " +
+              'hiện ba khung mặc định "Chi tiết / Chất liệu / Thành phẩm".',
+            itemLabel: (props) => props.fields.label.value || "Ảnh chi tiết",
+          },
+        ),
       },
     }),
 
@@ -258,6 +281,49 @@ export default config({
             "Địa chỉ chính thức, ví dụ https://giangdesign.vn — không có dấu / ở cuối. " +
             "Dùng cho sitemap và thẻ chia sẻ mạng xã hội. Chỉ sửa khi đổi tên miền.",
           validation: { isRequired: true },
+        }),
+      },
+    }),
+
+    /**
+     * Image slots that belong to a page, not to a product or a project. They
+     * live in one singleton so the editor has a single place to look for
+     * "the big photo at the top of a page".
+     */
+    pageImages: singleton({
+      label: "Ảnh cố định trên trang",
+      path: "content/blocks/page-images",
+      format: { data: "json" },
+      schema: {
+        homeHero: fields.image({
+          label: "Ảnh lớn — Trang chủ",
+          description:
+            "Ảnh chạy hết chiều ngang dưới phần mở đầu trang chủ. Ảnh ngang, tỉ lệ 21:9 " +
+            "(rất ngang, ví dụ 2100 × 900px). JPEG hoặc WebP, dung lượng dưới 400KB.",
+          directory: "public/pages",
+          publicPath: "/pages/",
+        }),
+        aboutHero: fields.image({
+          label: "Ảnh lớn — Giới thiệu (nhà xưởng)",
+          description:
+            "Ảnh chạy hết chiều ngang ở trang Giới thiệu. Ảnh ngang, tỉ lệ 21:9. " +
+            "JPEG hoặc WebP, dung lượng dưới 400KB.",
+          directory: "public/pages",
+          publicPath: "/pages/",
+        }),
+        aboutMachine: fields.image({
+          label: "Ảnh máy offset (Giới thiệu)",
+          description:
+            "Ô ảnh bên trái ở cuối trang Giới thiệu. Tỉ lệ 4:3, rộng từ 1600px, dưới 400KB.",
+          directory: "public/pages",
+          publicPath: "/pages/",
+        }),
+        aboutFinishing: fields.image({
+          label: "Ảnh tổ hoàn thiện (Giới thiệu)",
+          description:
+            "Ô ảnh bên phải ở cuối trang Giới thiệu. Tỉ lệ 4:3, rộng từ 1600px, dưới 400KB.",
+          directory: "public/pages",
+          publicPath: "/pages/",
         }),
       },
     }),

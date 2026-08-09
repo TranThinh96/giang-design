@@ -4,6 +4,7 @@ import config from "@/keystatic.config";
 import type {
   Contact,
   Machine,
+  PageImages,
   Product,
   QuoteNote,
   SiteSettings,
@@ -14,7 +15,9 @@ import type {
 
 export type {
   Contact,
+  GalleryImage,
   Machine,
+  PageImages,
   Product,
   QuoteNote,
   SiteSettings,
@@ -61,6 +64,10 @@ export async function getProducts(): Promise<Product[]> {
       specs: e.entry.specs.map((s) => ({ k: s.k, v: s.v })),
       materials: [...e.entry.materials],
       image: e.entry.image ?? undefined,
+      gallery: e.entry.gallery.map((g) => ({
+        label: g.label,
+        image: g.image ?? undefined,
+      })),
     }));
 }
 
@@ -150,6 +157,16 @@ export async function getContacts(): Promise<Contact[]> {
 }
 
 /* ------------------------------------------------------------------ blocks */
+
+export async function getPageImages(): Promise<PageImages> {
+  const b = (await reader.singletons.pageImages.read()) ?? missing("pageImages");
+  return {
+    homeHero: b.homeHero ?? undefined,
+    aboutHero: b.aboutHero ?? undefined,
+    aboutMachine: b.aboutMachine ?? undefined,
+    aboutFinishing: b.aboutFinishing ?? undefined,
+  };
+}
 
 export async function getStats(): Promise<Stat[]> {
   const b = (await reader.singletons.stats.read()) ?? missing("stats");

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { PageHeading, SectionHeading } from "@/components/ui/SectionHeading";
+import { getPageImages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Giới thiệu — Một xưởng in vận hành như một nhà máy",
@@ -26,7 +27,9 @@ const COMMITMENTS = [
   "Kiểm 100% thành phẩm trước đóng gói; bù hao trong hợp đồng.",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const IMAGES = await getPageImages();
+
   return (
     <main>
       {/* — the opening statement, and the workshop itself — */}
@@ -47,6 +50,8 @@ export default function AboutPage() {
 
         <div className="mt-14">
           <ImageSlot
+            src={IMAGES.aboutHero}
+            alt="Toàn cảnh nhà xưởng in Giang Design tại TP.HCM"
             placeholder="Nhà xưởng"
             ratio="21 / 9"
             radius="none"
@@ -96,11 +101,15 @@ export default function AboutPage() {
 
         <div className="shell-wide mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <ImageSlot
+            src={IMAGES.aboutMachine}
+            alt="Máy in offset 4 màu đang chạy sản lượng tại xưởng"
             placeholder="Máy offset"
             ratio="4 / 3"
             sizes="(max-width: 640px) 100vw, 50vw"
           />
           <ImageSlot
+            src={IMAGES.aboutFinishing}
+            alt="Tổ hoàn thiện bế – cấn – dán hộp tại xưởng"
             placeholder="Tổ hoàn thiện"
             ratio="4 / 3"
             sizes="(max-width: 640px) 100vw, 50vw"
