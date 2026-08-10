@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { source: "/keystatic", headers: NOINDEX },
       { source: "/keystatic/:path*", headers: NOINDEX },
       { source: "/api/keystatic/:path*", headers: NOINDEX },
+      { source: "/dang-nhap", headers: NOINDEX },
     ];
   },
 };

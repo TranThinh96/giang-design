@@ -22,7 +22,7 @@ v4 · Keystatic (GitHub storage in prod, local in dev) · deployed on Vercel.
 ```bash
 npm install            # or npm ci
 npm run dev            # dev server on :3000; /keystatic runs in local mode
-npm run build          # production build — must prerender 19 routes
+npm run build          # production build — must prerender 20 routes
 npm run typecheck      # tsc --noEmit
 npm run check:images   # fails if any file under public/ exceeds 2 MB
 ```
@@ -92,7 +92,8 @@ app/
     bao-gia/              quote landing (Zalo CTAs + copyable message template)
     lien-he/              contact + embedded map
   keystatic/              admin SPA (dynamic, noindex)
-  api/keystatic/          GitHub OAuth + commit API (dynamic)
+  api/keystatic/          the admin's auth endpoints (dynamic, noindex)
+  dang-nhap/              username/password gate for the admin (static, noindex)
   not-found.tsx           outside (site) — it must answer unmatched URLs
   globals.css             design tokens (@theme) + component classes
   fonts.css               @font-face for the self-hosted Roboto subsets
@@ -106,6 +107,38 @@ wraps itself in `SiteChrome` for the same reason.
 `SiteChrome` reads settings once on the server and passes them down as props —
 `Header` is a Client Component (it owns the mobile tray state) and cannot await
 the reader.
+
+### Admin auth
+
+The editor has no GitHub account. `/keystatic` is gated by one username and
+password from env vars, and every commit lands under the repo owner's
+`KEYSTATIC_GITHUB_TOKEN`.
+
+`lib/admin-auth.ts` is the whole mechanism, and the shape it works within is
+worth knowing before touching it: **Keystatic's `github` mode has no server.**
+The admin SPA calls GitHub's GraphQL API straight from the browser using
+whatever token sits in the `keystatic-gh-access-token` cookie. Upstream fills
+that cookie via GitHub App OAuth; `app/api/keystatic/[...params]/route.ts` fills
+it from the PAT instead, keeping the same four paths the SPA already redirects
+to (`github/login`, `github/logout`, `github/refresh-token`,
+`github/repo-not-found`). Nothing in the client is patched.
+
+Consequences to keep in mind:
+
+- **The token reaches the browser.** It has to — the browser is the thing that
+  calls GitHub. That is why the README specifies a fine-grained PAT scoped to
+  this repo with Contents write and nothing else, and why the password is worth
+  exactly as much as the token.
+- **Two cookies, one source of truth.** `gd-admin-session` is httpOnly, signed
+  with `KEYSTATIC_SECRET` **keyed on the password**, and lasts 12 hours; the
+  token cookie lasts one hour and is re-minted from a live session. Changing the
+  password logs every open session out — that is the revocation story, since
+  there is no user table.
+- **Local mode is untouched.** In development `config.storage.kind` is `local`,
+  the route delegates to Keystatic's own handler, and there is no login.
+- `/dang-nhap` must stay prerendered. It reads no search params on purpose — the
+  view to return to after login travels in the short-lived `gd-admin-return`
+  cookie, because `useSearchParams` would push the login form out of the HTML.
 
 ### Everything stays static
 
@@ -121,8 +154,10 @@ precisely to avoid it:
 
 One more deliberate shape: `app/api/keystatic/[...params]/route.ts` builds its
 handler lazily on first request. At module scope, `makeRouteHandler` throws in
-`github` mode without the four env vars — during "Collecting page data", which
-would fail the **entire site build** over an admin-only misconfiguration.
+`github` mode without its env vars — during "Collecting page data", which would
+fail the **entire site build** over an admin-only misconfiguration. The same
+rule is why `lib/admin-auth.ts` returns `null` on missing env instead of
+throwing.
 
 ## The design system
 
@@ -203,17 +238,17 @@ to 700).
 - **Images: ≤ 1 MB, JPEG or WebP, ≥ 1600 px wide.** Git keeps large files
   forever. `check:images` hard-fails over 2 MB under `public/` (excluding
   `public/fonts/`) and warns over 1 MB. It runs in CI rather than as a
-  pre-commit hook because the client's uploads are committed by the GitHub App
-  server-side and never pass through a developer's machine. Past ~200 MB total,
+  pre-commit hook because the client's uploads are committed by the browser
+  through GitHub's API and never pass through a developer's machine. Past ~200 MB total,
   move the library to Cloudinary via `fields.cloudImage()` (BACKEND-PLAN.md §7)
   — at 1 MB a photo that ceiling arrives around 200 images, not 500.
 - **`public/products/` and `public/works/` don't exist yet** — Keystatic creates
   them on first upload. Every image slot currently renders its placeholder.
 - **Env vars are optional in dev.** Without `NEXT_PUBLIC_ZALO_OA_ID` the chat
   widget simply doesn't render and no third-party script loads; every quote CTA
-  still opens the derived `zalo.me` deep link. The four `KEYSTATIC_*` /
-  `NEXT_PUBLIC_KEYSTATIC_*` vars are production-only. See `.env.example`.
-  Never commit real values.
+  still opens the derived `zalo.me` deep link. The four `KEYSTATIC_*` vars are
+  production-only — dev runs Keystatic in local mode, which has no login at all.
+  See `.env.example`. Never commit real values.
 - **Content still holds placeholders** — phone `0774999107`, `ĐKKD 0312xxxxxx`,
   the Bình Tân address, and unverified stats (`15+ năm`, `ΔE ≤ 3`, machine
   capacities). They are editable at `/keystatic`; don't treat them as facts.
@@ -224,9 +259,10 @@ to 700).
 
 - Develop on the branch you were assigned; never push to `main` directly.
 - Commit messages: imperative, one line of what changed and why it matters.
-- Keystatic edits in production commit straight to `main` from the GitHub App,
-  which suits one editor with git history as the safety net. With a second
-  editor, switch Keystatic to PR mode.
+- Keystatic edits in production commit straight to `main` under the account
+  that owns `KEYSTATIC_GITHUB_TOKEN`, which suits one editor with git history as
+  the safety net. With a second editor, switch Keystatic to PR mode — and note
+  that git history will no longer tell you which of them made an edit.
 - Don't open a PR unless asked.
 
 ## Reference documents

@@ -20,14 +20,14 @@ npm run dev
 
 The admin is at [localhost:3000/keystatic](http://localhost:3000/keystatic). In
 development it uses **local** storage: it edits `content/*.json` in your working
-tree directly, with no login and no GitHub App.
+tree directly, with no login and no GitHub token.
 
 ## Scripts
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Dev server on :3000 |
-| `npm run build` | Production build (all 19 routes prerender) |
+| `npm run build` | Production build (all 20 routes prerender) |
 | `npm start` | Serve the production build |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run check:images` | Fails if anything under `public/` exceeds 2 MB |
@@ -46,12 +46,14 @@ app/
     bao-gia/              quote landing — Zalo/phone CTAs + message template
     lien-he/              contact + map
   keystatic/              the admin UI (dynamic, noindex)
-  api/keystatic/          GitHub OAuth + commit API (dynamic)
+  api/keystatic/          the admin's auth endpoints (dynamic, noindex)
+  dang-nhap/              username/password gate in front of it (static, noindex)
   not-found.tsx           answers unmatched URLs, so it sits outside (site)
   globals.css             design tokens (@theme) + component classes
   fonts.css               generated @font-face for the self-hosted subsets
 keystatic.config.ts       the editing schema — labels and help text in Vietnamese
 lib/
+  admin-auth.ts           the /keystatic login: session cookie + the owner's GitHub token
   types.ts                shapes + fixed taxonomy; safe to import from the client
   content.ts              build-time reader; the only module that touches content/
 content/                  products/*.json, works/*.json, settings.json, blocks/*.json
@@ -167,23 +169,47 @@ opens the derived `zalo.me` deep link.
 Vercel.
 
 1. Set `NEXT_PUBLIC_ZALO_OA_ID`.
-2. Deploy, then open `/keystatic/setup` on the deployed URL. The wizard creates
-   a GitHub App and prints four values — `KEYSTATIC_GITHUB_CLIENT_ID`,
-   `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`,
-   `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`. Put them in the project's
-   environment variables and redeploy. They belong in Vercel only, never in the
-   repo.
-3. Invite the client's GitHub account to the repo as a collaborator with
-   **Write**. Repo write access *is* the permission model — removing access is
-   removing the collaborator, and there is no user table.
+2. Create the GitHub token every edit will commit as, at
+   **Settings → Developer settings → Personal access tokens → Fine-grained
+   tokens**. Repository access: *Only select repositories* →
+   `TranThinh96/giang-design`. Permissions: **Contents: Read & write**, nothing
+   else. Copy the token — GitHub shows it once.
+3. Put four values in the Vercel project's environment variables, then redeploy.
+   They belong in Vercel only, never in the repo:
+
+   | Variable | Value |
+   |---|---|
+   | `KEYSTATIC_GITHUB_TOKEN` | the token from step 2 |
+   | `KEYSTATIC_ADMIN_USERNAME` | what the editor types at `/dang-nhap` |
+   | `KEYSTATIC_ADMIN_PASSWORD` | a long passphrase — see the warning below |
+   | `KEYSTATIC_SECRET` | `openssl rand -base64 32` |
+
 4. Set the real domain in the CMS (**Thông tin doanh nghiệp → Địa chỉ website**);
    it feeds canonicals, the sitemap and the JSON-LD. Then submit `/sitemap.xml`
    to Search Console.
 
-Until step 2 is done the marketing site builds and serves normally — only
-`/api/keystatic/*` errors, by design: an admin misconfiguration must not take
-the site's deploy down.
+Until step 3 is done the marketing site builds and serves normally — only
+`/dang-nhap` and `/api/keystatic/*` error, by design: an admin misconfiguration
+must not take the site's deploy down.
 
-Edits commit straight to `main`, which suits one editor and a git history as the
-safety net. With a second editor, switch Keystatic to PR mode so edits arrive as
-pull requests with a Vercel preview.
+Edits commit straight to `main` under the token owner's account, which suits one
+editor and a git history as the safety net. With a second editor, switch
+Keystatic to PR mode so edits arrive as pull requests with a Vercel preview.
+
+### Who can edit, and how you take it away
+
+There is no user table and no GitHub account for the client: the password *is*
+the permission model. Revoking access means changing `KEYSTATIC_ADMIN_PASSWORD`
+in Vercel and redeploying — which also invalidates every session already open,
+because the session cookie is signed with the password.
+
+**Treat the password as equal to the token.** Keystatic's GitHub mode has no
+server of its own: the admin calls GitHub's API straight from the browser, so
+after login the token is in the editor's browser, readable by anything running
+on that page. That is why step 2 scopes it to this one repository with only
+Contents write — the blast radius of a leaked password is exactly "someone can
+commit to this repo", not the GitHub account.
+
+Fine-grained tokens expire. Put the renewal date in a calendar: the admin stops
+saving the day it lapses, with `/keystatic` reporting that GitHub refused the
+repo. Rotating it is one env var and a redeploy.

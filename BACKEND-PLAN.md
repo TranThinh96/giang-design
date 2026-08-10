@@ -348,12 +348,13 @@ database until something actually needs to be written by a website visitor.
 
 ## 12. As built
 
-Phases 0–3 and 5 are done and on disk. **Phase 4 is not** — creating the GitHub
-App needs a deployed URL and the client's GitHub account, so `/keystatic` runs
-in local mode until someone completes the steps in the README's *Deploying*
-section.
+Phases 0–3 and 5 are done and on disk. **Phase 4 is not** — it needs a deployed
+URL and a GitHub token, so `/keystatic` runs in local mode until someone
+completes the steps in the README's *Deploying* section. Phase 4 also changed
+shape: there is no GitHub App and the client has no GitHub account. See
+*§12.1 Auth: password instead of GitHub* below.
 
-Verified: `npm run typecheck` and `npm run build` both pass, all 19 pages
+Verified: `npm run typecheck` and `npm run build` both pass, all 20 pages
 prerender, and no route that was static before became dynamic. The only dynamic
 routes are `/keystatic/[[...params]]` and `/api/keystatic/[...params]` — the
 admin itself, which is an application and not content. Editing
@@ -370,16 +371,72 @@ Where the build departs from the plan above, and why:
 | 5 | Header and Footer "are both server components" | Footer is; **Header is not** | `Header` is `"use client"` — it owns the mobile drawer state. It takes `settings` as a prop from `SiteChrome`, which reads them once on the server. |
 | 5 | `await` is the only edit | Three `export const metadata` became `generateMetadata` | The root layout, `/lien-he` and `/bao-gia` built their metadata from `SITE` at module scope, which an async reader cannot do. Still resolved at build time. |
 | — | — | API route handler constructed lazily | In `github` mode `makeRouteHandler` throws without the four env vars, and at module scope that throw happened during "Collecting page data" — failing the **entire site build** over an admin-only misconfiguration. Deferred to first request, the blast radius is a 500 on `/api/keystatic/*`. |
-| 7 | "a pre-commit hook or a CI check" | CI check only (`npm run check:images`) | A pre-commit hook would never fire: the client's uploads are committed by the GitHub App on GitHub's servers and never touch a developer's machine. |
+| 7 | "a pre-commit hook or a CI check" | CI check only (`npm run check:images`) | A pre-commit hook would never fire: the client's uploads are committed by their browser through GitHub's API and never touch a developer's machine. |
 | 4 | `steps` carries `no` (`"01"`) | Derived from list position | Same reasoning the plan applies to `phoneHref`: reordering renumbers itself instead of asking the editor to keep two things in sync. |
+| 2, 4 | "Editor logs in with a GitHub account", GitHub App OAuth | Username/password at `/dang-nhap`, one shared PAT | §12.1 below. |
 
 The Phase 2 migration script was deleted after it ran, as planned; it is in git
 history if the mapping ever needs re-reading.
 
+### 12.1 Auth: password instead of GitHub
+
+§2's comparison table has one row that reads "Editor logs in with: GitHub
+account", and §2 itself lists *"an editor who genuinely cannot manage a GitHub
+login"* as a trigger for abandoning Keystatic entirely. That trigger fired — the
+editor is a print shop, not a developer, and a GitHub account plus a
+collaborator invite plus an OAuth screen in English was the whole onboarding
+cost of a CMS chosen for being cheap and simple.
+
+It did **not** justify moving to Payload. Everything else §2 argues for still
+holds: no database, no monthly bill, content version-controlled, site fully
+static. Only the login had to go.
+
+**What replaced it.** One username and password, both env vars, checked at
+`/dang-nhap`. On success the editor's browser receives the
+`keystatic-gh-access-token` cookie filled from `KEYSTATIC_GITHUB_TOKEN` — a
+fine-grained PAT belonging to the repo owner. Keystatic's client cannot tell the
+difference: `github` storage mode has no server of its own, the admin talks to
+GitHub's GraphQL API from the browser, and OAuth's only job was ever to put a
+token in that cookie. `app/api/keystatic/[...params]/route.ts` keeps the four
+paths the SPA redirects to and answers them from a session instead of from
+GitHub. No Keystatic code is patched or forked; `lib/admin-auth.ts` is ~150
+lines.
+
+**What it costs, stated plainly:**
+
+| | Before (OAuth) | After (password) |
+|---|---|---|
+| Editor needs a GitHub account | yes | no |
+| Who the commits are attributed to | the editor | the token's owner, always |
+| Where the GitHub token lives | the editor's browser | the editor's browser |
+| Token's reach | whatever the App was granted | one repo, Contents write |
+| Revoking one editor | remove the collaborator | change the password + redeploy |
+| Two editors, told apart in git log | yes | **no** |
+
+Rows three and four are the ones to sit with. The token was always going to
+reach the browser — that is Keystatic's architecture, not a shortcut taken here
+— so the honest mitigation is scope, not secrecy: a fine-grained PAT limited to
+`TranThinh96/giang-design` with Contents: Read & write means a leaked password
+buys an attacker "can commit to this repo", which is also what the CMS is *for*.
+Nothing else on the GitHub account is reachable.
+
+Row six is the real regression, and it is why §2's "switch to PR mode with a
+second editor" advice now comes with a caveat: PR mode would still show *what*
+changed, but every PR would be authored by the same account. If two people ever
+need to be told apart in the history, that is the point to revisit this — most
+likely by moving to Keystatic Cloud or back to per-user OAuth, not by building a
+user table here.
+
+**Also worth knowing:** fine-grained PATs expire. The admin stops saving the day
+it lapses and `/keystatic` reports that GitHub refused the repo. Rotation is one
+env var and a redeploy.
+
 ### Still open
 
-- **Phase 4** — GitHub App, the four Vercel env vars, inviting the client, and
-  one real end-to-end edit.
+- **Phase 4** — the GitHub token, the four Vercel env vars, and one real
+  end-to-end edit.
+- **A PAT renewal reminder.** Nothing in the system watches the expiry date; the
+  first symptom is the editor being unable to save.
 - The acceptance test *"client adds a portfolio item unaided"* needs a person,
   and cannot be closed from here.
 - The placeholder business details (`0774999107`, `ĐKKD 0312xxxxxx`, the Bình
