@@ -11,14 +11,22 @@ Toàn bộ nội dung website được sửa tại một trang duy nhất:
 ## 1. Đăng nhập
 
 1. Mở **https://giangdesign.vn/keystatic**
-2. Bấm nút **Sign in with GitHub**
-3. Đăng nhập bằng tài khoản GitHub đã được cấp cho Giang Design
+2. Trang sẽ tự chuyển sang ô đăng nhập
+3. Nhập **tên đăng nhập** và **mật khẩu** đã được cấp, bấm **Đăng nhập**
 
 > Lần đầu nên chọn **"Lưu mật khẩu"** trên trình duyệt để các lần sau chỉ cần
 > bấm một nút. Tài khoản này chỉ dùng cho website, không dùng vào việc gì khác.
 
-Nếu không đăng nhập được, liên hệ đơn vị kỹ thuật — có thể tài khoản chưa được
-cấp quyền.
+Sau khoảng **12 tiếng** hệ thống sẽ hỏi mật khẩu lại — đây là bình thường, chỉ
+cần nhập lại là vào đúng chỗ đang làm dở.
+
+Muốn thoát: bấm tên tài khoản ở góc dưới bên trái rồi chọn **Sign out**.
+
+Nếu không đăng nhập được, liên hệ đơn vị kỹ thuật để đổi hoặc cấp lại mật khẩu.
+
+> **Mật khẩu này chỉnh sửa được toàn bộ nội dung website.** Không gửi qua nhóm
+> chat chung, không dùng chung với mật khẩu email. Khi có người nghỉ việc, báo
+> đơn vị kỹ thuật đổi mật khẩu — đổi xong mọi máy đang mở đều bị thoát ra.
 
 ---
 
