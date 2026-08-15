@@ -4,5 +4,30 @@
   "cat": "Gian hàng & Sự kiện",
   "spec": "In PP · thi công 3D",
   "ph": "Booth",
-  "image": null
+  "image": null,
+  "client": "Galaxy — GoldCoast",
+  "location": "",
+  "year": "",
+  "summary": "Booth ra mắt phim đặt trong trung tâm thương mại: mô hình 3D, mặt in PP bồi formex và hệ đèn rọi. Dựng và tháo theo đúng khung giờ ban tổ chức cho phép.",
+  "scope": [
+    "Phối cảnh 3D",
+    "Mô hình tạo hình",
+    "In PP bồi formex",
+    "Hệ đèn rọi",
+    "Dựng & tháo theo lịch BTC"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

@@ -4,9 +4,21 @@ Guidance for AI assistants working in this repository.
 
 ## What this is
 
-Marketing site for **Giang Design – Advertising**, an offset & digital printing
-workshop in TP.HCM. Single locale (`vi-VN`). Six public routes plus eight
-generated product pages, all prerendered.
+Marketing site for **Giang Design – Advertising**, a design and advertising
+**printing** workshop in TP.HCM that also fabricates signage and fits out
+retail spaces. Single locale (`vi-VN`). Six public routes plus fifteen
+generated service pages and nine project pages, all prerendered.
+
+The business has four pillars, and the site presents them in this order:
+**In ấn quảng cáo** (large-format, the daily bread) → **Ấn phẩm & Bao bì**
+(offset) → **Bảng hiệu & Thi công** (signage, booths, shop fit-out, seasonal
+décor) → **Thiết kế**. The order is deliberate and was set by the client; the
+list lives in `SERVICE_GROUPS` (`lib/types.ts`).
+
+Two of those pillars are sold differently, and the site has to keep them
+apart: printing is quoted **from a file**, signage and fit-out are quoted
+**after a site survey**. `/bao-gia` forks into `#in-an` and `#khao-sat` for
+exactly that reason — don't merge them back into one brief.
 
 **No database, no server, no forms.** Content is JSON committed in this repo and
 edited through Keystatic; quotes go through Zalo chat, not a form. If a task
@@ -22,7 +34,7 @@ v4 · Keystatic (GitHub storage in prod, local in dev) · deployed on Vercel.
 ```bash
 npm install            # or npm ci
 npm run dev            # dev server on :3000; /keystatic runs in local mode
-npm run build          # production build — must prerender 20 routes
+npm run build          # production build — must prerender 36 routes
 npm run typecheck      # tsc --noEmit
 npm run check:images   # fails if any file under public/ exceeds 2 MB
 ```
@@ -49,13 +61,14 @@ are caught by `typecheck` and by `build`.
   **Vietnamese** throughout; the editor is the shop owner, not a developer.
   Storage is `local` in development (edits your working tree, no auth) and
   `github` (repo `TranThinh96/giang-design`) in production.
-- `content/` — `products/*.json` (8), `works/*.json` (9), `settings.json`,
-  `blocks/*.json` (stats, steps, machines, clients, quote-notes).
+- `content/` — `products/*.json` (15, across the four `SERVICE_GROUPS`),
+  `works/*.json` (9), `settings.json`, `blocks/*.json` (stats, steps, machines,
+  clients, quote-notes, price-list).
 - `lib/content.ts` — **the only module that reads `content/`.** It is
   `import "server-only"` and uses `createReader` against the filesystem at build
   time, so every call site stays a prerendered Server Component.
-- `lib/types.ts` — shapes plus the fixed taxonomy (`NAV`, `WORK_CATS`, `CATS`,
-  `ALL_CATS`).
+- `lib/types.ts` — shapes plus the fixed taxonomy (`NAV`, `SERVICE_GROUPS`,
+  `WORK_CATS`, `CATS`, `ALL_CATS`).
 
 **Rules that hold this together:**
 
@@ -87,9 +100,10 @@ app/
     layout.tsx            generateMetadata from settings; renders <SiteChrome>
     page.tsx              home
     gioi-thieu/           about
-    san-pham-dich-vu/     product index + [slug] detail (SSG via generateStaticParams)
-    du-an/                portfolio, client-side category filter
-    bao-gia/              quote landing (Zalo CTAs + copyable message template)
+    san-pham-dich-vu/     service index, grouped by pillar + [slug] detail (SSG)
+    du-an/                portfolio, client-side category filter + [slug] case page (SSG)
+    bao-gia/              two quote paths: #in-an (from a file) and #khao-sat
+                          (site survey), plus the reference price table
     lien-he/              contact + embedded map
   keystatic/              admin SPA (dynamic, noindex)
   api/keystatic/          the admin's auth endpoints (dynamic, noindex)
@@ -99,8 +113,10 @@ app/
   fonts.css               @font-face for the self-hosted Roboto subsets
 ```
 
-Header, footer, Zalo widget and the LocalBusiness JSON-LD live in
-`components/layout/SiteChrome.tsx`, **not** in the root layout. Anything added
+Header, footer, the fixed mobile `ContactBar`, the Zalo widget and the
+LocalBusiness JSON-LD live in `components/layout/SiteChrome.tsx`, **not** in the
+root layout. `CtaBand` is not chrome — each marketing page renders it itself, so
+a page that is already a contact page (`/bao-gia`, `/lien-he`) can leave it out. Anything added
 to the root layout also renders around the Keystatic admin. `not-found.tsx`
 wraps itself in `SiteChrome` for the same reason.
 
@@ -167,38 +183,50 @@ the `@theme` block (each becomes both `var(--color-x)` and a utility like
 `bg-primary`); reusable classes go in `@layer components`.
 
 Compose pages from the existing vocabulary rather than ad-hoc utilities:
-`.tile` + `.tile-light|parchment|dark|dark-2|dark-3|brand`, `.shell` (980px,
-text) / `.shell-wide` (1440px, grids), `.t-*` type scale, `.eyebrow` +
-`.eyebrow-on-dark|-on-brand`, `.btn` + `.btn-primary|-secondary|-utility|
--pearl|-hero|-compact|-icon|-on-brand`, `.card`, `.chip`, `.tag`, `.media`,
-`.table`, `.input`.
+`.tile` + `.tile-light|parchment|wash|dark|dark-2|dark-3|brand`, `.hero-ground`,
+`.shell` (980px, text) / `.shell-wide` (1440px, grids), `.t-*` type scale,
+`.eyebrow` + `.eyebrow-on-dark|-on-brand`, `.btn` + `.btn-primary|-secondary|
+-soft|-utility|-pearl|-hero|-compact|-icon|-on-brand`, `.card` (+ `.card-link`
+for a card that is a link, `.card-stretch` + `.stretch-target` +
+`.above-stretch` for a card with its own buttons), `.icon-badge`, `.action`,
+`.chip`, `.tag`, `.media` (+ `.media-zoom`), `.table`, `.input`, `.reveal`.
+
+Icons come from `components/ui/Icon.tsx` — inline SVG on one 24×24 grid, never
+an emoji and never a new dependency.
 
 Every colour is pulled from the workshop's sign — the blue field, the gold
 monogram, the warm near-black behind it. The palette is not decoration laid
 over the design; it *is* the logo, which is why the closing CTA band can be a
 full field of the accent and still read as the brand.
 
-**Five rules the system does not bend on:**
+**Six rules the system does not bend on:**
 
-1. **One accent.** Giang Blue `#1a4ad8` — the sign's own blue — carries every
-   interactive element. `.link-on-dark` / `.btn-secondary-on-dark` swap to Sky
-   Link Blue `#5c8bff` on near-black tiles only — never on a light surface.
+1. **One accent.** Giang Blue `#2f51a7` — the sign's blue, held below the
+   sign's own chroma so a full-bleed field reads instead of glares — carries
+   every interactive element. `.link-on-dark` / `.btn-secondary-on-dark` swap to
+   Sky Link Blue `#7ba0ea` on the ink-blue tiles only — never on a light
+   surface.
 
-2. **Gold marks the label, blue marks the action.** The logo's gold
+2. **Blue is the dominant tone, but the saturated field is rare.** The dark
+   tiles, the header strip and the footer are that same blue taken down to ink
+   (`--color-tile-1|2|3`, 223° at 12–21% lightness); light sections use
+   `--color-primary-wash`. `.tile-brand` — the full field — appears at most
+   **twice per page** and the last one is always the closing CTA band. Its
+   pills invert (`.btn-on-brand`); `.btn-primary` on it would be blue on blue.
+
+3. **Gold marks the label, blue marks the action.** The logo's gold
    (`.eyebrow`, `#8a5c14` on light / `#e0a44f` on dark) is the only other
    brand colour, and it is never a link, a button or a pressable border. The
    monogram's teal, yellow and red stay in the mark and never enter the UI.
-
-   `.tile-brand` — the blue field — appears **once per page**, on the closing
-   CTA band, and its pills invert (`.btn-on-brand`). `.btn-primary` on it
-   would be blue on blue.
-3. **The colour change is the divider.** Tiles stack edge-to-edge, no gap, no
+4. **The colour change is the divider.** Tiles stack edge-to-edge, no gap, no
    rounding, no rules or borders between sections. Reach for the next surface
    before reaching for chrome.
-4. **One shadow.** `--shadow-product` / `.product-shadow`, applied via
-   `<ImageSlot elevated />`, belongs to product photography resting on a
-   surface — never to a card, a button or text.
-5. **Body copy is 17px**, and the weight ladder is 300 / 400 / 600 / 700 with
+5. **One shadow in the page.** `--shadow-product` / `.product-shadow`, applied
+   via `<ImageSlot elevated />`, belongs to product photography resting on a
+   surface — never to a card, a button or text. An interactive card lifts 2px
+   and firms its hairline instead. `--shadow-float` exists solely for
+   `.contact-bar`, which is fixed *over* the page rather than in it.
+6. **Body copy is 17px**, and the weight ladder is 300 / 400 / 600 / 700 with
    **500 deliberately absent**. Headings are 600, never 700.
 
 SF Pro is Apple's and cannot be shipped, so the font stack leads with
@@ -228,9 +256,10 @@ to 700).
 
 ## Things that will bite you
 
-- **Product slugs are the public URL and the filename.** Changing one breaks
-  live links and search results. The CMS help text warns the editor; don't
-  rename them casually either.
+- **Product *and project* slugs are the public URL and the filename.** Changing
+  one breaks live links and search results. Projects only gained a URL when
+  `/du-an/[slug]` was added — the CMS help text used to tell the editor their
+  slug was harmless, and now says the opposite.
 - **Portfolio categories are a fixed `select`, not free text.** The list is
   `WORK_CATS` in `lib/types.ts` and feeds both the Keystatic schema and the
   filter chips on `/du-an`. Adding a category is a code change **on purpose** —
@@ -244,16 +273,27 @@ to 700).
   — at 1 MB a photo that ceiling arrives around 200 images, not 500.
 - **`public/products/` and `public/works/` don't exist yet** — Keystatic creates
   them on first upload. Every image slot currently renders its placeholder.
-- **Env vars are optional in dev.** Without `NEXT_PUBLIC_ZALO_OA_ID` the chat
-  widget simply doesn't render and no third-party script loads; every quote CTA
-  still opens the derived `zalo.me` deep link. The four `KEYSTATIC_*` vars are
+- **Env vars are optional in dev.** Without `NEXT_PUBLIC_ZALO_OA_ID`,
+  `ZaloChat` renders `ZaloBubble` — a plain link to the derived `zalo.me` deep
+  link — instead of Zalo's OA plugin, so no third-party script loads. Exactly
+  one of the two ever renders; don't add a second floating bubble. The four `KEYSTATIC_*` vars are
   production-only — dev runs Keystatic in local mode, which has no login at all.
   See `.env.example`. Never commit real values.
-- **Content still holds placeholders** — phone `0774999107`, `ĐKKD 0312xxxxxx`,
-  the Bình Tân address, and unverified stats (`15+ năm`, `ΔE ≤ 3`, machine
-  capacities). They are editable at `/keystatic`; don't treat them as facts.
-- **Portfolio and product ranges describe adjacent businesses** (signage/booths
-  vs. offset print). Known open item — PLAN.md §9.3.
+- **Content still holds placeholders** — `ĐKKD 0312xxxxxx`, the Bình Tân
+  address, unverified stats (`15+ năm`, `1.200+`, machine capacities), and every
+  row of `price-list.json` reads `liên hệ` because inventing a price would be
+  worse than shipping the structure empty. They are editable at `/keystatic`,
+  the CMS help text flags them with ⚠️, and `docs/HUONG-DAN-QUAN-TRI.md` §2b is
+  the client's pre-launch checklist. **Don't treat any of them as facts, and
+  don't invent replacements.**
+- **`public/works/` and `public/products/` are still empty**, so all 9 project
+  pages and 15 service pages render placeholders. For an advertising workshop
+  the project photos *are* the pitch — this is the single biggest open item, and
+  only the client can close it.
+- ~~Portfolio and product ranges describe adjacent businesses~~ — resolved. The
+  client confirmed the business is design + advertising printing + signage, and
+  the catalogue was restructured around the four `SERVICE_GROUPS` to match the
+  portfolio. PLAN.md §9.3 is closed.
 
 ## Git workflow
 

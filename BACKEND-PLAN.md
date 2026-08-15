@@ -354,7 +354,7 @@ completes the steps in the README's *Deploying* section. Phase 4 also changed
 shape: there is no GitHub App and the client has no GitHub account. See
 *§12.1 Auth: password instead of GitHub* below.
 
-Verified: `npm run typecheck` and `npm run build` both pass, all 20 pages
+Verified: `npm run typecheck` and `npm run build` both pass, all 36 pages
 prerender, and no route that was static before became dynamic. The only dynamic
 routes are `/keystatic/[[...params]]` and `/api/keystatic/[...params]` — the
 admin itself, which is an application and not content. Editing
@@ -374,6 +374,9 @@ Where the build departs from the plan above, and why:
 | 7 | "a pre-commit hook or a CI check" | CI check only (`npm run check:images`) | A pre-commit hook would never fire: the client's uploads are committed by their browser through GitHub's API and never touch a developer's machine. |
 | 4 | `steps` carries `no` (`"01"`) | Derived from list position | Same reasoning the plan applies to `phoneHref`: reordering renumbers itself instead of asking the editor to keep two things in sync. |
 | 2, 4 | "Editor logs in with a GitHub account", GitHub App OAuth | Username/password at `/dang-nhap`, one shared PAT | §12.1 below. |
+| 4 | `products` is a flat, ordered list | Plus a `group` select over `SERVICE_GROUPS` | The catalogue was selling offset packaging while the portfolio showed signage — PLAN.md §9.3. Grouping is what let the four pillars be presented in the client's stated order without giving the editor four collections to keep in sync. Sorting is `groupRank` then `order`, both in the reader. |
+| 4 | `works` has no detail page, so its slug is "harmless" | `works` gained `client`, `location`, `year`, `summary`, `scope`, `gallery`, and `/du-an/[slug]` | For an advertising workshop the portfolio *is* the product. The slug is now a public URL, so the CMS help text was inverted from "sửa cũng không ảnh hưởng link" to the same warning products carry. |
+| — | — | `priceList` singleton | Reference prices are the first thing a Vietnamese advertising buyer asks for. Free text per row, not numbers: the unit changes per item and a price is quoted as "từ 45.000 đ/m²". An empty `items` array collapses the whole section rather than shipping an empty table. |
 
 The Phase 2 migration script was deleted after it ran, as planned; it is in git
 history if the mapping ever needs re-reading.

@@ -1,15 +1,26 @@
 import Link from "next/link";
 import { Hero } from "@/components/home/Hero";
-import { CtaBand } from "@/components/home/CtaBand";
+import { CtaBand } from "@/components/layout/CtaBand";
 import { WorkCard } from "@/components/portfolio/WorkCard";
+import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import type { IconName } from "@/components/ui/Icon";
 import {
   getClients,
   getFeaturedWorks,
   getMachines,
-  getProducts,
+  getProductGroups,
   getSteps,
 } from "@/lib/content";
+
+/** One glyph per pillar. Presentational, so it lives with the page rather than
+ *  in `SERVICE_GROUPS` — the reader has no business knowing about icons. */
+const GROUP_ICON: Record<string, IconName> = {
+  "in-an-quang-cao": "printer",
+  "an-pham-bao-bi": "box",
+  "bang-hieu-thi-cong": "layers",
+  "thiet-ke": "palette",
+};
 
 /**
  * The home page is a stack of full-bleed tiles that alternate light,
@@ -17,9 +28,9 @@ import {
  * that is the divider.
  */
 export default async function HomePage() {
-  const [FEATURED, PRODUCTS, STEPS, MACHINES, CLIENTS] = await Promise.all([
+  const [FEATURED, GROUPS, STEPS, MACHINES, CLIENTS] = await Promise.all([
     getFeaturedWorks(),
-    getProducts(),
+    getProductGroups(),
     getSteps(),
     getMachines(),
     getClients(),
@@ -34,15 +45,15 @@ export default async function HomePage() {
         <div className="shell-wide">
           <SectionHeading
             eyebrow="Dự án tiêu biểu"
-            title="Sản phẩm đã sản xuất"
-            lead="Bảng hiệu, gian hàng, ấn phẩm và bao bì đã bàn giao cho khách hàng."
+            title="Công trình đã bàn giao"
+            lead="Bảng hiệu, hộp đèn, gian hàng, thi công shop và ấn phẩm đã bàn giao cho khách hàng."
           >
             <Link href="/du-an" className="btn btn-secondary">
               Toàn bộ dự án
             </Link>
           </SectionHeading>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="reveal mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURED.map((w) => (
               <WorkCard
                 key={w.slot}
@@ -60,22 +71,41 @@ export default async function HomePage() {
           <SectionHeading
             tone="dark"
             eyebrow="Dịch vụ"
-            title="Danh mục in ấn"
-            lead="Tám hạng mục, mỗi hạng mục có bảng chất liệu và số lượng tối thiểu riêng."
+            title="In ấn quảng cáo, bảng hiệu và thiết kế"
+            lead="Bốn nhóm dịch vụ, một đầu mối — từ tờ decal lấy trong ngày tới mặt bằng shop bàn giao trọn gói."
           />
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {PRODUCTS.map((p) => (
+          {/* Groups, not the fifteen items: the home page's job is to tell a
+              visitor which pillar they came for, and the catalogue page's job
+              is to list what is inside it. */}
+          <div className="reveal mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {GROUPS.map((g) => (
               <Link
-                key={p.code}
-                href={`/san-pham-dich-vu/${p.slug}`}
-                className="card card-on-dark h-full"
+                key={g.id}
+                href={`/san-pham-dich-vu#${g.id}`}
+                className="card card-on-dark card-link h-full"
               >
-                <div className="t-caption text-muted-on-dark">{p.code}</div>
-                <div className="card-title">{p.name}</div>
-                <p className="card-body text-muted-on-dark">{p.blurb}</p>
-                <div className="t-caption text-muted-on-dark">{p.moq}</div>
-                <span className="t-caption link-on-dark">Chi tiết →</span>
+                <span className="icon-badge icon-badge-on-dark">
+                  <Icon name={GROUP_ICON[g.id] ?? "box"} size={22} />
+                </span>
+                <div className="card-title">{g.name}</div>
+                <p className="card-body text-muted-on-dark">{g.lead}</p>
+                <ul className="t-caption text-muted-on-dark m-0 list-none p-0">
+                  {g.items.slice(0, 4).map((p) => (
+                    <li key={p.code} className="py-[3px]">
+                      {p.name}
+                    </li>
+                  ))}
+                  {g.items.length > 4 && (
+                    <li className="py-[3px]">+{g.items.length - 4} hạng mục khác</li>
+                  )}
+                </ul>
+                <span className="t-caption-strong link-on-dark inline-flex items-center gap-1.5">
+                  Xem nhóm
+                  <span className="card-go">
+                    <Icon name="arrow-right" size={15} />
+                  </span>
+                </span>
               </Link>
             ))}
           </div>
@@ -88,15 +118,18 @@ export default async function HomePage() {
           <SectionHeading
             eyebrow="Quy trình"
             title="Từ file thiết kế đến hàng giao"
+            lead="Năm bước cố định, mỗi bước có một đầu ra bạn duyệt trước khi chạy tiếp."
           />
 
-          <ol className="m-0 mt-14 grid list-none grid-cols-1 gap-10 p-0 sm:grid-cols-2 lg:grid-cols-5">
+          <ol className="reveal m-0 mt-14 grid list-none grid-cols-1 gap-10 p-0 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map((s) => (
               <li key={s.no}>
                 {/* Gold, not blue: the accent marks things you can press,
                     and a step number is not one of them. */}
-                <div className="t-caption-strong eyebrow">{s.no}</div>
-                <h3 className="t-tagline mb-2 mt-3">{s.title}</h3>
+                <div className="icon-badge icon-badge-gold t-body-strong">
+                  {s.no}
+                </div>
+                <h3 className="t-tagline mb-2 mt-4">{s.title}</h3>
                 <p className="t-caption text-muted m-0">{s.body}</p>
               </li>
             ))}
@@ -110,6 +143,10 @@ export default async function HomePage() {
           <div>
             <div className="t-caption-strong eyebrow mb-3">Năng lực</div>
             <h2 className="t-display-md m-0 mb-6">Thiết bị tại xưởng</h2>
+            <p className="t-body text-muted mb-6 max-w-[46ch]">
+              In, gia công và thi công đều chạy trong xưởng — không qua nhà thầu
+              phụ, nên tiến độ và chất lượng do chúng tôi chịu trách nhiệm.
+            </p>
             <div className="table-scroll">
               <table className="table">
                 <thead>
@@ -135,16 +172,19 @@ export default async function HomePage() {
           <div>
             <div className="t-caption-strong eyebrow mb-3">Khách hàng</div>
             <h2 className="t-display-md m-0 mb-6">Đã đồng hành</h2>
-            <ul className="m-0 grid list-none grid-cols-2 gap-x-6 gap-y-4 p-0 sm:grid-cols-3">
+            {/* Tags, not a bare list: the client names are static labels, and
+                the capsule keeps them from reading as links. */}
+            <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
               {CLIENTS.map((c) => (
-                <li key={c} className="t-body-strong text-muted">
+                <li key={c} className="tag">
                   {c}
                 </li>
               ))}
             </ul>
             <p className="t-caption text-muted mt-8">
-              Phục vụ nhãn hàng thực phẩm, mỹ phẩm – dược, chuỗi bán lẻ, agency thiết
-              kế và bộ phận mua hàng doanh nghiệp.
+              Phục vụ chuỗi bán lẻ và F&amp;B, chủ shop mở điểm bán mới, ban tổ
+              chức hội chợ – sự kiện, agency quảng cáo và bộ phận marketing doanh
+              nghiệp.
             </p>
           </div>
         </div>

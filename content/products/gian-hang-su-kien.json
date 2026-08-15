@@ -1,0 +1,37 @@
+{
+  "name": "Gian hàng & Sự kiện",
+  "code": "BH-03",
+  "group": "Bảng hiệu & Thi công",
+  "order": 3,
+  "moq": "theo công trình",
+  "materialsShort": "Khung nhôm, MDF, in PP, mô hình 3D",
+  "blurb": "Gian hàng hội chợ, booth kích hoạt thương hiệu và backdrop sự kiện — dựng và tháo đúng lịch ban tổ chức.",
+  "long": "Nhận trọn gói từ phối cảnh 3D tới nghiệm thu tại chỗ: khung nhôm định hình hoặc khung gỗ, mặt in PP bồi formex, mô hình và đạo cụ. Xưởng làm việc theo lịch dựng – tháo của ban tổ chức, kể cả ca đêm.",
+  "specs": [
+    {
+      "k": "Quy mô",
+      "v": "Booth 3 × 3 m tới gian hàng 100 m²"
+    },
+    {
+      "k": "Kết cấu",
+      "v": "Khung nhôm định hình, khung gỗ MDF, truss"
+    },
+    {
+      "k": "Hồ sơ",
+      "v": "Phối cảnh 3D + bản vẽ kỹ thuật để xin phép BTC"
+    },
+    {
+      "k": "Thời gian",
+      "v": "7 – 14 ngày, dựng tại chỗ 1 – 2 đêm"
+    }
+  ],
+  "materials": [
+    "Khung nhôm định hình",
+    "MDF phủ laminate",
+    "In PP bồi formex",
+    "Thảm trải sàn",
+    "Đèn rọi ray"
+  ],
+  "image": null,
+  "gallery": []
+}

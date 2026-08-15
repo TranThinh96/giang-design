@@ -4,5 +4,30 @@
   "cat": "Thi công Shop",
   "spec": "Thiết kế & thi công trọn gói",
   "ph": "Shop",
-  "image": null
+  "image": null,
+  "client": "JINI",
+  "location": "",
+  "year": "",
+  "summary": "Mở điểm bán mới, một đầu mối lo trọn gói: phối cảnh nội thất, bảng hiệu mặt tiền, quầy thu ngân và kệ trưng bày, decal trang trí và hệ đèn rọi — bàn giao đúng ngày khai trương.",
+  "scope": [
+    "Phối cảnh nội thất",
+    "Bảng hiệu mặt tiền",
+    "Quầy thu ngân & kệ",
+    "Decal trang trí",
+    "Hệ đèn rọi"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

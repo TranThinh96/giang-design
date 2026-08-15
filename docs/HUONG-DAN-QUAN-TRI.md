@@ -40,6 +40,29 @@ chưa được.
 
 ---
 
+## 2b. ⚠️ Việc phải làm TRƯỚC KHI công bố website
+
+Website đang chạy với một số **nội dung mẫu**. Đây là nội dung do bên làm web
+điền tạm để trang không bị trống — **không phải số liệu thật của xưởng**. Vui
+lòng kiểm tra và thay hết những mục dưới đây trước khi đưa địa chỉ web cho khách
+hàng hoặc chạy quảng cáo.
+
+| Cần thay | Ở đâu trong trang quản trị | Đang là |
+|---|---|---|
+| **Ảnh dự án** — quan trọng nhất | Nội dung → Dự án → từng dự án | Chưa có ảnh nào; cả 9 dự án đang hiện khung xám |
+| Ảnh sản phẩm / dịch vụ | Nội dung → Sản phẩm & dịch vụ | Chưa có ảnh |
+| Số giấy phép kinh doanh | Cài đặt chung → Thông tin doanh nghiệp | `ĐKKD 0312xxxxxx` — số giả |
+| Con số nổi bật trên trang chủ | Khối nội dung trang chủ → Con số nổi bật | `15+ năm`, `1.200+` — số ước lượng |
+| Danh sách thiết bị | Khối nội dung trang chủ → Thiết bị tại xưởng | Cần đối chiếu với máy móc thật |
+| **Bảng giá tham khảo** | Trang Báo giá → Bảng giá tham khảo | Cột "Giá từ" đang ghi `liên hệ` |
+| Khách hàng / năm thực hiện của từng dự án | Nội dung → Dự án | Đang để trống |
+
+Ba mục in đậm là ba mục ảnh hưởng nhiều nhất tới việc khách có liên hệ hay
+không. Đặc biệt là **ảnh dự án**: khách thuê làm bảng hiệu hay thi công shop
+gần như luôn xem ảnh công trình cũ trước khi gọi.
+
+---
+
 ## 3. Sửa số điện thoại, địa chỉ, email
 
 Vào mục **Cài đặt chung → Thông tin doanh nghiệp**.
@@ -72,12 +95,35 @@ Một vài lưu ý:
    - **Hạng mục** — chọn trong danh sách sổ xuống. Đây là nút lọc ở trang Dự án.
    - **Thông số ngắn** — ví dụ "Hộp đèn siêu mỏng · mica"
    - **Nhãn ô ảnh** — 1–2 từ, chỉ hiện khi chưa có ảnh
-   - **Ảnh dự án** — xem mục 6 bên dưới về kích thước ảnh
+   - **Ảnh dự án (ảnh bìa)** — xem mục 6 bên dưới về kích thước ảnh
 4. Bấm **Save**
+
+> ### ⚠ Ô "Đường dẫn (URL)" của dự án
+>
+> Từ nay **mỗi dự án có một trang riêng**, ví dụ
+> `giangdesign.vn/du-an/bang-hieu-nc-helmets`. Phần `bang-hieu-nc-helmets` là ô
+> **Đường dẫn (URL)**, tự sinh từ tên dự án.
+>
+> **Sau khi dự án đã lên website, đừng sửa ô này** — link cũ đã gửi cho khách và
+> kết quả Google của trang đó sẽ hỏng. Sửa **Tên dự án** thì không sao.
+
+### Phần nội dung của trang dự án riêng
+
+Những ô dưới đây quyết định trang riêng của dự án trông thế nào. Điền càng đầy
+đủ, trang càng dễ lên Google và càng dễ thuyết phục khách mới:
+
+- **Khách hàng** — tên cửa hàng / công ty. Bỏ trống nếu khách không muốn nêu tên.
+- **Địa điểm** — ví dụ "Q. Bình Tân, TP.HCM". Ô này giúp trang lên tìm kiếm theo
+  khu vực, kiểu "làm bảng hiệu quận Bình Tân" — **nên điền**.
+- **Năm thực hiện** — ví dụ "2024".
+- **Mô tả dự án** — 2–4 câu: khách cần gì, xưởng làm gì, kết quả ra sao.
+- **Hạng mục đã làm** — mỗi dòng một hạng mục, ví dụ "Hộp đèn siêu mỏng".
+- **Bộ ảnh công trình** — 3–6 ảnh thi công và hoàn thiện. **Đây là phần thuyết
+  phục khách hàng mới nhiều nhất trên toàn bộ website.**
 
 ---
 
-## 5. Thêm hoặc sửa một hạng mục in ấn
+## 5. Thêm hoặc sửa một hạng mục dịch vụ
 
 Vào mục **Nội dung → Sản phẩm & dịch vụ**.
 
@@ -98,8 +144,11 @@ Bấm vào một hạng mục để sửa, hoặc **New entry** để thêm mớ
 
 Các ô còn lại:
 
-- **Mã hạng mục** — `SP-01`, `SP-02`… chỉ là số thứ tự hiển thị cho đẹp
-- **Thứ tự hiển thị** — số nhỏ hiện trước
+- **Mã hạng mục** — `IN-01`, `BH-02`… chỉ là số thứ tự hiển thị cho đẹp
+- **Nhóm dịch vụ** — chọn trong danh sách sổ xuống. Trang Sản phẩm & dịch vụ
+  chia làm bốn phần theo ô này: **In ấn quảng cáo · Ấn phẩm & Bao bì · Bảng hiệu
+  & Thi công · Thiết kế**. Chọn sai thì hạng mục nằm nhầm phần.
+- **Thứ tự hiển thị** — số nhỏ hiện trước, tính **trong cùng một nhóm**
 - **Mô tả ngắn** — 1–2 câu, hiện trên thẻ ở trang chủ
 - **Mô tả chi tiết** — đoạn giới thiệu đầy đủ; Google cũng lấy đoạn này
 - **Thông số kỹ thuật** — bấm **Add** để thêm dòng, kéo thả để đổi thứ tự
@@ -136,16 +185,22 @@ nặng sẽ làm website chậm dần và không sửa lại được dễ dàng
 
 Trong mục **Khối nội dung trang chủ**:
 
-- **Con số nổi bật** — "15+ năm trong ngành in"…
+- **Con số nổi bật** — "15+ năm trong nghề quảng cáo"…
 - **Quy trình làm việc** — 5 bước. Số thứ tự 01, 02… tự đánh theo vị trí, kéo
   thả để đổi thứ tự là số tự đổi theo, không cần sửa tay.
 - **Thiết bị tại xưởng** — bảng máy móc
 - **Nhóm khách hàng** — các ngành hàng, viết IN HOA cho đều
-- **Cam kết báo giá** — cột bên phải trang Báo giá
 
-> Các con số ở đây (15+ năm, 1.200+ đơn/năm, công suất máy…) là số đưa vào từ
-> bản thiết kế ban đầu. **Vui lòng kiểm tra và sửa lại cho đúng thực tế** —
-> đây là những con số khách hàng sẽ đọc và tin.
+> Các con số ở đây (15+ năm, 1.200+ công trình/năm, công suất máy…) là số đưa
+> vào từ bản thiết kế ban đầu. **Vui lòng kiểm tra và sửa lại cho đúng thực tế**
+> — đây là những con số khách hàng sẽ đọc và tin.
+
+Trong mục **Trang Báo giá**:
+
+- **Bảng giá tham khảo** — bảng đơn giá ở trang Báo giá. Cột "Giá từ" hiện đang
+  ghi `liên hệ`; điền số thật vào là bảng tự hiện giá. Nhớ sửa cả ô **Cập nhật
+  ngày** mỗi lần đổi giá. Xóa hết các dòng thì cả bảng giá biến mất khỏi trang.
+- **Cam kết báo giá** — bốn thẻ ở cuối trang Báo giá
 
 ---
 
@@ -170,10 +225,13 @@ Nếu lỡ xóa nhầm hoặc sửa hỏng:
 | Địa chỉ xưởng, bản đồ | Cài đặt chung → Thông tin doanh nghiệp |
 | Email, giờ làm việc, giấy phép | Cài đặt chung → Thông tin doanh nghiệp |
 | Thêm dự án đã thi công | Nội dung → Dự án |
+| Ảnh & nội dung trang riêng của dự án | Nội dung → Dự án → chọn dự án |
 | 6 dự án trên trang chủ | Nội dung → Dự án (đặt "Thứ tự hiển thị" nhỏ nhất) |
-| Hạng mục in ấn, bảng thông số | Nội dung → Sản phẩm & dịch vụ |
+| Hạng mục dịch vụ, bảng thông số | Nội dung → Sản phẩm & dịch vụ |
+| Hạng mục nằm ở nhóm nào | Nội dung → Sản phẩm & dịch vụ → ô "Nhóm dịch vụ" |
 | Con số, quy trình, máy móc | Khối nội dung trang chủ |
-| Nội dung trang Báo giá | Khối nội dung trang chủ → Cam kết báo giá |
+| Bảng giá tham khảo | Trang Báo giá → Bảng giá tham khảo |
+| Bốn thẻ cam kết ở trang Báo giá | Trang Báo giá → Cam kết báo giá |
 
 Phần chữ giới thiệu ở trang **Giới thiệu** và các nút bấm, tiêu đề cố định trên
 website nằm trong mã nguồn — cần sửa thì báo đơn vị kỹ thuật.

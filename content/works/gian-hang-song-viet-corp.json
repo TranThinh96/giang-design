@@ -4,5 +4,29 @@
   "cat": "Gian hàng & Sự kiện",
   "spec": "Backdrop · in hiflex",
   "ph": "Gian hàng",
-  "image": null
+  "image": null,
+  "client": "Sóng Việt Corp",
+  "location": "",
+  "year": "",
+  "summary": "Gian hàng hội chợ với backdrop khung và mặt in hiflex khổ lớn, kèm quầy tiếp khách. Thi công tại chỗ trong đêm trước ngày khai mạc.",
+  "scope": [
+    "Backdrop khung",
+    "In hiflex khổ lớn",
+    "Quầy tiếp khách",
+    "Thi công tại hội chợ"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

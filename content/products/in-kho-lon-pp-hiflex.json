@@ -1,0 +1,42 @@
+{
+  "name": "In khổ lớn PP & Hiflex",
+  "code": "IN-01",
+  "group": "In ấn quảng cáo",
+  "order": 1,
+  "moq": "từ 1 m²",
+  "materialsShort": "PP, hiflex, decal, canvas",
+  "blurb": "In kỹ thuật số khổ lớn cho poster, backdrop, bạt treo và decal dán kính — lấy trong ngày.",
+  "long": "Hạng mục chạy nhiều nhất tại xưởng: in kỹ thuật số khổ cuộn tới 3,2 m trên PP, hiflex, decal và canvas, cán màng bảo vệ và gia công khoen – may viền theo yêu cầu. Nhận file và trả hàng trong ngày với đơn dưới 20 m².",
+  "specs": [
+    {
+      "k": "Công nghệ in",
+      "v": "Kỹ thuật số khổ lớn, mực UV / eco-solvent"
+    },
+    {
+      "k": "Độ phân giải",
+      "v": "720 – 1440 dpi"
+    },
+    {
+      "k": "Khổ tối đa",
+      "v": "3,2 m khổ cuộn, dài không giới hạn"
+    },
+    {
+      "k": "Gia công",
+      "v": "Cán màng, đóng khoen, may viền, bo góc"
+    },
+    {
+      "k": "Thời gian",
+      "v": "Trong ngày (dưới 20 m²) — 24 giờ"
+    }
+  ],
+  "materials": [
+    "PP cán mờ / cán bóng",
+    "Hiflex 380gsm",
+    "Decal dán kính",
+    "Decal lưới",
+    "Canvas",
+    "Backlit film"
+  ],
+  "image": null,
+  "gallery": []
+}

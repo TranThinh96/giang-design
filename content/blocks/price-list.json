@@ -1,0 +1,54 @@
+{
+  "updated": "08/2026",
+  "note": "GIÁ MẪU — cần thay bằng giá thật của xưởng trước khi công bố. Giá tham khảo cho đơn tiêu chuẩn, chưa gồm VAT, chưa gồm thi công lắp đặt và có thể thay đổi theo số lượng, chất liệu và độ phức tạp của mẫu. Giá chốt luôn nằm trong báo giá gửi riêng.",
+  "items": [
+    {
+      "item": "In PP cán mờ",
+      "unit": "m²",
+      "from": "liên hệ",
+      "note": "đơn từ 10 m²"
+    },
+    {
+      "item": "In hiflex ngoài trời",
+      "unit": "m²",
+      "from": "liên hệ",
+      "note": "đã gồm đóng khoen"
+    },
+    {
+      "item": "Decal dán kính / decal lưới",
+      "unit": "m²",
+      "from": "liên hệ",
+      "note": "chưa gồm công dán"
+    },
+    {
+      "item": "Standee cuốn 0,8 × 1,8 m",
+      "unit": "bộ",
+      "from": "liên hệ",
+      "note": "gồm chân nhôm"
+    },
+    {
+      "item": "Hộp đèn siêu mỏng",
+      "unit": "m²",
+      "from": "liên hệ",
+      "note": "báo giá sau khảo sát"
+    },
+    {
+      "item": "Bảng hiệu alu chữ nổi",
+      "unit": "m²",
+      "from": "liên hệ",
+      "note": "báo giá sau khảo sát"
+    },
+    {
+      "item": "Chữ nổi inox có đèn LED",
+      "unit": "bộ chữ",
+      "from": "liên hệ",
+      "note": "tùy chiều cao chữ"
+    },
+    {
+      "item": "Thiết kế nhận diện cơ bản",
+      "unit": "gói",
+      "from": "liên hệ",
+      "note": "2–3 phương án, 2 vòng sửa"
+    }
+  ]
+}

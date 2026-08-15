@@ -4,5 +4,29 @@
   "cat": "Trang trí lễ hội",
   "spec": "Mặt tiền · in PP",
   "ph": "Trang trí mặt tiền",
-  "image": null
+  "image": null,
+  "client": "Hiệu vàng Tiến Lộc",
+  "location": "",
+  "year": "",
+  "summary": "Trang trí mặt tiền dịp Tết cho hiệu vàng: mặt tiền in PP, cổng chào và cụm hoa mai lụa — thi công ngoài giờ để cửa hàng không phải đóng cửa.",
+  "scope": [
+    "Mặt tiền in PP",
+    "Cổng chào",
+    "Hoa mai lụa",
+    "Thi công ngoài giờ"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

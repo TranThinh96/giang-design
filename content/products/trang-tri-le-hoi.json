@@ -1,0 +1,36 @@
+{
+  "name": "Trang trí lễ hội",
+  "code": "BH-05",
+  "group": "Bảng hiệu & Thi công",
+  "order": 5,
+  "moq": "theo công trình",
+  "materialsShort": "Mô hình xốp, in bạt, tiểu cảnh, đèn",
+  "blurb": "Tiểu cảnh Tết, mặt tiền lễ hội và trang trí điểm bán theo mùa — dựng nhanh, tháo gọn.",
+  "long": "Trang trí theo mùa cho ngân hàng, hiệu vàng, chuỗi bán lẻ và cao ốc: tiểu cảnh Tết, mô hình linh vật, mặt tiền in bạt khổ lớn, cụm đèn trang trí. Đặt sớm trước mùa cao điểm để giữ lịch thi công.",
+  "specs": [
+    {
+      "k": "Hạng mục",
+      "v": "Tiểu cảnh, linh vật, mặt tiền, cổng chào"
+    },
+    {
+      "k": "Gia công",
+      "v": "Xốp điêu khắc phủ composite, in bạt khổ lớn"
+    },
+    {
+      "k": "Lịch",
+      "v": "Nhận đặt trước mùa 30 – 45 ngày"
+    },
+    {
+      "k": "Thời gian",
+      "v": "7 – 20 ngày tùy quy mô"
+    }
+  ],
+  "materials": [
+    "Xốp điêu khắc phủ composite",
+    "In bạt khổ lớn",
+    "Hoa mai / đào lụa",
+    "Đèn dây LED"
+  ],
+  "image": null,
+  "gallery": []
+}

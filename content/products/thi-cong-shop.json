@@ -1,0 +1,36 @@
+{
+  "name": "Thi công shop trọn gói",
+  "code": "BH-04",
+  "group": "Bảng hiệu & Thi công",
+  "order": 4,
+  "moq": "theo mặt bằng",
+  "materialsShort": "Nội thất, bảng hiệu, decal, đèn",
+  "blurb": "Mặt tiền, quầy kệ, decal trang trí và hệ đèn cho cửa hàng bán lẻ — một đầu mối từ bản vẽ tới khai trương.",
+  "long": "Dành cho chủ shop mở điểm bán mới: khảo sát mặt bằng, dựng phối cảnh nội thất, làm bảng hiệu và quầy kệ, dán decal trang trí, lắp hệ đèn chiếu điểm. Một đầu mối chịu trách nhiệm tiến độ tới ngày khai trương.",
+  "specs": [
+    {
+      "k": "Hạng mục",
+      "v": "Mặt tiền, quầy thu ngân, kệ trưng bày, decal, đèn"
+    },
+    {
+      "k": "Hồ sơ",
+      "v": "Phối cảnh nội thất + bảng dự toán từng hạng mục"
+    },
+    {
+      "k": "Nghiệm thu",
+      "v": "Theo từng hạng mục, có biên bản"
+    },
+    {
+      "k": "Thời gian",
+      "v": "10 – 21 ngày tùy diện tích"
+    }
+  ],
+  "materials": [
+    "MDF chống ẩm phủ melamine",
+    "Khung sắt sơn tĩnh điện",
+    "Decal trang trí",
+    "Đèn rọi ray COB"
+  ],
+  "image": null,
+  "gallery": []
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Bảng hiệu & Hộp đèn",
+  "code": "BH-01",
+  "group": "Bảng hiệu & Thi công",
+  "order": 1,
+  "moq": "theo m² — khảo sát trước",
+  "materialsShort": "Alu, mica, bạt 3M, khung sắt",
+  "blurb": "Bảng hiệu mặt tiền, hộp đèn siêu mỏng và hộp đèn bạt — khảo sát, gia công và lắp đặt trọn gói.",
+  "long": "Từ đo đạc mặt bằng tới bàn giao có bảo hành: bảng hiệu alu chữ nổi, hộp đèn siêu mỏng viền mica, hộp đèn bạt 3M khung sắt hộp. Xưởng dựng phối cảnh để duyệt trước khi cắt vật tư, và tự thi công — không qua nhà thầu phụ.",
+  "specs": [
+    {
+      "k": "Kiểu bảng",
+      "v": "Alu chữ nổi, hộp đèn siêu mỏng, hộp đèn bạt"
+    },
+    {
+      "k": "Khung",
+      "v": "Sắt hộp mạ kẽm sơn tĩnh điện"
+    },
+    {
+      "k": "Chiếu sáng",
+      "v": "LED module 12V, nguồn Meanwell"
+    },
+    {
+      "k": "Bảo hành",
+      "v": "12 tháng phần điện và kết cấu"
+    },
+    {
+      "k": "Thời gian",
+      "v": "5 – 10 ngày kể từ khi duyệt phối cảnh"
+    }
+  ],
+  "materials": [
+    "Alu 3mm",
+    "Mica 3 – 5mm",
+    "Bạt 3M xuyên đèn",
+    "Sắt hộp 40 × 40",
+    "LED module Hàn Quốc"
+  ],
+  "image": null,
+  "gallery": []
+}

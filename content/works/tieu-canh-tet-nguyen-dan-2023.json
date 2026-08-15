@@ -4,5 +4,29 @@
   "cat": "Trang trí lễ hội",
   "spec": "Mô hình · in decal",
   "ph": "Tiểu cảnh Tết",
-  "image": null
+  "image": null,
+  "client": "",
+  "location": "",
+  "year": "2023",
+  "summary": "Tiểu cảnh Tết đặt tại sảnh: mô hình tạo hình phủ composite, nền in decal và cụm hoa trang trí. Lắp trước Tết và tháo dỡ sau rằm tháng Giêng.",
+  "scope": [
+    "Mô hình tạo hình",
+    "In decal nền",
+    "Cụm hoa trang trí",
+    "Lắp đặt & tháo dỡ"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

@@ -1,30 +1,32 @@
 import type { Metadata } from "next";
+import { CtaBand } from "@/components/layout/CtaBand";
+import { Icon } from "@/components/ui/Icon";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { PageHeading, SectionHeading } from "@/components/ui/SectionHeading";
 import { getPageImages } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Giới thiệu — Một xưởng in vận hành như một nhà máy",
+  title: "Giới thiệu — Xưởng làm được cả bản in và công trình",
   description:
-    "Giang Design – Advertising vận hành dây chuyền offset 4 màu, in kỹ thuật số khổ lớn và tổ hoàn thiện bế – cấn – dán hộp khép kín tại TP.HCM.",
+    "Giang Design – Advertising vận hành khu in kỹ thuật số khổ lớn, xưởng gia công bảng hiệu – hộp đèn – chữ nổi LED và bộ phận thiết kế tại TP.HCM.",
   alternates: { canonical: "/gioi-thieu" },
 };
 
 const PILLARS = [
   {
     h: "Tầm nhìn",
-    p: "Trở thành đối tác in bao bì được chọn đầu tiên của các thương hiệu Việt tầm trung.",
+    p: "Trở thành đầu mối quảng cáo được chọn đầu tiên của chuỗi bán lẻ và chủ shop tại TP.HCM.",
   },
   {
     h: "Sứ mệnh",
-    p: "Giữ chất lượng bản in ổn định qua từng lô, minh bạch về chất liệu và tiến độ.",
+    p: "Một đầu mối lo từ file thiết kế tới công trình bàn giao — minh bạch về vật tư, giá và tiến độ.",
   },
 ];
 
 const COMMITMENTS = [
-  "Kiểm màu theo thang Pantone, sai lệch ΔE ≤ 3 so với mẫu duyệt.",
-  "Giấy có chứng từ nguồn gốc, mực gốc soy cho bao bì thực phẩm.",
-  "Kiểm 100% thành phẩm trước đóng gói; bù hao trong hợp đồng.",
+  "Bản in đúng mẫu đã duyệt; in lại bằng chi phí của xưởng nếu lệch so với mẫu ký.",
+  "Vật tư đúng chủng loại ghi trong báo giá — bảo hành 12 tháng phần điện và kết cấu.",
+  "Nghiệm thu từng hạng mục, có biên bản; giữ nguyên giá đã chốt tới khi bàn giao.",
 ];
 
 export default async function AboutPage() {
@@ -37,21 +39,22 @@ export default async function AboutPage() {
         <div className="shell">
           <PageHeading
             eyebrow="Giới thiệu"
-            title="Một xưởng in vận hành như một nhà máy"
+            title="Một xưởng làm được cả bản in và công trình"
           />
           {/* Weight 300 at 24px — the airy read the system reserves for a
               handful of long-form paragraphs. */}
           <p className="t-lead-airy text-muted mx-auto mt-10 max-w-[62ch] text-center">
             Giang Design – Advertising bắt đầu từ một xưởng gia công decal nhỏ năm
-            2010, nay vận hành dây chuyền offset 4 màu, in kỹ thuật số khổ lớn và tổ
-            hoàn thiện bế – cấn – dán hộp khép kín.
+            2010. Nay xưởng có khu in kỹ thuật số khổ lớn, tổ gia công bảng hiệu –
+            hộp đèn – chữ nổi LED, đội thi công lắp đặt và một bộ phận thiết kế
+            riêng — nên một khách hàng chỉ cần làm việc với một đầu mối.
           </p>
         </div>
 
         <div className="mt-14">
           <ImageSlot
             src={IMAGES.aboutHero}
-            alt="Toàn cảnh nhà xưởng in Giang Design tại TP.HCM"
+            alt="Toàn cảnh xưởng Giang Design tại TP.HCM"
             placeholder="Nhà xưởng"
             ratio="21 / 9"
             radius="none"
@@ -66,13 +69,14 @@ export default async function AboutPage() {
         <div className="shell">
           <SectionHeading
             eyebrow="Cách làm việc"
-            title="Mỗi đơn hàng có một phiếu công nghệ"
+            title="Không có gì được cắt trước khi bạn duyệt"
           />
           <p className="t-body text-muted mx-auto mt-8 max-w-[62ch] text-center">
-            Chúng tôi không nhận đơn theo cảm tính: mỗi yêu cầu đều được lập phiếu
-            công nghệ — chất liệu, định lượng, hệ màu, cấn bế, cán màng, dung sai —
-            trước khi lên máy. Khách hàng ký duyệt mẫu in thử, sau đó sản lượng chạy
-            đúng theo mẫu đã duyệt.
+            Đơn in có phiếu công nghệ — chất liệu, định lượng, hệ màu, cán màng,
+            dung sai — và khách ký duyệt mẫu in thử trước khi chạy sản lượng. Công
+            trình bảng hiệu, gian hàng hay thi công shop thì có hồ sơ riêng: biên
+            bản khảo sát mặt bằng, phối cảnh 3D và bảng dự toán từng hạng mục. Vật
+            tư chỉ được cắt sau khi bạn duyệt phối cảnh.
           </p>
 
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -90,10 +94,13 @@ export default async function AboutPage() {
       <section className="tile tile-dark">
         <div className="shell">
           <SectionHeading tone="dark" eyebrow="Cam kết" title="Cam kết chất lượng" />
-          <ul className="m-0 mt-12 grid list-none grid-cols-1 gap-8 p-0 sm:grid-cols-3">
+          <ul className="reveal m-0 mt-12 grid list-none grid-cols-1 gap-8 p-0 sm:grid-cols-3">
             {COMMITMENTS.map((c) => (
-              <li key={c} className="t-body text-muted-on-dark">
-                {c}
+              <li key={c} className="flex items-start gap-4">
+                <span className="icon-badge icon-badge-on-dark">
+                  <Icon name="shield" size={22} />
+                </span>
+                <span className="t-body text-muted-on-dark">{c}</span>
               </li>
             ))}
           </ul>
@@ -102,20 +109,22 @@ export default async function AboutPage() {
         <div className="shell-wide mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <ImageSlot
             src={IMAGES.aboutMachine}
-            alt="Máy in offset 4 màu đang chạy sản lượng tại xưởng"
-            placeholder="Máy offset"
+            alt="Khu in kỹ thuật số khổ lớn đang chạy sản lượng tại xưởng"
+            placeholder="Khu in khổ lớn"
             ratio="4 / 3"
             sizes="(max-width: 640px) 100vw, 50vw"
           />
           <ImageSlot
             src={IMAGES.aboutFinishing}
-            alt="Tổ hoàn thiện bế – cấn – dán hộp tại xưởng"
-            placeholder="Tổ hoàn thiện"
+            alt="Tổ gia công bảng hiệu – hộp đèn tại xưởng"
+            placeholder="Tổ gia công bảng hiệu"
             ratio="4 / 3"
             sizes="(max-width: 640px) 100vw, 50vw"
           />
         </div>
       </section>
+
+      <CtaBand />
     </main>
   );
 }

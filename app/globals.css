@@ -21,10 +21,26 @@
    ══════════════════════════════════════════════════════════════════════ */
 @theme {
   /* — the single interactive colour: the logo's blue field, in its three
-       surface variants. 6.96:1 on white, so it carries body-size links. — */
-  --color-primary: #1a4ad8;
-  --color-primary-focus: #2f5fe8;
-  --color-primary-on-dark: #5c8bff;
+       surface variants. 7.35:1 on white, so it carries body-size links.
+
+       The hue is still the sign's (223°), but the chroma is deliberately held
+       back: the sign is a small object seen at arm's length, and the same
+       saturation stretched across a full-bleed CTA band glares rather than
+       reads. Deeper and calmer says "printing house" where the electric
+       version said "software startup". Every blue below moved with it — the
+       harshness lived in the whole ladder, not just the accent. — */
+  --color-primary: #2f51a7;
+  --color-primary-focus: #3861c7;
+  --color-primary-on-dark: #7ba0ea;
+  /* Pressed/hovered fill. Same hue, one step down in lightness — a hover has
+     to be felt, not read, so it moves the surface rather than the label. */
+  --color-primary-hover: #244189;
+  /* The faintest wash of the field: section grounds and hover states on light
+     surfaces that need to register as "brand", not as grey. Low chroma is the
+     point — at 96% lightness a saturated tint turns lilac under warm light. */
+  --color-primary-wash: #f0f3f9;
+  --color-primary-wash-2: #e2e7f3;
+  --color-primary-hairline: #c8d0e4;
 
   /* — the logo's gold: the one non-interactive brand ornament. It labels
        (eyebrows, step numbers); it never marks something you can press.
@@ -36,28 +52,46 @@
   /* — ink, warmed toward the near-black the sign's letters cast — */
   --color-ink: #1d1b18;
   --color-ink-muted-80: #34302b;
-  --color-ink-muted-48: #7b746b;
+  --color-ink-muted-48: #6f6961;
   --color-on-dark: #ffffff;
-  --color-body-muted: #cdc8c1;
+  /* Cool, because the dark surfaces are now blue rather than near-black — a
+     warm grey on the navy tile reads as a printing error. 10.1:1 on tile-1. */
+  --color-body-muted: #cad0dd;
 
   /* — copy on the brand-blue field — */
   --color-on-brand: #ffffff;
-  --color-on-brand-muted: #c9d4f5;
+  --color-on-brand-muted: #d4dbed;
 
-  /* — surfaces: the same neutral ladder as before, pulled warm so it sits
-       under the gold instead of fighting it — */
+  /* — surfaces —
+       The light ladder stays warm, so it sits under the gold instead of
+       fighting it. The dark ladder is the sign's blue taken down to ink: the
+       same 223° hue as the accent, at 12–21% lightness. That is what makes
+       blue the site's dominant tone rather than a colour that only appears at
+       the moment of conversion — a near-black tile would read as "printing
+       industry generic", and the brand's whole identity is that blue field.
+
+       They carry the accent's reduced chroma too. A saturated navy behind a
+       photograph tints the photograph; a slate navy lets it sit. */
   --color-canvas: #ffffff;
   --color-parchment: #f6f4f0;
   --color-pearl: #fbfaf7;
-  --color-tile-1: #262220;
-  --color-tile-2: #292523;
-  --color-tile-3: #24201e;
-  --color-void: #000000;
+  --color-tile-1: #19233e;
+  --color-tile-2: #202c4b;
+  --color-tile-3: #11192c;
+  --color-void: #11192c;
   --color-chip: #d7d2ca;
+
+  /* — Zalo's own blue. A platform colour, not a UI colour: it exists so the
+       chat bubble reads as Zalo at a glance, the same way the Facebook glyph
+       keeps its own mark. It never appears anywhere else, and nothing else in
+       the interface may borrow it — the site's blue is --color-primary. — */
+  --color-zalo: #0068ff;
 
   /* — hairlines — */
   --color-divider-soft: #f1eeea;
   --color-hairline: #e2ded7;
+  /* The hairline that survives on a navy tile. */
+  --color-hairline-on-dark: #3c4867;
 
   /* SF Pro is Apple's proprietary face, so the stack leads with the system
      font: on macOS/iOS that resolves to the real SF Pro. Everywhere else it
@@ -80,9 +114,15 @@
   --radius-lg: 18px;
   --radius-pill: 9999px;
 
-  /* The only shadow in the system. Product renders only — never cards,
+  /* The only shadow in the *page*. Product renders only — never cards,
      never buttons, never text. */
   --shadow-product: 3px 5px 30px 0 rgb(0 0 0 / 0.22);
+  /* The exceptions, and neither is on the page: the contact bar and the Zalo
+     bubble float above the scrolling content, so they need the one thing the
+     flat system otherwise refuses — a separation from what passes underneath.
+     Anything that scrolls with the page still gets no shadow. */
+  --shadow-float: 0 -1px 24px 0 rgb(10 19 48 / 0.14);
+  --shadow-bubble: 0 6px 24px 0 rgb(10 19 48 / 0.3);
 }
 
 :root {
@@ -99,6 +139,10 @@
   --shell-max: 980px;
   --shell-wide-max: 1440px;
   --shell-pad: 24px;
+
+  /* Height of the sticky mobile contact bar. Body padding and scroll padding
+     both derive from it, so the bar never covers the end of a page. */
+  --contact-bar-h: 64px;
 
   /* Display sizes. DESIGN.md steps these at fixed breakpoints rather than
      fluidly, and the steps are part of the cadence, so they stay literal. */
@@ -133,8 +177,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* The sub-nav is sticky, so an anchored heading would land underneath it. */
-    scroll-padding-top: 68px;
+    /* The nav is sticky, so an anchored heading would land underneath it. */
+    scroll-padding-top: 76px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -154,6 +198,7 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
+
 
   /* Weight 600 for headlines, never 700 or 500; negative tracking at display
      sizes is the signature "Apple tight" cadence. */
@@ -405,6 +450,15 @@
      split is what lets a second brand colour exist without diluting the
      accent. On the blue field there is no third colour: the field is the
      brand, so the eyebrow steps back to tinted white. */
+  /* Uppercase with open tracking: at 14px the eyebrow has to be readable as a
+     *label* from across the section, and case is what separates it from the
+     body copy under it without adding a second size. */
+  .eyebrow,
+  .eyebrow-on-dark,
+  .eyebrow-on-brand {
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
   .eyebrow {
     color: var(--color-brand-gold);
   }
@@ -453,7 +507,15 @@
     border-radius: var(--radius-pill);
     background: transparent;
     color: var(--color-primary);
-    transition: transform 120ms ease-out;
+    /* The original system documented only default and pressed. A pointer
+       device has a third state, and leaving it out reads as "not clickable" —
+       so every variant below moves its *surface* on hover while the label
+       holds still. */
+    transition:
+      transform 120ms ease-out,
+      background-color 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
   }
   .btn:hover {
     text-decoration: none;
@@ -478,6 +540,10 @@
     color: var(--color-on-dark);
     border-color: var(--color-primary);
   }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
   .btn-primary:disabled {
     background: var(--color-divider-soft);
     border-color: var(--color-divider-soft);
@@ -486,10 +552,18 @@
   /* The ghost pill — the second CTA when two pills sit together. */
   .btn-secondary {
     color: var(--color-primary);
+    border-color: var(--color-primary-hairline);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-primary-wash);
     border-color: var(--color-primary);
   }
   .btn-secondary-on-dark {
     color: var(--color-primary-on-dark);
+    border-color: color-mix(in srgb, var(--color-primary-on-dark) 52%, transparent);
+  }
+  .btn-secondary-on-dark:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--color-primary-on-dark) 14%, transparent);
     border-color: var(--color-primary-on-dark);
   }
   /* On the brand tile the accent is the background, so the pill inverts:
@@ -499,9 +573,17 @@
     color: var(--color-primary);
     border-color: var(--color-on-brand);
   }
+  .btn-on-brand:hover:not(:disabled) {
+    background: var(--color-primary-wash-2);
+    border-color: var(--color-primary-wash-2);
+  }
   .btn-secondary-on-brand {
     color: var(--color-on-brand);
     border-color: color-mix(in srgb, #ffffff 56%, transparent);
+  }
+  .btn-secondary-on-brand:hover:not(:disabled) {
+    background: color-mix(in srgb, #ffffff 16%, transparent);
+    border-color: var(--color-on-brand);
   }
   /* Global-nav actions: compact rect, not a pill. */
   .btn-utility {
@@ -513,6 +595,17 @@
     font-size: 14px;
     line-height: 1.29;
     letter-spacing: -0.224px;
+  }
+  /* The quiet pill: the phone number in the nav, the "call" half of a CTA
+     pair. It reads as a surface rather than a border, which keeps it from
+     competing with the primary pill next to it. */
+  .btn-soft {
+    background: var(--color-primary-wash);
+    color: var(--color-primary);
+    border-color: transparent;
+  }
+  .btn-soft:hover:not(:disabled) {
+    background: var(--color-primary-wash-2);
   }
   .btn-pearl {
     background: var(--color-pearl);
@@ -547,6 +640,14 @@
     color: var(--color-ink);
     border-color: transparent;
   }
+  .btn-icon:hover:not(:disabled) {
+    background: var(--color-chip);
+  }
+  /* Icons inside a pill: the label leads, the glyph trails it at cap height.
+     Never an icon on its own without an accessible name. */
+  .btn > svg {
+    flex: none;
+  }
 
   /* ── cards ──────────────────────────────────────────────────────────────
      The utility card: white, one hairline, 18px radius, 24px of padding, and
@@ -559,11 +660,69 @@
     background: var(--color-canvas);
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-lg);
+    transition:
+      border-color 180ms ease-out,
+      transform 180ms ease-out,
+      background-color 180ms ease-out;
   }
   .card-on-dark {
     background: var(--color-tile-2);
-    border-color: color-mix(in srgb, #ffffff 12%, transparent);
+    border-color: var(--color-hairline-on-dark);
     color: var(--color-on-dark);
+  }
+  /* A card that is itself a link. It lifts 2px and takes the brand hairline —
+     no shadow, because the one drop-shadow in the system belongs to product
+     photography and lending it to a card would flatten that distinction. */
+  .card-link:hover,
+  .card-stretch:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+  .card-on-dark.card-link:hover {
+    border-color: var(--color-primary-on-dark);
+    background: color-mix(in srgb, var(--color-primary) 22%, var(--color-tile-2));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+    .card-link:hover,
+    .card-stretch:hover {
+      transform: none;
+    }
+  }
+  /* A card that carries its own buttons cannot itself be an anchor — nested
+     links are invalid and unreachable by keyboard. Instead the title's link
+     stretches an invisible ::after over the whole card, and anything that has
+     to stay separately clickable is lifted above it. One card, one primary
+     target, and the secondary action still works. */
+  .card-stretch {
+    position: relative;
+  }
+  .card-stretch .stretch-target::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .card-stretch .above-stretch {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* The arrow that trails a card's read-more line: it steps forward when the
+     card is hovered, which is what tells you the whole card is the target. */
+  .card-link .card-go {
+    display: inline-block;
+    transition: transform 180ms ease-out;
+  }
+  .card-link:hover .card-go {
+    transform: translateX(4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-link .card-go {
+      transition: none;
+      transform: none;
+    }
   }
   .card-title {
     font-size: 17px;
@@ -595,7 +754,16 @@
     background: var(--color-canvas);
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-pill);
-    transition: transform 120ms ease-out;
+    transition:
+      transform 120ms ease-out,
+      background-color 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
+  }
+  .chip:hover {
+    border-color: var(--color-primary-hairline);
+    background: var(--color-primary-wash);
+    color: var(--color-primary);
   }
   .chip:active {
     transform: scale(0.95);
@@ -608,9 +776,14 @@
       transform: none;
     }
   }
-  .chip-selected {
-    border: 2px solid var(--color-primary-focus);
-    padding: 11px 15px;
+  /* Filled, not ringed. A 2px ring is a focus signal, and using the same
+     signal for selection made the two states indistinguishable at a glance —
+     which matters on /du-an, where the chips are the only navigation. */
+  .chip-selected,
+  .chip-selected:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-dark);
   }
 
   /* ── tags ───────────────────────────────────────────────────────────────
@@ -661,6 +834,27 @@
   /* The one drop-shadow in the system. */
   .product-shadow {
     box-shadow: var(--shadow-product);
+  }
+  /* A slow push into the photograph on hover. The well already clips, so the
+     crop moves and the layout does not — the frame stays exactly where it was
+     (CLS 0 is the whole point of the fixed ratio). */
+  .media-zoom img {
+    transition: transform 420ms ease-out;
+  }
+  .media-zoom:hover img,
+  a:hover .media-zoom img,
+  .card:hover .media-zoom img {
+    transform: scale(1.045);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .media-zoom img {
+      transition: none;
+    }
+    .media-zoom:hover img,
+    a:hover .media-zoom img,
+    .card:hover .media-zoom img {
+      transform: none;
+    }
   }
 
   /* ── inputs ─────────────────────────────────────────────────────────── */
@@ -717,5 +911,328 @@
   }
   .table-on-dark td {
     border-bottom-color: color-mix(in srgb, #ffffff 12%, transparent);
+  }
+
+  /* ── the blue wash tile ────────────────────────────────────────────────
+     The fourth surface. It carries brand colour at reading weight, which is
+     what lets blue run through a whole page without the closing CTA band
+     losing its punch — wash is the tone of voice, the full field is the ask. */
+  .tile-wash {
+    background: var(--color-primary-wash);
+    color: var(--color-ink);
+  }
+
+  /* ── icon badges ────────────────────────────────────────────────────────
+     A glyph in a tinted disc. It labels a row (a phone number, an address, a
+     process step); it is never itself the tap target — the row around it is,
+     so the target clears 44px without the icon having to. */
+  .icon-badge {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    background: var(--color-primary-wash);
+    color: var(--color-primary);
+  }
+  .icon-badge-on-dark {
+    background: color-mix(in srgb, var(--color-primary-on-dark) 18%, transparent);
+    color: var(--color-primary-on-dark);
+  }
+  .icon-badge-on-brand {
+    background: color-mix(in srgb, #ffffff 18%, transparent);
+    color: var(--color-on-brand);
+  }
+  .icon-badge-gold {
+    background: color-mix(in srgb, var(--color-brand-gold) 12%, transparent);
+    color: var(--color-brand-gold);
+  }
+
+  /* ── action rows ────────────────────────────────────────────────────────
+     The contact affordance: badge, label, value, in a card-shaped row that is
+     one whole link. Used wherever the visitor should be one tap from talking
+     to the workshop. */
+  .action {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    min-height: 76px;
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    color: var(--color-ink);
+    transition:
+      border-color 180ms ease-out,
+      transform 180ms ease-out,
+      background-color 180ms ease-out;
+  }
+  .action:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-wash);
+    transform: translateY(-2px);
+  }
+  .action-on-dark {
+    background: var(--color-tile-2);
+    border-color: var(--color-hairline-on-dark);
+    color: var(--color-on-dark);
+  }
+  .action-on-dark:hover {
+    border-color: var(--color-primary-on-dark);
+    background: color-mix(in srgb, var(--color-primary) 22%, var(--color-tile-2));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .action {
+      transition: none;
+    }
+    .action:hover {
+      transform: none;
+    }
+  }
+
+  /* ── the mobile contact bar ─────────────────────────────────────────────
+     Three fixed targets — call, Zalo, quote — for the majority of visitors,
+     who arrive on a phone and want a price. Above the nav breakpoint the same
+     three actions live in the header, so the bar hides rather than doubling
+     them. It sits above the safe-area inset so iOS's home indicator does not
+     eat the middle button. */
+  .contact-bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow-float);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* The bar is fixed, so the document has to end above it or the footer's
+     last line sits under three buttons. The spacer ships with the bar rather
+     than as body padding, so pages without the chrome (/dang-nhap) don't
+     inherit dead space at the bottom. */
+  .contact-bar-spacer {
+    height: calc(var(--contact-bar-h) + env(safe-area-inset-bottom, 0px));
+  }
+  @media (min-width: 834px) {
+    .contact-bar,
+    .contact-bar-spacer {
+      display: none;
+    }
+  }
+  .contact-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: var(--contact-bar-h);
+    color: var(--color-ink);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.12px;
+    transition: background-color 160ms ease-out;
+  }
+  .contact-bar-item:active {
+    background: var(--color-primary-wash);
+  }
+  .contact-bar-item-primary {
+    background: var(--color-primary);
+    color: var(--color-on-dark);
+  }
+  .contact-bar-item-primary:active {
+    background: var(--color-primary-hover);
+  }
+
+  /* ── the Zalo bubble ────────────────────────────────────────────────────
+     The floating chat button, in the shape everyone in Vietnam already knows
+     from the official OA widget. It is a plain link to the zalo.me deep link,
+     so it works with no Official Account, no third-party script and no
+     JavaScript at all — and the moment a real OA ID exists, `ZaloChat` swaps
+     it for Zalo's own widget instead.
+
+     It rides above the contact bar on a phone rather than on top of it: two
+     fixed things in the same corner is one too many. */
+  .zalo-bubble {
+    position: fixed;
+    right: 16px;
+    bottom: calc(var(--contact-bar-h) + env(safe-area-inset-bottom, 0px) + 14px);
+    z-index: 45;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-pill);
+    background: var(--color-zalo);
+    box-shadow: var(--shadow-bubble);
+    transition: transform 160ms ease-out;
+  }
+  @media (min-width: 834px) {
+    .zalo-bubble {
+      right: 24px;
+      bottom: 24px;
+    }
+  }
+  .zalo-bubble:hover {
+    transform: scale(1.06);
+  }
+  .zalo-bubble:active {
+    transform: scale(0.95);
+  }
+  /* Focus Blue on Zalo blue would vanish — paper is the only tone with room. */
+  .zalo-bubble:focus-visible {
+    outline: 3px solid var(--color-on-dark);
+    outline-offset: 3px;
+  }
+
+  /* A single slow ring. It is the one piece of ambient motion on the site, and
+     it exists because a static bubble in the corner reads as an ornament. */
+  .zalo-bubble::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid var(--color-zalo);
+    animation: zalo-pulse 2.6s ease-out infinite;
+    pointer-events: none;
+  }
+
+  /* The label rides out of the bubble on hover. Pointer-only: it is a
+     nice-to-have, and the link's aria-label carries the same words for anyone
+     who cannot see it. */
+  .zalo-bubble-label {
+    position: absolute;
+    right: calc(100% + 10px);
+    white-space: nowrap;
+    padding: 7px 13px;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.29;
+    letter-spacing: -0.224px;
+    opacity: 0;
+    transform: translateX(6px);
+    transition:
+      opacity 160ms ease-out,
+      transform 160ms ease-out;
+    pointer-events: none;
+  }
+  .zalo-bubble:hover .zalo-bubble-label,
+  .zalo-bubble:focus-visible .zalo-bubble-label {
+    opacity: 1;
+    transform: none;
+  }
+  @media (hover: none) {
+    .zalo-bubble-label {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zalo-bubble,
+    .zalo-bubble-label {
+      transition: none;
+    }
+    .zalo-bubble:hover,
+    .zalo-bubble:active {
+      transform: none;
+    }
+    .zalo-bubble::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  /* ── quiet links ────────────────────────────────────────────────────────
+     Footer and nav links: ink at rest, brand on hover. They are navigation,
+     not calls to action, so they do not start out blue. */
+  .link-quiet {
+    color: var(--color-ink-muted-80);
+    transition: color 160ms ease-out;
+  }
+  .link-quiet:hover {
+    color: var(--color-primary);
+  }
+  .link-quiet-on-dark {
+    color: var(--color-body-muted);
+    transition: color 160ms ease-out;
+  }
+  .link-quiet-on-dark:hover {
+    color: var(--color-on-dark);
+  }
+
+  /* ── the hero ground ────────────────────────────────────────────────────
+     A single wash of brand blue behind the headline, fading out before the
+     copy starts. It is the cheapest way to say "this is a blue brand" on the
+     first screen without putting text on a saturated field. */
+  .hero-ground {
+    background:
+      radial-gradient(
+        68% 62% at 50% -6%,
+        var(--color-primary-wash-2) 0%,
+        var(--color-primary-wash) 34%,
+        transparent 72%
+      ),
+      var(--color-canvas);
+  }
+
+}
+
+/* The Zalo SDK plants its bubble bottom-right at a fixed offset it owns, so
+   on a phone it would land on top of the contact bar. Lifting the container
+   is best-effort — the SDK is third-party and may reposition its own inner
+   node — but the bar already carries a Zalo target, so the worst case is a
+   duplicated affordance, not a lost one. */
+@media (max-width: 833px) {
+  .zalo-chat-widget {
+    bottom: calc(
+      var(--contact-bar-h) + env(safe-area-inset-bottom, 0px) + 12px
+    ) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Scroll reveal.
+
+   Pure CSS scroll-driven animation — no library, no JavaScript, no hydration
+   cost on a site that is otherwise entirely static. Browsers without
+   `animation-timeline` (Safari and Firefox today) simply render the final
+   state, which is the whole content, so nothing is gated behind it.
+   ══════════════════════════════════════════════════════════════════════ */
+@keyframes zalo-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 6% cover 26%;
+    }
   }
 }

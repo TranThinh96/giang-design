@@ -1,20 +1,29 @@
 import Script from "next/script";
+import { ZaloBubble } from "./ZaloBubble";
+import type { SiteSettings } from "@/lib/types";
 
 /**
- * Zalo Official Account chat widget.
+ * The site's one floating Zalo affordance — and the switch between its two
+ * implementations.
  *
- * Renders the OA plugin container plus Zalo's SDK, which hydrates the container
- * into a floating chat bubble on every page. Requires a registered Zalo OA —
- * copy its OA ID into `NEXT_PUBLIC_ZALO_OA_ID`.
+ * With a registered Official Account (`NEXT_PUBLIC_ZALO_OA_ID`) this renders
+ * Zalo's own OA plugin, which hydrates into a chat panel the visitor can type
+ * in without leaving the page. Without one it renders `ZaloBubble`, a plain
+ * link to the derived `zalo.me` deep link.
  *
- * Without the ID nothing renders and no third-party script loads: the site
- * still funnels every quote CTA to the `zalo.me` deep link in `SITE.zalo`, so
- * the visitor path works before the OA is set up.
+ * The fallback is the point: registering an OA is a launch blocker the client
+ * still has open (PLAN.md §9.5), and until it closes the corner of the screen
+ * was simply empty. A button that opens the Zalo app is worth far more than
+ * nothing, and it costs no third-party script.
+ *
+ * Exactly one of the two ever renders, so there is never a second bubble.
  */
 const OA_ID = process.env.NEXT_PUBLIC_ZALO_OA_ID;
 
-export function ZaloChat() {
-  if (!OA_ID) return null;
+export function ZaloChat({ settings: SITE }: { settings: SiteSettings }) {
+  if (!OA_ID) {
+    return <ZaloBubble href={SITE.zalo} label="Nhắn Zalo" />;
+  }
 
   return (
     <>

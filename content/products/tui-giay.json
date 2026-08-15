@@ -1,6 +1,7 @@
 {
   "name": "Túi giấy",
-  "code": "SP-04",
+  "code": "AP-04",
+  "group": "Ấn phẩm & Bao bì",
   "order": 4,
   "moq": "từ 300 túi",
   "materialsShort": "Kraft, Couche, mỹ thuật",

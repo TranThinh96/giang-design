@@ -1,7 +1,8 @@
 {
   "name": "Tem nhãn & Decal",
-  "code": "SP-01",
-  "order": 1,
+  "code": "IN-03",
+  "group": "In ấn quảng cáo",
+  "order": 3,
   "moq": "từ 500 con",
   "materialsShort": "Decal giấy, PP sữa, PET trong",
   "blurb": "Decal giấy, decal nhựa PP/PE, tem bảy màu — in cuộn hoặc in tờ, bế theo biên dạng.",

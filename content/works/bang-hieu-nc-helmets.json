@@ -4,5 +4,29 @@
   "cat": "Bảng hiệu & Hộp đèn",
   "spec": "Chữ nổi · đèn LED",
   "ph": "Bảng hiệu",
-  "image": null
+  "image": null,
+  "client": "NC Helmets",
+  "location": "",
+  "year": "",
+  "summary": "Bộ chữ nổi cho mặt tiền cửa hàng mũ bảo hiểm: cắt CNC, uốn viền và gắn LED hắt sáng phía sau để chữ nổi khối cả ngày lẫn đêm.",
+  "scope": [
+    "Chữ nổi cắt CNC",
+    "LED hắt sáng",
+    "Khung alu",
+    "Lắp đặt tại mặt tiền"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

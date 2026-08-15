@@ -4,5 +4,30 @@
   "cat": "Thiết kế & In ấn",
   "spec": "Couche 250gsm · cán mờ",
   "ph": "Menu",
-  "image": null
+  "image": null,
+  "client": "",
+  "location": "",
+  "year": "",
+  "summary": "Bộ menu cho nhà hàng hải sản: xưởng dàn trang từ danh sách món của khách, in offset 4 màu trên couche 250gsm, cán mờ chống thấm dầu và bo góc.",
+  "scope": [
+    "Thiết kế & dàn trang",
+    "In offset 4 màu",
+    "Couche 250gsm",
+    "Cán mờ",
+    "Bo góc"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

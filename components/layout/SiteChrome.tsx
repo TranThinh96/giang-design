@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ContactBar } from "@/components/layout/ContactBar";
 import { ZaloChat } from "@/components/zalo/ZaloChat";
 import { getSettings } from "@/lib/content";
 
@@ -65,7 +66,8 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <Header settings={settings} />
       <div id="main">{children}</div>
       <Footer settings={settings} />
-      <ZaloChat />
+      <ContactBar settings={settings} />
+      <ZaloChat settings={settings} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
