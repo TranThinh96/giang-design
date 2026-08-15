@@ -1,7 +1,8 @@
 {
   "name": "Brochure & Tờ rơi",
-  "code": "SP-06",
-  "order": 6,
+  "code": "AP-02",
+  "group": "Ấn phẩm & Bao bì",
+  "order": 2,
   "moq": "từ 500 tờ",
   "materialsShort": "Couche 150–250gsm",
   "blurb": "Tờ rơi A4/A5, brochure gấp 2–4, in nhanh trong 48 giờ.",

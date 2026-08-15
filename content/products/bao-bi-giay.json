@@ -1,7 +1,8 @@
 {
   "name": "Bao bì giấy",
-  "code": "SP-02",
-  "order": 2,
+  "code": "AP-05",
+  "group": "Ấn phẩm & Bao bì",
+  "order": 5,
   "moq": "từ 1.000 cái",
   "materialsShort": "Ivory, Duplex, Kraft",
   "blurb": "Bao bì thực phẩm, mỹ phẩm — in offset, cán màng, bế cấn tại xưởng.",

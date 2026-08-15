@@ -1,0 +1,36 @@
+{
+  "name": "Thiết kế nhận diện & Ấn phẩm",
+  "code": "TK-01",
+  "group": "Thiết kế",
+  "order": 1,
+  "moq": "theo dự án",
+  "materialsShort": "Logo, bộ nhận diện, dàn trang, phối cảnh",
+  "blurb": "Logo, bộ nhận diện, dàn trang ấn phẩm và phối cảnh bảng hiệu — kèm file in chuẩn để lên máy ngay.",
+  "long": "Bộ phận thiết kế nhận việc độc lập hoặc đi kèm đơn in: logo và bộ nhận diện cơ bản, dàn trang catalogue – menu – brochure, dựng phối cảnh bảng hiệu và gian hàng. Bàn giao cả file gốc (.ai, .cdr) và file in đã chuẩn hóa màu, tràn lề, đường bế — nên đơn in sau đó không phải sửa file.",
+  "specs": [
+    {
+      "k": "Hạng mục",
+      "v": "Logo, bộ nhận diện, dàn trang, phối cảnh 3D"
+    },
+    {
+      "k": "Số phương án",
+      "v": "2 – 3 phương án, 2 vòng chỉnh sửa"
+    },
+    {
+      "k": "Bàn giao",
+      "v": "File gốc .ai / .cdr + file in PDF/X-1a"
+    },
+    {
+      "k": "Thời gian",
+      "v": "3 – 10 ngày làm việc tùy hạng mục"
+    }
+  ],
+  "materials": [
+    "Logo & bộ nhận diện",
+    "Dàn trang catalogue / menu",
+    "Phối cảnh bảng hiệu",
+    "Chuẩn hóa file in"
+  ],
+  "image": null,
+  "gallery": []
+}

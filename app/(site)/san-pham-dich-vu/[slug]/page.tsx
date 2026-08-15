@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CtaBand } from "@/components/layout/CtaBand";
+import { Icon } from "@/components/ui/Icon";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { getProduct, getProducts, getSettings } from "@/lib/content";
 
@@ -73,14 +75,24 @@ export default async function ProductDetailPage({
           <h1 className="t-hero m-0 mx-auto max-w-[16ch]">{item.name}</h1>
           <p className="t-lead text-muted mx-auto mt-5 max-w-[42ch]">{item.long}</p>
 
-          <div className="mt-7 flex flex-wrap justify-center gap-4">
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link
               href={`/bao-gia?hang-muc=${encodeURIComponent(item.name)}`}
               className="btn btn-primary btn-hero"
             >
               Gửi yêu cầu báo giá
             </Link>
+            <a
+              href={SITE.zalo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary btn-hero"
+            >
+              <Icon name="chat" size={18} />
+              Nhắn Zalo
+            </a>
             <a href={SITE.phoneHref} className="btn btn-secondary btn-hero">
+              <Icon name="phone" size={18} />
               Gọi {SITE.phone}
             </a>
           </div>
@@ -153,6 +165,8 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </section>
+
+      <CtaBand />
 
       <script
         type="application/ld+json"

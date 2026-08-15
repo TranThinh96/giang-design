@@ -1,7 +1,8 @@
 {
   "name": "Danh thiếp",
-  "code": "SP-07",
-  "order": 7,
+  "code": "AP-03",
+  "group": "Ấn phẩm & Bao bì",
+  "order": 3,
   "moq": "từ 100 hộp",
   "materialsShort": "Mỹ thuật 300–600gsm",
   "blurb": "Danh thiếp giấy mỹ thuật, ép kim, dập chìm, bo góc.",

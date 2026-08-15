@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { NAV, type SiteSettings } from "@/lib/types";
 
 function isActive(pathname: string, href: string) {
@@ -11,16 +12,21 @@ function isActive(pathname: string, href: string) {
 }
 
 /**
- * The two-row nav of the design system.
+ * The site's nav, in two rows.
  *
- * Row one is `global-nav`: a 44px true-black strip carrying the section links
- * at 12px. It scrolls away with the page. Row two is `sub-nav-frosted`: a
- * 52px parchment strip at 80% opacity over a backdrop blur, which sticks to
- * the top and keeps the workshop name on the left and the quote CTA — the
- * site's one persistent primary action — on the right.
+ * Row one is the contact strip: hours, address, phone and email on the deep
+ * blue, at 13px. It scrolls away with the page — it is reassurance, not
+ * navigation. Row two sticks: the mark, the five section links, and the two
+ * things a visitor is here to do (call, or ask for a price).
  *
- * Below 834px (`nav:`) the global nav collapses to the brand mark plus a
- * hamburger, and the tray it opens carries the section links.
+ * The previous version buried the phone number as 12px grey text in a black
+ * strip and pushed half the sections into a second, different link row. Both
+ * are now one thing each: contact is a pill you can hit, and every section
+ * link lives in a single nav with a visible current-page state.
+ *
+ * Below 834px (`nav:`) the sticky row keeps the mark, the quote pill and a
+ * hamburger; the tray it opens carries the sections plus the same contact
+ * actions, and the fixed `ContactBar` covers call/Zalo/quote at all times.
  *
  * Settings arrive as a prop rather than from the reader: this is a Client
  * Component (it owns the tray state), so it cannot touch the filesystem.
@@ -39,22 +45,75 @@ export function Header({ settings: SITE }: { settings: SiteSettings }) {
     };
   }, [open]);
 
-  const dim = "color-mix(in srgb, #ffffff 76%, transparent)";
-
   return (
     <header>
-      {/* ── global nav ── */}
-      <div className="bg-void text-on-dark">
-        <div className="shell-wide flex h-11 items-center gap-6">
-          <Link
-            href="/"
-            className="t-nav-link text-on-dark mr-auto"
-            aria-label={SITE.name}
+      {/* ── contact strip ── */}
+      <div className="bg-tile-3 text-on-dark hidden nav:block">
+        <div className="shell-wide flex h-10 items-center gap-6 text-[13px] leading-none">
+          <span className="text-body-muted inline-flex items-center gap-2">
+            <Icon name="clock" size={15} />
+            {SITE.hours}
+          </span>
+          <span className="text-body-muted inline-flex items-center gap-2">
+            <Icon name="pin" size={15} />
+            {SITE.address.district}, {SITE.address.city}
+          </span>
+
+          <a
+            href={`mailto:${SITE.emailSales}`}
+            className="link-quiet-on-dark ml-auto inline-flex items-center gap-2"
           >
-            {SITE.shortName}
+            <Icon name="mail" size={15} />
+            {SITE.emailSales}
+          </a>
+          <a
+            href={SITE.phoneHref}
+            className="text-on-dark inline-flex items-center gap-2 font-semibold"
+          >
+            <Icon name="phone" size={15} />
+            {SITE.phone}
+          </a>
+        </div>
+      </div>
+
+      {/* ── sticky nav ── */}
+      <div
+        className="sticky top-0 z-30"
+        style={{
+          background: "color-mix(in srgb, var(--color-canvas) 82%, transparent)",
+          backdropFilter: "saturate(180%) blur(20px)",
+          WebkitBackdropFilter: "saturate(180%) blur(20px)",
+          borderBottom: "1px solid var(--color-hairline)",
+        }}
+      >
+        <div className="shell-wide flex h-16 items-center gap-6">
+          <Link href="/" className="mr-auto flex items-center gap-3">
+            {/* The sign itself: gold letter on the blue field. */}
+            <span
+              aria-hidden
+              className="bg-primary grid h-9 w-9 flex-none place-items-center rounded-[10px] text-[19px] font-bold leading-none"
+              style={{ color: "var(--color-brand-gold-on-dark)" }}
+            >
+              G
+            </span>
+            {/* The full name is 26 characters and would wrap the 64px strip
+                into two rows on a phone, so the mark's short name takes over
+                below 640px. */}
+            <span className="min-w-0 leading-tight">
+              <span className="t-body-strong text-ink block whitespace-nowrap">
+                <span className="sm:hidden">{SITE.shortName}</span>
+                <span className="hidden sm:inline">{SITE.name}</span>
+              </span>
+              <span className="t-fine-print text-subtle hidden sm:block">
+                {SITE.tagline}
+              </span>
+            </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 nav:flex" aria-label="Chính">
+          <nav
+            className="hidden items-center gap-7 nav:flex"
+            aria-label="Điều hướng chính"
+          >
             {NAV.map((item) => {
               const active = isActive(pathname, item.href);
               return (
@@ -62,8 +121,18 @@ export function Header({ settings: SITE }: { settings: SiteSettings }) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className="t-nav-link"
-                  style={{ color: active ? "var(--color-on-dark)" : dim }}
+                  className={`t-caption-strong whitespace-nowrap ${
+                    active ? "text-primary" : "link-quiet"
+                  }`}
+                  style={
+                    active
+                      ? {
+                          textDecoration: "underline",
+                          textDecorationThickness: "2px",
+                          textUnderlineOffset: "7px",
+                        }
+                      : undefined
+                  }
                 >
                   {item.label}
                 </Link>
@@ -71,94 +140,16 @@ export function Header({ settings: SITE }: { settings: SiteSettings }) {
             })}
           </nav>
 
-          <a href={SITE.phoneHref} className="t-nav-link text-on-dark ml-auto nav:ml-0">
+          <a
+            href={SITE.phoneHref}
+            className="btn btn-soft btn-compact hidden shrink-0 whitespace-nowrap nav:inline-flex"
+          >
+            <Icon name="phone" size={16} />
             {SITE.phone}
           </a>
 
-          <button
-            type="button"
-            className="text-on-dark -mr-2 grid h-11 w-8 place-items-center nav:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "Đóng menu" : "Mở menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
-              {open ? (
-                <path
-                  d="M3 3l10 10M13 3L3 13"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                />
-              ) : (
-                <path
-                  d="M2 5h12M2 11h12"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {open && (
-          <div id="mobile-nav" className="nav:hidden">
-            <nav className="shell-wide flex flex-col pb-4">
-              {NAV.map((item) => {
-                const active = isActive(pathname, item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className="t-body py-3"
-                    style={{
-                      color: active ? "var(--color-on-dark)" : dim,
-                      borderBottom:
-                        "1px solid color-mix(in srgb, #ffffff 14%, transparent)",
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-        )}
-      </div>
-
-      {/* ── sub-nav ── */}
-      <div
-        className="sticky top-0 z-20"
-        style={{
-          background: "color-mix(in srgb, var(--color-parchment) 80%, transparent)",
-          backdropFilter: "saturate(180%) blur(20px)",
-          WebkitBackdropFilter: "saturate(180%) blur(20px)",
-          borderBottom: "1px solid rgb(0 0 0 / 0.08)",
-        }}
-      >
-        <div className="shell-wide flex h-[52px] items-center gap-6">
-          {/* The full name would truncate mid-word on a phone, so the mark
-              takes over below 640px. */}
-          <Link href="/" className="t-tagline text-ink mr-auto">
-            <span className="sm:hidden">{SITE.shortName}</span>
-            <span className="hidden sm:inline">{SITE.name}</span>
-          </Link>
-
-          {/* Ink, not Action Blue: in this strip only the CTA is an action. */}
-          <div className="hidden items-center gap-6 md:flex">
-            <Link href="/san-pham-dich-vu" className="t-caption text-ink">
-              Sản phẩm &amp; dịch vụ
-            </Link>
-            <Link href="/du-an" className="t-caption text-ink">
-              Dự án
-            </Link>
-          </div>
-
-          {/* The label shortens rather than wrapping: the strip is 52px and a
-              two-line pill would burst it. */}
+          {/* The label shortens rather than wrapping: a two-line pill would
+              burst the 64px strip. */}
           <Link
             href="/bao-gia"
             className="btn btn-primary btn-compact shrink-0 whitespace-nowrap"
@@ -166,7 +157,61 @@ export function Header({ settings: SITE }: { settings: SiteSettings }) {
             <span className="sm:hidden">Báo giá</span>
             <span className="hidden sm:inline">Yêu cầu báo giá</span>
           </Link>
+
+          <button
+            type="button"
+            className="text-ink -mr-2 grid h-11 w-10 place-items-center nav:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Đóng menu" : "Mở menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <Icon name={open ? "close" : "menu"} size={22} />
+          </button>
         </div>
+
+        {open && (
+          <div
+            id="mobile-nav"
+            className="bg-canvas nav:hidden"
+            style={{ borderTop: "1px solid var(--color-hairline)" }}
+          >
+            <nav className="shell-wide flex flex-col py-2" aria-label="Điều hướng chính">
+              {NAV.map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`t-body-strong py-4 ${active ? "text-primary" : "text-ink"}`}
+                    style={{
+                      borderBottom: "1px solid var(--color-divider-soft)",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="shell-wide flex flex-col gap-2 pb-5">
+              <a href={SITE.phoneHref} className="btn btn-soft w-full">
+                <Icon name="phone" size={18} />
+                Gọi {SITE.phone}
+              </a>
+              <a
+                href={SITE.zalo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary w-full"
+              >
+                <Icon name="chat" size={18} />
+                Nhắn Zalo
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

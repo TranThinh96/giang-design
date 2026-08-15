@@ -1,0 +1,40 @@
+{
+  "name": "Chữ nổi & Đèn LED",
+  "code": "BH-02",
+  "group": "Bảng hiệu & Thi công",
+  "order": 2,
+  "moq": "theo bộ chữ",
+  "materialsShort": "Inox, mica, alu, LED",
+  "blurb": "Chữ nổi inox, mica hắt sáng và chữ nổi đèn LED âm — gia công CNC theo đúng file thiết kế.",
+  "long": "Chữ cắt CNC từ inox, alu hoặc mica, uốn thành khối và gắn LED hắt sau hoặc chiếu trước. Dùng cho mặt tiền cửa hàng, quầy lễ tân và backdrop văn phòng. Font và tỉ lệ giữ đúng file gốc — xưởng gửi bản dựng trước khi cắt.",
+  "specs": [
+    {
+      "k": "Gia công",
+      "v": "Cắt CNC, uốn viền, hàn TIG"
+    },
+    {
+      "k": "Kiểu sáng",
+      "v": "Hắt sau, hắt trước, hoặc mặt mica xuyên sáng"
+    },
+    {
+      "k": "Chiều cao chữ",
+      "v": "Từ 10 cm tới 2 m"
+    },
+    {
+      "k": "Bảo hành",
+      "v": "12 tháng phần điện"
+    },
+    {
+      "k": "Thời gian",
+      "v": "4 – 7 ngày"
+    }
+  ],
+  "materials": [
+    "Inox 304 xước / gương",
+    "Alu sơn tĩnh điện",
+    "Mica xuyên sáng",
+    "LED hắt 12V"
+  ],
+  "image": null,
+  "gallery": []
+}

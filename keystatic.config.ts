@@ -1,5 +1,5 @@
 import { config, collection, fields, singleton } from "@keystatic/core";
-import { WORK_CATS } from "@/lib/types";
+import { SERVICE_GROUP_NAMES, WORK_CATS } from "@/lib/types";
 
 /**
  * Keystatic schema — the admin at /keystatic writes these files into the repo
@@ -30,13 +30,8 @@ export default config({
     navigation: {
       "Nội dung": ["products", "works"],
       "Cài đặt chung": ["settings", "pageImages"],
-      "Khối nội dung trang chủ": [
-        "stats",
-        "steps",
-        "machines",
-        "clients",
-        "quoteNotes",
-      ],
+      "Khối nội dung trang chủ": ["stats", "steps", "machines", "clients"],
+      "Trang Báo giá": ["priceList", "quoteNotes"],
     },
   },
 
@@ -46,7 +41,7 @@ export default config({
       path: "content/products/*",
       format: { data: "json" },
       slugField: "name",
-      columns: ["code", "name"],
+      columns: ["code", "name", "group"],
       entryLayout: "form",
       schema: {
         name: fields.slug({
@@ -64,12 +59,21 @@ export default config({
         }),
         code: fields.text({
           label: "Mã hạng mục",
-          description: 'Ví dụ: SP-01. Hiển thị nhỏ phía trên tên.',
+          description: 'Ví dụ: IN-01. Hiển thị nhỏ phía trên tên.',
           validation: { isRequired: true, length: { min: 1 } },
+        }),
+        group: fields.select({
+          label: "Nhóm dịch vụ",
+          description:
+            "Quyết định hạng mục nằm dưới tiêu đề nào ở trang Sản phẩm & dịch vụ. " +
+            "Chọn từ danh sách, không tự gõ.",
+          options: SERVICE_GROUP_NAMES.map((g) => ({ label: g, value: g })),
+          defaultValue: SERVICE_GROUP_NAMES[0],
         }),
         order: fields.integer({
           label: "Thứ tự hiển thị",
-          description: "Số nhỏ hiện trước. 1, 2, 3… Dùng để sắp xếp danh mục.",
+          description:
+            "Số nhỏ hiện trước, tính trong cùng một nhóm dịch vụ. 1, 2, 3…",
           validation: { isRequired: true },
         }),
         moq: fields.text({
@@ -163,10 +167,10 @@ export default config({
             validation: { isRequired: true },
           },
           slug: {
-            label: "Mã lưu trữ",
+            label: "Đường dẫn (URL)",
             description:
-              "Tên file lưu dự án. Tự sinh từ tên dự án — không cần sửa. " +
-              "Trang dự án không dùng địa chỉ riêng nên sửa cũng không ảnh hưởng link.",
+              "Phần cuối của địa chỉ trang, ví dụ /du-an/bang-hieu-nc-helmets. " +
+              "ĐỪNG sửa sau khi trang đã lên — link cũ và kết quả Google sẽ hỏng.",
           },
         }),
         order: fields.integer({
@@ -192,13 +196,65 @@ export default config({
             'Chữ hiện trong khung kẻ khi chưa có ảnh. Ví dụ: "Hộp đèn". Ngắn 1–2 từ.',
         }),
         image: fields.image({
-          label: "Ảnh dự án",
+          label: "Ảnh dự án (ảnh bìa)",
           description:
             "Ảnh JPEG hoặc WebP, rộng từ 1600px, dung lượng dưới 400KB. " +
             "Ảnh chụp thẳng từ điện thoại thường 4–8MB — cần giảm dung lượng trước khi tải lên.",
           directory: "public/works",
           publicPath: "/works/",
         }),
+
+        /* ── everything below shows on the project's own page ────────────── */
+
+        client: fields.text({
+          label: "Khách hàng",
+          description:
+            'Tên cửa hàng / công ty. Ví dụ: "Duyên Hà Coffee". Bỏ trống nếu khách không muốn nêu tên.',
+        }),
+        location: fields.text({
+          label: "Địa điểm",
+          description: 'Ví dụ: "Q. Bình Tân, TP.HCM". Giúp trang lên tìm kiếm theo khu vực.',
+        }),
+        year: fields.text({
+          label: "Năm thực hiện",
+          description: 'Ví dụ: "2024".',
+        }),
+        summary: fields.text({
+          label: "Mô tả dự án",
+          description:
+            "2–4 câu: khách cần gì, xưởng làm gì, kết quả ra sao. " +
+            "Cũng là đoạn Google hiển thị cho trang dự án này.",
+          multiline: true,
+        }),
+        scope: fields.array(fields.text({ label: "Hạng mục" }), {
+          label: "Hạng mục đã làm",
+          description:
+            'Mỗi dòng một hạng mục, hiện dạng nhãn. Ví dụ: "Hộp đèn siêu mỏng", "Chữ nổi mica".',
+          itemLabel: (props) => props.value || "Hạng mục",
+        }),
+        gallery: fields.array(
+          fields.object({
+            label: fields.text({
+              label: "Nhãn ô ảnh",
+              description:
+                'Chữ hiện trong khung kẻ khi chưa có ảnh, và là mô tả ảnh cho Google. Ví dụ: "Mặt tiền ban đêm".',
+            }),
+            image: fields.image({
+              label: "Ảnh",
+              description:
+                "JPEG hoặc WebP, rộng từ 1600px, dung lượng dưới 400KB.",
+              directory: "public/works",
+              publicPath: "/works/",
+            }),
+          }),
+          {
+            label: "Bộ ảnh công trình",
+            description:
+              "Ảnh thi công và ảnh hoàn thiện, hiện ở trang dự án. Nên có 3–6 ảnh — " +
+              "đây là thứ thuyết phục khách hàng mới nhiều nhất.",
+            itemLabel: (props) => props.fields.label.value || "Ảnh công trình",
+          },
+        ),
       },
     }),
   },
@@ -273,7 +329,9 @@ export default config({
         }),
         license: fields.text({
           label: "Giấy phép kinh doanh",
-          description: 'Hiện ở chân trang. Ví dụ: "Giấy phép ĐKKD 0312345678".',
+          description:
+            '⚠️ Đang là số mẫu — thay bằng số thật trước khi công bố. Hiện ở chân trang. ' +
+            'Ví dụ: "Giấy phép ĐKKD 0312345678".',
         }),
         url: fields.url({
           label: "Địa chỉ website",
@@ -346,7 +404,10 @@ export default config({
           }),
           {
             label: "Danh sách",
-            description: "Hiện dưới phần giới thiệu đầu trang chủ. Nên giữ đúng 3 mục.",
+            description:
+              "⚠️ Số hiện tại là số ước lượng — kiểm tra lại trước khi công bố, " +
+              "vì đây là con số khách hàng dùng để đánh giá xưởng. " +
+              "Hiện dưới phần giới thiệu đầu trang chủ. Nên giữ đúng 3 mục.",
             itemLabel: (props) => props.fields.value.value || "Con số",
           },
         ),
@@ -420,6 +481,59 @@ export default config({
             'Ngành hàng đã phục vụ, viết IN HOA cho đều. Ví dụ: "THỰC PHẨM".',
           itemLabel: (props) => props.value || "Nhóm khách hàng",
         }),
+      },
+    }),
+
+    /**
+     * Reference prices. Deliberately free text per row: the unit changes from
+     * m² to "bộ" to "trang", and a Vietnamese price is quoted as "từ 45.000
+     * đ/m²" rather than as a number a formatter could own.
+     */
+    priceList: singleton({
+      label: "Bảng giá tham khảo (trang Báo giá)",
+      path: "content/blocks/price-list",
+      format: { data: "json" },
+      schema: {
+        updated: fields.text({
+          label: "Cập nhật ngày",
+          description:
+            'Hiện ngay dưới bảng giá. Ví dụ: "08/2026". Nhớ sửa mỗi lần đổi giá — ' +
+            "khách nhìn ngày này để biết giá còn dùng được không.",
+        }),
+        note: fields.text({
+          label: "Ghi chú chung",
+          description:
+            "Câu miễn trừ dưới bảng. Nên nêu rõ: giá chưa gồm VAT, thay đổi theo số lượng và vật tư.",
+          multiline: true,
+        }),
+        items: fields.array(
+          fields.object({
+            item: fields.text({
+              label: "Hạng mục",
+              description: 'Ví dụ: "In PP cán mờ".',
+            }),
+            unit: fields.text({
+              label: "Đơn vị tính",
+              description: 'Ví dụ: "m²", "bộ chữ", "trang".',
+            }),
+            from: fields.text({
+              label: "Giá từ",
+              description: 'Ví dụ: "45.000 đ". Luôn là giá khởi điểm, không phải giá chốt.',
+            }),
+            note: fields.text({
+              label: "Ghi chú",
+              description: 'Điều kiện đi kèm. Ví dụ: "đơn từ 10 m²".',
+            }),
+          }),
+          {
+            label: "Các dòng giá",
+            description:
+              "⚠️ SỐ LIỆU HIỆN TẠI LÀ GIÁ MẪU — bắt buộc kiểm tra và thay bằng giá thật " +
+              "của xưởng trước khi công bố. Để trống toàn bộ danh sách thì bảng giá " +
+              "không hiện trên trang.",
+            itemLabel: (props) => props.fields.item.value || "Dòng giá",
+          },
+        ),
       },
     }),
 

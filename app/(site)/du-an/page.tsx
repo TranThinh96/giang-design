@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { CtaBand } from "@/components/layout/CtaBand";
 import { FilterableWorks } from "@/components/portfolio/FilterableWorks";
 import { PageHeading } from "@/components/ui/SectionHeading";
 import { getWorks } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Dự án — Công trình in đã bàn giao",
+  title: "Dự án — Công trình quảng cáo đã bàn giao",
   description:
-    "Bảng hiệu & hộp đèn, gian hàng & sự kiện, thi công shop, trang trí lễ hội, thiết kế & in ấn — các dự án Giang Design đã bàn giao.",
+    "Bảng hiệu & hộp đèn, gian hàng & sự kiện, thi công shop, trang trí lễ hội, thiết kế & in ấn — các công trình Giang Design đã bàn giao tại TP.HCM.",
   alternates: { canonical: "/du-an" },
 };
 
@@ -15,12 +16,12 @@ export default async function PortfolioPage() {
 
   return (
     <main>
-      <section className="tile tile-light">
+      <section className="hero-ground tile">
         <div className="shell">
           <PageHeading
             eyebrow="Dự án"
-            title="Công trình in đã bàn giao"
-            lead="Lọc theo hạng mục để xem đúng loại công trình bạn đang cần."
+            title="Công trình đã bàn giao"
+            lead="Lọc theo hạng mục để xem đúng loại công trình bạn đang cần — bấm vào từng dự án để xem chi tiết vật tư và bộ ảnh."
           />
         </div>
       </section>
@@ -30,6 +31,8 @@ export default async function PortfolioPage() {
           <FilterableWorks works={works} />
         </div>
       </section>
+
+      <CtaBand />
     </main>
   );
 }

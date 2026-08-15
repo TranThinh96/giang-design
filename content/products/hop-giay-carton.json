@@ -1,7 +1,8 @@
 {
   "name": "Hộp giấy & Carton",
-  "code": "SP-03",
-  "order": 3,
+  "code": "AP-06",
+  "group": "Ấn phẩm & Bao bì",
+  "order": 6,
   "moq": "từ 500 hộp",
   "materialsShort": "Ivory, carton sóng E/B",
   "blurb": "Hộp bế cấn, hộp nắp gài, hộp cứng dán tay, thùng carton sóng.",

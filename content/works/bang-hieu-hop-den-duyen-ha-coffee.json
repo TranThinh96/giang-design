@@ -4,5 +4,30 @@
   "cat": "Bảng hiệu & Hộp đèn",
   "spec": "Hộp đèn siêu mỏng · mica",
   "ph": "Hộp đèn",
-  "image": null
+  "image": null,
+  "client": "Duyên Hà Coffee",
+  "location": "",
+  "year": "",
+  "summary": "Mặt tiền quán cà phê cần đọc được từ xa sau khi trời tối. Xưởng khảo sát mặt bằng, dựng phối cảnh, gia công hộp đèn siêu mỏng viền mica và lắp đặt hoàn thiện phần điện.",
+  "scope": [
+    "Khảo sát mặt bằng",
+    "Phối cảnh mặt tiền",
+    "Hộp đèn siêu mỏng",
+    "Chữ nổi mica",
+    "Lắp đặt & đấu điện"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

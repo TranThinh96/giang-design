@@ -4,5 +4,29 @@
   "cat": "Trang trí lễ hội",
   "spec": "Tiểu cảnh · in bạt khổ lớn",
   "ph": "Trang trí Tết",
-  "image": null
+  "image": null,
+  "client": "",
+  "location": "",
+  "year": "2026",
+  "summary": "Gói trang trí Tết trọn gói: tiểu cảnh sân trước, mặt tiền in bạt khổ lớn và cụm đèn trang trí. Một hợp đồng cho cả thiết kế, sản xuất, lắp đặt và tháo dỡ.",
+  "scope": [
+    "Tiểu cảnh sân trước",
+    "Mặt tiền in bạt khổ lớn",
+    "Cụm đèn trang trí",
+    "Lắp đặt & tháo dỡ"
+  ],
+  "gallery": [
+    {
+      "label": "Toàn cảnh hoàn thiện",
+      "image": null
+    },
+    {
+      "label": "Chi tiết gia công",
+      "image": null
+    },
+    {
+      "label": "Ban đêm / khi vận hành",
+      "image": null
+    }
+  ]
 }

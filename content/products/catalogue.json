@@ -1,7 +1,8 @@
 {
   "name": "Catalogue",
-  "code": "SP-05",
-  "order": 5,
+  "code": "AP-01",
+  "group": "Ấn phẩm & Bao bì",
+  "order": 1,
   "moq": "từ 200 cuốn",
   "materialsShort": "Couche 100–300gsm",
   "blurb": "Catalogue đóng kim, keo gáy hoặc khâu chỉ — 8 đến 200 trang.",

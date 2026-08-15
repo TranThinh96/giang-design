@@ -1,7 +1,8 @@
 {
   "name": "Standee & Băng rôn",
-  "code": "SP-08",
-  "order": 8,
+  "code": "IN-02",
+  "group": "In ấn quảng cáo",
+  "order": 2,
   "moq": "từ 1 cái",
   "materialsShort": "PP, hiflex, canvas",
   "blurb": "In kỹ thuật số khổ lớn: standee, backdrop, băng rôn, hiflex.",

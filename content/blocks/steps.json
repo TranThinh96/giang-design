@@ -2,23 +2,23 @@
   "items": [
     {
       "title": "Tiếp nhận yêu cầu",
-      "body": "Nhận file hoặc mẫu vật, xác định chất liệu, khổ, số lượng."
+      "body": "Nhận file, mẫu vật, hoặc hẹn lịch khảo sát mặt bằng."
     },
     {
-      "title": "Báo giá & phiếu công nghệ",
-      "body": "Bảng giá chi tiết kèm phương án chất liệu và tiến độ."
+      "title": "Khảo sát & báo giá",
+      "body": "Đo đạc tại chỗ với công trình; báo giá chi tiết trong 4 giờ làm việc."
     },
     {
-      "title": "In thử & duyệt mẫu",
-      "body": "Mẫu proof màu trong 48 giờ, khách ký duyệt trước khi lên máy."
+      "title": "Duyệt mẫu & phối cảnh",
+      "body": "Mẫu in thử hoặc phối cảnh 3D — vật tư chỉ cắt sau khi khách ký duyệt."
     },
     {
-      "title": "In & hoàn thiện",
-      "body": "Offset hoặc kỹ thuật số, cán màng, bế, cấn, dán tại xưởng."
+      "title": "Sản xuất tại xưởng",
+      "body": "In, cắt CNC, hàn khung, lắp LED và hoàn thiện trong xưởng."
     },
     {
-      "title": "KCS & giao hàng",
-      "body": "Kiểm 100% thành phẩm, đóng kiện, giao tận kho."
+      "title": "Lắp đặt & nghiệm thu",
+      "body": "Thi công tại điểm bán, nghiệm thu từng hạng mục, bảo hành 12 tháng."
     }
   ]
 }
